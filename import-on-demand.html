@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Import On Demand | AutoNexus</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   AUTONEXUS — MASTER STYLESHEET
+   College mini-project | Vanilla CSS | No frameworks
+
+   TABLE OF CONTENTS
+   1. CSS Variables (theme tokens)
+   2. Reset & Base
+   3. Typography
+   4. Layout Helpers
+   5. Buttons
+   6. Loading Screen
+   7. Navigation Bar
+   8. Hero Section
+   9. Section Headings (shared)
+   10. Desks / Services Grid
+   11. Featured Inventory (Vehicle Cards)
+   12. Trust Band
+   13. CTA Band
+   14. Footer
+   15. Scroll Reveal Animation
+   16. Responsive Media Queries
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. CSS VARIABLES — single source of truth for the theme table
+   ========================================================================== */
+:root {
+  /* Backgrounds */
+  --bg-primary: #111111;      /* Matte Black */
+  --bg-secondary: #1B1B1B;    /* Charcoal Black */
+  --bg-surface: #242424;      /* Graphite Gray - cards */
+  --bg-input: #2B2B2B;        /* Dark Slate - input backgrounds */
+
+  /* Accent */
+  --accent: #C1121F;          /* Crimson Red */
+  --accent-hover: #E01A2B;    /* slightly brighter for hover states */
+
+  /* Text */
+  --text-primary: #FFFFFF;    /* Pure White */
+  --text-secondary: #CFCFCF;  /* Light Gray */
+  --text-muted: #8A8A8A;      /* Medium Gray */
+
+  /* Borders */
+  --border-color: #3A3A3A;    /* Soft Gray */
+
+  /* Status colors */
+  --success: #2E8B57;         /* Emerald Green */
+  --warning: #FFB703;         /* Amber Gold */
+  --error: #D90429;           /* Ruby Red */
+
+  /* Typography */
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Shared transition (per guidelines: one consistent transition site-wide) */
+  --transition: all 0.3s ease;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --shadow-accent: 0 8px 24px rgba(193, 18, 31, 0.25);
+  --shadow-neu: 6px 6px 12px #0b0b0b, -6px -6px 12px #232323;
+  --shadow-neu-inset: inset 4px 4px 8px #0b0b0b, inset -4px -4px 8px #232323;
+  --shadow-neu-hover: 4px 4px 8px #0b0b0b, -4px -4px 8px #232323;
+
+  /* Layout */
+  --container-width: 1240px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+}
+
+
+/* ==========================================================================
+   2. RESET & BASE
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* Smooth scrolling per guidelines */
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible keyboard focus (accessibility floor) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+
+/* ==========================================================================
+   3. TYPOGRAPHY
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+/* Numeric / data displays use the mono face — prices, stats, specs */
+.stat-number,
+.vehicle-price,
+.vehicle-year {
+  font-family: var(--font-mono);
+}
+
+
+/* ==========================================================================
+   4. LAYOUT HELPERS
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 96px 0;
+}
+
+
+/* ==========================================================================
+   5. BUTTONS
+   Per guidelines: smooth color transition, slight upward movement on hover,
+   soft shadow on hover, gentle press effect when clicked.
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.97); /* gentle press effect */
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-outline:active {
+  transform: translateY(-1px) scale(0.97);
+}
+
+.btn-lg {
+  padding: 16px 34px;
+  font-size: 1.05rem;
+}
+
+.btn-sm {
+  padding: 9px 18px;
+  font-size: 0.85rem;
+}
+
+
+/* ==========================================================================
+   6. LOADING SCREEN
+   Per guidelines: AutoNexus logo, circular loader, fade out smoothly, <2s
+   ========================================================================== */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#loader.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.loader-logo {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+.loader-logo span {
+  color: var(--accent);
+}
+
+.loader-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+
+/* ==========================================================================
+   7. NAVIGATION BAR
+   Per guidelines: sticky, shadow on scroll, active link accent, underline
+   animation on links, buttons gently change color on hover. No flashy menus.
+   ========================================================================== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.navbar.scrolled {
+  box-shadow: var(--shadow-md);
+  border-bottom-color: var(--border-color);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+  gap: 32px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  position: relative;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 8px 2px;
+  transition: var(--transition);
+}
+
+/* Subtle underline animation */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: var(--accent);
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+/* Hamburger — hidden on desktop, shown on mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: var(--transition);
+}
+
+
+/* ==========================================================================
+   8. HERO SECTION
+   Per guidelines: large bg image, dark gradient overlay, fade-in on load,
+   subtle parallax (optional), buttons scale on hover. No video bg.
+   ========================================================================== */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 140px 0 80px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 17, 17, 0.55) 0%,
+    rgba(17, 17, 17, 0.85) 65%,
+    var(--bg-primary) 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  max-width: 780px;
+  margin-bottom: 22px;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin-bottom: 36px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border-color);
+  padding-top: 32px;
+  max-width: 700px;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number,
+.stat-suffix {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: inline-block;
+}
+
+.stat-suffix {
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Fade-in animation on page load */
+.fade-in-up {
+  animation: fadeInUp 0.9s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 24px;
+  height: 40px;
+  border: 2px solid var(--border-color);
+  border-radius: 20px;
+}
+
+.scroll-indicator span {
+  display: block;
+  width: 4px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 2px;
+  margin: 6px auto 0;
+  animation: scrollDot 1.6s ease infinite;
+}
+
+@keyframes scrollDot {
+  0%   { transform: translateY(0); opacity: 1; }
+  70%  { transform: translateY(14px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+
+/* ==========================================================================
+   9. SECTION HEADINGS (shared across sections)
+   ========================================================================== */
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 1.02rem;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin-bottom: 48px;
+}
+
+
+/* ==========================================================================
+   10. DESKS / SERVICES GRID (signature element)
+   Card lift + shadow on hover per guidelines (shared card behaviour).
+   ========================================================================== */
+.desks-section {
+  background-color: var(--bg-secondary);
+}
+
+.desks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.desk-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 32px 28px;
+  transition: var(--transition);
+}
+
+.desk-card:hover {
+  transform: translateY(-8px); /* lift 6-8px per guidelines */
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+  cursor: pointer;
+}
+
+.desk-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-input);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  margin-bottom: 20px;
+  transition: var(--transition);
+}
+
+.desk-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.desk-card:hover .desk-icon {
+  background-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.desk-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.desk-title {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.desk-desc {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.desk-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.desk-card:hover .desk-link {
+  color: var(--accent);
+}
+
+
+/* ==========================================================================
+   11. FEATURED INVENTORY — VEHICLE CARDS
+   Per guidelines: lift 6-8px, stronger shadow, image zoom ~3%, button color
+   change, pointer cursor. Rounded corners + soft shadow on images.
+   ========================================================================== */
+.featured-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.featured-header .section-eyebrow,
+.featured-header .section-title {
+  margin-bottom: 0;
+}
+
+.featured-header .section-eyebrow {
+  margin-bottom: 12px;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.vehicle-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.vehicle-card:hover {
+  transform: translateY(-7px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-color);
+}
+
+.vehicle-image-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+}
+
+.vehicle-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease; /* smooth zoom on hover */
+}
+
+.vehicle-card:hover .vehicle-image {
+  transform: scale(1.03); /* ~3% zoom per guidelines */
+}
+
+.badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.badge-new {
+  background-color: var(--success);
+  border-color: var(--success);
+}
+
+.badge-featured {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.badge-imported {
+  background-color: var(--warning);
+  border-color: var(--warning);
+  color: var(--bg-primary);
+}
+
+.vehicle-body {
+  padding: 20px 22px 22px;
+}
+
+.vehicle-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.vehicle-name {
+  font-size: 1.08rem;
+  line-height: 1.3;
+}
+
+.vehicle-year {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.vehicle-specs {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.vehicle-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.vehicle-price {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+
+/* ==========================================================================
+   12. TRUST BAND
+   ========================================================================== */
+.trust-section {
+  background-color: var(--bg-primary);
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.trust-card {
+  padding: 28px 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.trust-card:hover {
+  background-color: var(--bg-surface);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+.trust-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.trust-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.trust-title {
+  font-size: 1.08rem;
+  margin-bottom: 8px;
+}
+
+.trust-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+
+/* ==========================================================================
+   13. CTA BAND
+   ========================================================================== */
+.cta-band {
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 72px 0;
+}
+
+.cta-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-content h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 14px;
+}
+
+.cta-content p {
+  max-width: 500px;
+  margin-bottom: 30px;
+  color: var(--text-secondary);
+}
+
+
+/* ==========================================================================
+   14. FOOTER
+   Per guidelines: links underline smoothly, social icons change to accent,
+   no excessive movement.
+   ========================================================================== */
+.site-footer {
+  background-color: var(--bg-secondary);
+  padding-top: 72px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 56px;
+}
+
+.footer-brand .logo {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 280px;
+  margin-bottom: 22px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.social-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.social-icon:hover {
+  color: var(--text-primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.footer-heading {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-col a {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 13px;
+  width: fit-content;
+  position: relative;
+  transition: var(--transition);
+}
+
+.footer-col a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background-color: var(--accent);
+  transition: var(--transition);
+}
+
+.footer-col a:hover {
+  color: var(--text-primary);
+}
+
+.footer-col a:hover::after {
+  width: 100%;
+}
+
+.footer-contact {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 13px;
+  line-height: 1.5;
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-color);
+  padding: 22px 0;
+}
+
+.footer-bottom p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+
+/* ==========================================================================
+   15. SCROLL REVEAL ANIMATION
+   Per guidelines: fade-in sections while scrolling, gentle reveal, avoid
+   large movement.
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ==========================================================================
+   16. RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+
+/* Laptop / small desktop */
+@media (max-width: 1180px) {
+  .vehicle-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablet */
+@media (max-width: 968px) {
+  section {
+    padding: 72px 0;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 78px;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 16px 24px 24px;
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: var(--transition);
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-link {
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  .navbar-actions .btn-outline {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .desks-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vehicle-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-stats {
+    gap: 32px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 620px) {
+  .container {
+    padding: 0 18px;
+  }
+
+  .hero {
+    padding: 120px 0 60px;
+    min-height: auto;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-stats {
+    gap: 24px;
+  }
+
+  .stat-number, .stat-suffix {
+    font-size: 1.5rem;
+  }
+
+  .desks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vehicle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Disable heavier hover-lift transforms on touch devices; keep color/shadow changes */
+  .desk-card:hover,
+  .vehicle-card:hover,
+  .trust-card:hover {
+    transform: none;
+  }
+}
+
+</style>
+<noscript><style>#loader{display:none}.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">AUTO<span>NEXUS</span></div>
+    <div class="loader-spinner"></div>
+  </div>
+</div>
+<header class="navbar" id="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo">AUTO<span>NEXUS</span></a>
+    <nav class="nav-links" id="navLinks"><a href="index.html" class="nav-link">Home</a>
+<a href="new-cars.html" class="nav-link">New Cars</a>
+<a href="sell-your-car.html" class="nav-link">Sell Your Car</a>
+<a href="import-on-demand.html" class="nav-link active">Import On Demand</a>
+<a href="accessories.html" class="nav-link">Accessories</a>
+<a href="car-valuation.html" class="nav-link">Car Valuation</a>
+<a href="smart-buy-advisory.html" class="nav-link">Smart Buy Advisory</a></nav>
+    <div class="navbar-actions">
+      <a href="new-cars.html" class="btn btn-primary">Browse Cars</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+.page-hero{background:linear-gradient(135deg,var(--bg-secondary) 0%,var(--bg-primary) 100%);padding:80px 0 48px;border-bottom:1px solid var(--border-color)}
+.page-hero-inner{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.page-title{font-size:clamp(2rem,4vw,3rem);margin-bottom:8px}
+.page-subtitle{color:var(--text-muted);font-size:1rem}
+.import-section{padding:72px 0}
+.import-layout{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start}
+.form-card{background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow-neu)}
+.form-title{font-size:1.4rem;margin-bottom:6px}
+.form-subtitle{font-size:0.88rem;color:var(--text-muted);margin-bottom:32px}
+.form-group{margin-bottom:22px}
+.form-label{display:block;font-size:0.85rem;font-weight:600;color:var(--text-secondary);margin-bottom:8px}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--bg-input);color:var(--text-primary);border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:13px 16px;font-family:var(--font-body);font-size:0.92rem;transition:var(--transition);box-shadow:var(--shadow-neu-inset)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);box-shadow:var(--shadow-neu-inset), 0 0 0 3px rgba(193,18,31,0.15);outline:none}
+.form-textarea{resize:vertical;min-height:110px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-submit{width:100%;padding:16px;font-size:1rem;margin-top:8px;box-shadow:var(--shadow-neu)}
+.form-submit:hover{box-shadow:var(--shadow-neu-hover);transform:translateY(-1px)}
+.country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+.country-card{background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:20px 16px;text-align:center;transition:var(--transition);box-shadow:var(--shadow-neu)}
+.country-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow-neu-hover)}
+.country-flag{font-size:1.8rem;margin-bottom:8px}
+.country-name{font-size:0.9rem;font-weight:600;color:var(--text-primary);margin-bottom:2px}
+.country-note{font-size:0.75rem;color:var(--text-muted)}
+.import-steps-title{font-size:1.3rem;margin-bottom:20px}
+.import-step{display:flex;gap:16px;align-items:flex-start;margin-bottom:24px;padding:20px;background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-md);transition:var(--transition);box-shadow:var(--shadow-neu)}
+.import-step:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow-neu-hover)}
+.step-num{font-family:var(--font-mono);font-size:1.3rem;font-weight:700;color:var(--accent);flex-shrink:0}
+.step-title{font-size:0.95rem;margin-bottom:4px}
+.step-desc{font-size:0.83rem;color:var(--text-muted)}
+@media(max-width:968px){.import-layout{grid-template-columns:1fr}.country-grid{grid-template-columns:repeat(2,1fr)}.form-row{grid-template-columns:1fr}}
+</style>
+
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <p class="section-eyebrow">DESK 03</p>
+      <h1 class="page-title">Import On Demand</h1>
+      <p class="page-subtitle">Can't find your exact spec in India? We'll source it internationally, ship it, and handle everything.</p>
+    </div>
+  </div>
+</section>
+
+<section class="import-section">
+  <div class="container">
+
+    <div class="reveal" style="margin-bottom:56px">
+      <p class="section-eyebrow">SOURCE COUNTRIES</p>
+      <h2 class="section-title" style="margin-bottom:28px">We Import From</h2>
+      <div class="country-grid">
+        <div class="country-card reveal"><div class="country-flag">🇩🇪</div><p class="country-name">Germany</p><p class="country-note">BMW, Mercedes, Audi, Porsche</p></div>
+        <div class="country-card reveal"><div class="country-flag">🇯🇵</div><p class="country-name">Japan</p><p class="country-note">Low mileage JDM specs</p></div>
+        <div class="country-card reveal"><div class="country-flag">🇬🇧</div><p class="country-name">United Kingdom</p><p class="country-note">Jaguar, Land Rover, Bentley</p></div>
+        <div class="country-card reveal"><div class="country-flag">🇺🇸</div><p class="country-name">United States</p><p class="country-note">American-spec performance</p></div>
+        <div class="country-card reveal"><div class="country-flag">🇦🇪</div><p class="country-name">UAE</p><p class="country-note">GCC-spec, low mileage</p></div>
+        <div class="country-card reveal"><div class="country-flag">🇸🇬</div><p class="country-name">Singapore</p><p class="country-note">Well-maintained Asian spec</p></div>
+      </div>
+    </div>
+
+    <div class="import-layout">
+
+      <div>
+        <h3 class="import-steps-title reveal">Import Process</h3>
+        <div class="import-step reveal"><span class="step-num">01</span><div><h4 class="step-title">Submit Your Request</h4><p class="step-desc">Tell us the exact car — make, model, year, spec, colour — and your budget.</p></div></div>
+        <div class="import-step reveal"><span class="step-num">02</span><div><h4 class="step-title">Global Sourcing</h4><p class="step-desc">Our international partners locate the best available unit matching your spec.</p></div></div>
+        <div class="import-step reveal"><span class="step-num">03</span><div><h4 class="step-title">Inspection Abroad</h4><p class="step-desc">An independent inspector verifies the vehicle before we commit to purchase.</p></div></div>
+        <div class="import-step reveal"><span class="step-num">04</span><div><h4 class="step-title">Shipping & Customs</h4><p class="step-desc">We manage freight, customs, homologation and Indian registration paperwork.</p></div></div>
+        <div class="import-step reveal"><span class="step-num">05</span><div><h4 class="step-title">Delivery To You</h4><p class="step-desc">Your car arrives at our showroom; you collect it fully registered and insured.</p></div></div>
+      </div>
+
+      <div class="form-card reveal">
+        <h2 class="form-title">Request An Import</h2>
+        <p class="form-subtitle">Complete the form below and our import desk will respond within 72 hours with availability and pricing.</p>
+        <form onsubmit="handleImportSubmit(event)">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="impName" class="form-input" placeholder="Your name" required></div>
+            <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="impPhone" class="form-input" placeholder="+91 XXXXX XXXXX" required></div>
+          </div>
+          <div class="form-group"><label class="form-label">Email Address</label><input type="email" id="impEmail" class="form-input" placeholder="you@email.com"></div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Brand</label><input type="text" id="impBrand" class="form-input" placeholder="e.g. Porsche" required></div>
+            <div class="form-group"><label class="form-label">Model & Variant</label><input type="text" id="impModel" class="form-input" placeholder="e.g. 911 Carrera S" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Year</label><input type="number" id="impYear" class="form-input" placeholder="e.g. 2023" min="2015" max="2026"></div>
+            <div class="form-group"><label class="form-label">Source Country</label><select id="impCountry" class="form-select"><option value="">Preferred Country</option><option>Germany</option><option>Japan</option><option>UK</option><option>USA</option><option>UAE</option><option>Singapore</option><option>Any</option></select></div>
+          </div>
+          <div class="form-group"><label class="form-label">Budget Range (INR)</label><select id="impBudget" class="form-select"><option value="">Select Budget</option><option>₹ 50L – ₹ 80L</option><option>₹ 80L – ₹ 1.2Cr</option><option>₹ 1.2Cr – ₹ 2Cr</option><option>Above ₹ 2Cr</option></select></div>
+          <div class="form-group"><label class="form-label">Specific Requirements</label><textarea id="impNotes" class="form-textarea" placeholder="Colour, interior, packages, RHD/LHD preference, any specific features..."></textarea></div>
+          <button type="submit" class="btn btn-primary form-submit">Submit Import Request</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col footer-brand">
+      <a href="index.html" class="logo">AUTO<span>NEXUS</span></a>
+      <p class="footer-tagline">Premium automotive dealership &amp; marketplace for mid-luxury brands.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" aria-label="Instagram" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="Twitter" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 4.5s-1.8 1-2.9 1.2A4.4 4.4 0 0011.6 9v1c-3.5.1-6.6-1.7-8.6-4.3 0 0-2 4.3 2 6.6-1 0-2-.3-2-.3 0 2.3 2 4 4 4.4-1 .3-2 .3-2 .3.7 2 2.6 3 4.6 3-3 2.2-6 2.4-8.6 2.1 3 1.8 6.3 2.6 9.6 2.1 6.6-.9 11-6.1 11-12.5v-.6c.8-.6 1.5-1.3 2-2.2z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Services</h4>
+      <a href="new-cars.html">New Cars</a>
+      <a href="sell-your-car.html">Sell Your Car</a>
+      <a href="import-on-demand.html">Import On Demand</a>
+      <a href="accessories.html">Accessories</a>
+      <a href="car-valuation.html">Car Valuation</a>
+      <a href="smart-buy-advisory.html">Smart Buy Advisory</a>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+      <a href="#">Careers</a>
+      <a href="#">Terms &amp; Conditions</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <div class="footer-col">
+      <p class="footer-contact">support@autonexus.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container"><p>&copy; 2026 AutoNexus. All rights reserved.</p></div>
+  </div>
+</footer>
+<script>
+/* ==========================================================================
+   AUTONEXUS — MAIN JAVASCRIPT FILE
+   Plain vanilla JS, no libraries or frameworks.
+
+   This file handles:
+   1. Hiding the loading screen once the page has loaded
+   2. Adding a shadow to the navbar once the user scrolls down
+   3. Opening/closing the mobile menu (hamburger icon)
+   4. Fading sections into view as the user scrolls (scroll reveal)
+   5. Counting the hero stats up from 0 to their final number
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. LOADING SCREEN
+   Wait for everything (images included) to finish loading, then fade the
+   loader out. The CSS handles the actual fade transition; we just add the
+   class that triggers it.
+   -------------------------------------------------------------------------- */
+window.addEventListener("load", function () {
+  const loader = document.getElementById("loader");
+
+  if (loader) {
+    // Small delay so the loader doesn't just flash and disappear instantly
+    setTimeout(function () {
+      loader.classList.add("loader-hidden");
+    }, 500);
+  }
+});
+
+
+/* --------------------------------------------------------------------------
+   2. NAVBAR SHADOW ON SCROLL
+   Adds the "scrolled" class once the page has scrolled past 20px, which
+   triggers the shadow defined in style.css.
+   -------------------------------------------------------------------------- */
+const navbar = document.getElementById("navbar");
+
+function handleNavbarScroll() {
+  if (window.scrollY > 20) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
+  }
+}
+
+if (navbar) {
+  window.addEventListener("scroll", handleNavbarScroll);
+  handleNavbarScroll(); // run once immediately in case the page loads mid-scroll
+}
+
+
+/* --------------------------------------------------------------------------
+   3. MOBILE MENU TOGGLE
+   Clicking the hamburger icon opens/closes the nav links on small screens.
+   Clicking a link also closes the menu, so it doesn't stay open after
+   navigating.
+   -------------------------------------------------------------------------- */
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+if (hamburger && navLinks) {
+  hamburger.addEventListener("click", function () {
+    navLinks.classList.toggle("open");
+  });
+
+  const allNavLinks = navLinks.querySelectorAll(".nav-link");
+  allNavLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      navLinks.classList.remove("open");
+    });
+  });
+}
+
+
+/* --------------------------------------------------------------------------
+   4. SCROLL REVEAL ANIMATION
+   Elements with the "reveal" class start hidden (opacity: 0) in the CSS.
+   We use an IntersectionObserver to watch for when they scroll into view,
+   then add the "revealed" class, which fades and slides them into place.
+   -------------------------------------------------------------------------- */
+const revealElements = document.querySelectorAll(".reveal");
+
+const revealObserver = new IntersectionObserver(
+  function (entries, observer) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("revealed");
+        // Stop watching this element once it has been revealed
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15 } // fire when 15% of the element is visible
+);
+
+revealElements.forEach(function (el) {
+  revealObserver.observe(el);
+});
+
+
+/* --------------------------------------------------------------------------
+   5. STAT COUNTER ANIMATION
+   Counts each hero stat up from 0 to its data-count value once the stats
+   row scrolls into view. Runs only once per page load.
+   -------------------------------------------------------------------------- */
+const statNumbers = document.querySelectorAll(".stat-number");
+const statsRow = document.querySelector(".hero-stats");
+
+// If the user prefers reduced motion, skip the counting animation
+// and just show the final numbers straight away.
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+
+function animateCount(element) {
+  const target = parseInt(element.getAttribute("data-count"), 10);
+
+  if (prefersReducedMotion) {
+    element.textContent = target;
+    return;
+  }
+
+  const steps = 30; // how many increments the count-up takes
+  const duration = 1500; // total animation time in milliseconds
+  const increment = target / steps;
+  let current = 0;
+  let stepCount = 0;
+
+  const counter = setInterval(function () {
+    stepCount++;
+    current += increment;
+
+    if (stepCount >= steps) {
+      element.textContent = target; // always land exactly on the real number
+      clearInterval(counter);
+    } else {
+      element.textContent = Math.round(current);
+    }
+  }, duration / steps);
+}
+
+if (statsRow) {
+  let statsAnimated = false; // guard flag so this only ever runs once
+
+  const statsObserver = new IntersectionObserver(
+    function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !statsAnimated) {
+          statsAnimated = true;
+          statNumbers.forEach(animateCount);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  statsObserver.observe(statsRow);
+}
+
+/* IMPORT ON DEMAND - MYSQL BACKEND HANDLER */
+async function handleImportSubmit(event) {
+  event.preventDefault();
+  const name = document.getElementById('impName').value;
+  const phone = document.getElementById('impPhone').value;
+  const email = document.getElementById('impEmail').value;
+  const brand = document.getElementById('impBrand').value;
+  const model = document.getElementById('impModel').value;
+  const year = document.getElementById('impYear').value;
+  const country = document.getElementById('impCountry').value;
+  const budget = document.getElementById('impBudget').value;
+  const notes = document.getElementById('impNotes').value;
+
+  const newOrder = {
+    id: 'IMP-' + Math.floor(1000 + Math.random() * 9000),
+    customer_name: name,
+    customerName: name,
+    customer_email: email,
+    email: email,
+    customer_phone: phone,
+    type: 'Import Request (' + brand + ' ' + model + ')',
+    note: `Import Request: ${brand} ${model} (${year || 'Recent'}) | Country: ${country || 'Any'} | Budget: ${budget || 'Flexible'} | Requirements: ${notes}`,
+    total_price: budget || '',
+    date: new Date().toLocaleDateString(),
+    status: 'Pending'
+  };
+
+  if (window.location.protocol.startsWith('http')) {
+    try {
+      await fetch('api/orders.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newOrder)
+      });
+      alert(`Import request for ${brand} ${model} successfully logged to MySQL database! Our international sourcing team will contact you within 72 hours.`);
+    } catch (e) {
+      alert('Saved locally. Backend connection pending.');
+    }
+  } else {
+    alert(`Import request submitted successfully! (Local Mode)`);
+  }
+
+  let orders = JSON.parse(localStorage.getItem('autonexus_orders')) || [];
+  orders.unshift(newOrder);
+  localStorage.setItem('autonexus_orders', JSON.stringify(orders));
+
+  event.target.reset();
+}
+
+</script>
+</body>
+</html>

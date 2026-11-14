@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Buy Advisory | AutoNexus</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   AUTONEXUS — MASTER STYLESHEET
+   ========================================================================== */
+:root {
+  --bg-primary: #111111;
+  --bg-secondary: #1B1B1B;
+  --bg-surface: #242424;
+  --bg-input: #2B2B2B;
+
+  --accent: #C1121F;
+  --accent-hover: #E01A2B;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #CFCFCF;
+  --text-muted: #8A8A8A;
+
+  --border-color: #3A3A3A;
+
+  --success: #2E8B57;
+  --warning: #FFB703;
+  --error: #D90429;
+
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --transition: all 0.3s ease;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --shadow-accent: 0 8px 24px rgba(193, 18, 31, 0.25);
+  --shadow-neu: 6px 6px 12px #0b0b0b, -6px -6px 12px #232323;
+  --shadow-neu-inset: inset 4px 4px 8px #0b0b0b, inset -4px -4px 8px #232323;
+  --shadow-neu-hover: 4px 4px 8px #0b0b0b, -4px -4px 8px #232323;
+
+  --container-width: 1240px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background-color: var(--bg-primary); color: var(--text-secondary); font-family: var(--font-body); line-height: 1.6; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.container { width: 100%; max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+section { padding: 80px 0; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: var(--radius-sm); font-family: var(--font-body); font-weight: 600; font-size: 0.92rem; letter-spacing: 0.2px; white-space: nowrap; transition: var(--transition); }
+.btn-primary { background-color: var(--accent); color: var(--text-primary); }
+.btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: var(--shadow-accent); }
+.btn-outline { background-color: transparent; color: var(--text-primary); border: 1px solid var(--border-color); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.btn-sm { padding: 8px 14px; font-size: 0.82rem; }
+
+#loader { position: fixed; inset: 0; z-index: 9999; background-color: var(--bg-primary); display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease, visibility 0.5s ease; }
+#loader.loader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-inner { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.loader-logo { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; letter-spacing: 2px; color: var(--text-primary); }
+.loader-logo span { color: var(--accent); }
+.loader-spinner { width: 36px; height: 36px; border: 3px solid var(--border-color); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.navbar { position: sticky; top: 0; z-index: 1000; background-color: var(--bg-primary); border-bottom: 1px solid var(--border-color); }
+.navbar-inner { display: flex; align-items: center; justify-content: space-between; height: 78px; gap: 32px; }
+.logo { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; letter-spacing: 1.5px; color: var(--text-primary); flex-shrink: 0; }
+.logo span { color: var(--accent); }
+.nav-links { display: flex; align-items: center; gap: 30px; flex: 1; justify-content: center; }
+.nav-link { font-size: 0.92rem; font-weight: 500; color: var(--text-secondary); padding: 8px 2px; transition: var(--transition); }
+.nav-link:hover, .nav-link.active { color: var(--accent); }
+
+/* Dynamic React Component Layout & Dashboard Styling */
+.page-hero { background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); padding: 64px 0 36px; border-bottom: 1px solid var(--border-color); }
+.section-eyebrow { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 2px; color: var(--accent); margin-bottom: 8px; }
+.page-title { font-size: clamp(2rem, 3.5vw, 2.8rem); margin-bottom: 6px; }
+.page-subtitle { color: var(--text-muted); font-size: 0.98rem; }
+
+.app-grid { display: grid; grid-template-columns: 380px 1fr; gap: 32px; align-items: start; margin-top: 32px; }
+@media(max-width: 1024px) { .app-grid { grid-template-columns: 1fr; } }
+
+.form-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-neu); }
+.form-title { font-size: 1.25rem; margin-bottom: 4px; }
+.form-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 24px; }
+.form-group { margin-bottom: 18px; }
+.form-label { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+.form-input, .form-select { width: 100%; background: var(--bg-input); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 11px 14px; font-family: var(--font-body); font-size: 0.88rem; transition: var(--transition); box-shadow: var(--shadow-neu-inset); }
+.form-input:focus, .form-select:focus { border-color: var(--accent); outline: none; box-shadow: var(--shadow-neu-inset), 0 0 0 2px rgba(193, 18, 31, 0.2); }
+.slider-input { width: 100%; accent-color: var(--accent); margin-top: 6px; }
+
+.pills-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill-btn { font-size: 0.78rem; padding: 6px 14px; border-radius: 20px; background: var(--bg-input); border: 1px solid var(--border-color); color: var(--text-secondary); transition: var(--transition); box-shadow: var(--shadow-neu); }
+.pill-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; box-shadow: var(--shadow-neu-hover); }
+
+.profile-banner { background: linear-gradient(90deg, rgba(193, 18, 31, 0.15) 0%, var(--bg-surface) 100%); border: 1px solid var(--accent); border-radius: var(--radius-md); padding: 20px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-neu); }
+.profile-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+.profile-title { font-size: 1.3rem; color: var(--text-primary); margin-top: 2px; }
+
+.tab-nav { display: flex; gap: 12px; border-bottom: 1px solid var(--border-color); margin-bottom: 24px; overflow-x: auto; padding-bottom: 8px; }
+.tab-btn { font-family: var(--font-display); font-size: 0.95rem; letter-spacing: 0.5px; color: var(--text-muted); padding: 8px 16px; border-radius: var(--radius-sm); transition: var(--transition); }
+.tab-btn.active { background: var(--bg-surface); color: var(--text-primary); border-bottom: 2px solid var(--accent); }
+
+.vehicle-card { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; margin-bottom: 20px; transition: var(--transition); position: relative; overflow: hidden; box-shadow: var(--shadow-neu); }
+.vehicle-card:hover { border-color: var(--accent); box-shadow: var(--shadow-neu-hover); transform: translateY(-3px); }
+.vehicle-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 12px; }
+.vehicle-name { font-size: 1.25rem; color: var(--text-primary); }
+.score-badge { display: flex; flex-direction: column; align-items: center; background: rgba(193, 18, 31, 0.15); border: 1px solid var(--accent); border-radius: var(--radius-sm); padding: 6px 14px; min-width: 76px; }
+.score-val { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+.score-lbl { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+.breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin: 16px 0; padding: 12px; background: var(--bg-input); border-radius: var(--radius-sm); }
+.breakdown-item { font-size: 0.75rem; text-align: center; }
+.breakdown-lbl { color: var(--text-muted); font-size: 0.7rem; }
+.breakdown-val { font-family: var(--font-mono); font-weight: 600; color: var(--text-primary); }
+
+.reason-box { background: rgba(46, 139, 87, 0.08); border-left: 3px solid var(--success); padding: 10px 14px; font-size: 0.83rem; color: var(--text-secondary); margin-bottom: 8px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.consider-box { background: rgba(255, 183, 3, 0.08); border-left: 3px solid var(--warning); padding: 10px 14px; font-size: 0.83rem; color: var(--text-secondary); margin-bottom: 16px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+
+.spec-pills { display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
+.spec-pill span { color: var(--text-primary); font-weight: 500; }
+
+.card-actions { display: flex; justify-content: space-between; align-items: center; pt: 16px; border-top: 1px solid var(--border-color); }
+.price-display { font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--text-primary); }
+.emi-tag { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
+
+.modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.modal-content { background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-lg); width: 100%; max-width: 1000px; max-height: 90vh; overflow-y: auto; padding: 32px; }
+
+.comp-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.85rem; }
+.comp-table th, .comp-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
+.comp-table th { background: var(--bg-input); font-family: var(--font-display); font-size: 0.95rem; }
+
+.site-footer { background-color: var(--bg-secondary); padding: 48px 0 24px; border-top: 1px solid var(--border-color); margin-top: 64px; }
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">AUTO<span>NEXUS</span></div>
+    <div class="loader-spinner"></div>
+  </div>
+</div>
+
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo">AUTO<span>NEXUS</span></a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="new-cars.html" class="nav-link">New Cars</a>
+      <a href="sell-your-car.html" class="nav-link">Sell Your Car</a>
+      <a href="import-on-demand.html" class="nav-link">Import On Demand</a>
+      <a href="accessories.html" class="nav-link">Accessories</a>
+      <a href="car-valuation.html" class="nav-link">Car Valuation</a>
+      <a href="smart-buy-advisory.html" class="nav-link active">Smart Buy Advisory</a>
+    </nav>
+    <div class="navbar-actions">
+      <a href="new-cars.html" class="btn btn-primary btn-sm">Browse Cars</a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <p class="section-eyebrow">DESK 06 — INTELLIGENT BUYING ENGINE</p>
+    <h1 class="page-title">Smart Buy Advisory</h1>
+    <p class="page-subtitle">Algorithmic recommendation engine built to match your budget, driving patterns, and financial profile.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div id="react-root"></div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p style="text-align: center; font-size: 0.82rem; color: var(--text-muted);">&copy; 2026 AutoNexus Intelligence Suite. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+window.addEventListener("load", function () {
+  const loader = document.getElementById("loader");
+  if (loader) setTimeout(() => loader.classList.add("loader-hidden"), 300);
+});
+</script>
+
+<script type="text/babel">
+const { useState, useMemo } = React;
+
+// AUTONEXUS VEHICLE DATABASE
+const VEHICLES = [
+  {
+    id: "bmw-530i",
+    name: "BMW 5 Series 530i M Sport",
+    price: 6850000,
+    usedPrice: 4800000,
+    bodyType: "Sedan",
+    fuelType: "Petrol",
+    mileage: 14.8,
+    power: "252 hp",
+    safetyRating: 5,
+    bootSpace: 530,
+    annualMaint: 65000,
+    resaleRating: 84,
+    comfortRating: 92,
+    perfRating: 90,
+    techRating: 94,
+    safetyRatingScore: 95,
+    tag: "Executive Sedan"
+  },
+  {
+    id: "volvo-xc60",
+    name: "Volvo XC60 B5 Ultimate",
+    price: 6790000,
+    usedPrice: 4900000,
+    bodyType: "SUV",
+    fuelType: "Hybrid",
+    mileage: 12.4,
+    power: "250 hp",
+    safetyRating: 5,
+    bootSpace: 483,
+    annualMaint: 55000,
+    resaleRating: 80,
+    comfortRating: 95,
+    perfRating: 82,
+    techRating: 90,
+    safetyRatingScore: 99,
+    tag: "Family Safety Leader"
+  },
+  {
+    id: "audi-q5",
+    name: "Audi Q5 45 TFSI Technology",
+    price: 6550000,
+    usedPrice: 4400000,
+    bodyType: "SUV",
+    fuelType: "Petrol",
+    mileage: 13.4,
+    power: "249 hp",
+    safetyRating: 5,
+    bootSpace: 520,
+    annualMaint: 60000,
+    resaleRating: 78,
+    comfortRating: 88,
+    perfRating: 86,
+    techRating: 92,
+    safetyRatingScore: 90,
+    tag: "All-Rounder Luxury"
+  },
+  {
+    id: "mercedes-c200",
+    name: "Mercedes-Benz C-Class C 200",
+    price: 6100000,
+    usedPrice: 4200000,
+    bodyType: "Sedan",
+    fuelType: "Petrol",
+    mileage: 16.9,
+    power: "204 hp",
+    safetyRating: 5,
+    bootSpace: 455,
+    annualMaint: 58000,
+    resaleRating: 86,
+    comfortRating: 90,
+    perfRating: 80,
+    techRating: 96,
+    safetyRatingScore: 92,
+    tag: "Urban Prestige"
+  },
+  {
+    id: "ioniq-5",
+    name: "Hyundai Ioniq 5 AWD EV",
+    price: 4625000,
+    usedPrice: 3800000,
+    bodyType: "SUV",
+    fuelType: "Electric",
+    mileage: 631, // km range
+    power: "305 hp",
+    safetyRating: 5,
+    bootSpace: 527,
+    annualMaint: 18000,
+    resaleRating: 75,
+    comfortRating: 91,
+    perfRating: 92,
+    techRating: 95,
+    safetyRatingScore: 94,
+    tag: "Next-Gen EV"
+  },
+  {
+    id: "skoda-slavia",
+    name: "Skoda Slavia 1.5 TSI Style",
+    price: 1870000,
+    usedPrice: 1350000,
+    bodyType: "Sedan",
+    fuelType: "Petrol",
+    mileage: 18.7,
+    power: "150 hp",
+    safetyRating: 5,
+    bootSpace: 521,
+    annualMaint: 22000,
+    resaleRating: 76,
+    comfortRating: 82,
+    perfRating: 88,
+    techRating: 80,
+    safetyRatingScore: 96,
+    tag: "Value Performance"
+  }
+];
+
+function SmartBuyAdvisoryApp() {
+  // Form State
+  const [budgetMax, setBudgetMax] = useState(7000000);
+  const [bodyPref, setBodyPref] = useState("All");
+  const [fuelPref, setFuelPref] = useState("All");
+  const [dailyKM, setDailyKM] = useState(35);
+  const [ownershipYears, setOwnershipYears] = useState(5);
+  const [priorities, setPriorities] = useState(["Safety", "Comfort"]);
+  const [activeTab, setActiveTab] = useState("recommendations");
+  const [compareList, setCompareList] = useState([]);
+  const [showCompModal, setShowCompModal] = useState(false);
+
+  // EMI State
+  const [downPayPercent, setDownPayPercent] = useState(20);
+  const [interestRate, setInterestRate] = useState(8.5);
+  const [tenureYears, setTenureYears] = useState(5);
+
+  // Toggle priorities
+  const togglePriority = (p) => {
+    setPriorities(prev => prev.includes(p) ? prev.filter(x => x !== p) : [...prev, p]);
+  };
+
+  // Buyer Profiling Classifier Logic
+  const buyerProfile = useMemo(() => {
+    if (fuelPref === "Electric" || dailyKM > 60) return { name: "EV Transitioner / High-Mileage Commuter", desc: "Prioritizes low running cost and long-term operating efficiency." };
+    if (priorities.includes("Performance")) return { name: "Performance Enthusiast", desc: "Focuses on horsepower, driving dynamics, and sport tuning." };
+    if (priorities.includes("Safety") && bodyPref === "SUV") return { name: "Family Safety Buyer", desc: "Demands maximum cabin protection, SUV visibility, and boot space." };
+    if (budgetMax <= 2500000) return { name: "Budget & Value Optimizer", desc: "Looks for maximum features and safety per Rupee spent." };
+    return { name: "Executive Luxury Buyer", desc: "Seeks balanced prestige, tech sophistication, and refined comfort." };
+  }, [fuelPref, dailyKM, priorities, bodyPref, budgetMax]);
+
+  // Dynamic Scoring Engine
+  const scoredVehicles = useMemo(() => {
+    return VEHICLES.map(v => {
+      // Budget Fit Score (25 pts)
+      let budgetScore = 25;
+      if (v.price > budgetMax) {
+        const over = v.price - budgetMax;
+        budgetScore = Math.max(0, 25 - (over / 200000) * 5);
+      } else {
+        budgetScore = 20 + ((v.price / budgetMax) * 5);
+      }
+
+      // Usage / Mileage Match (20 pts)
+      let usageScore = 15;
+      if (v.fuelType === "Electric" && dailyKM > 30) usageScore = 20;
+      else if (v.fuelType === "Electric" && dailyKM <= 15) usageScore = 12;
+      else if (v.mileage > 16) usageScore = 18;
+
+      // Priority Weighted Score (35 pts)
+      let weightSum = 0;
+      let weightCount = 0;
+      if (priorities.includes("Safety")) { weightSum += v.safetyRatingScore; weightCount++; }
+      if (priorities.includes("Comfort")) { weightSum += v.comfortRating; weightCount++; }
+      if (priorities.includes("Performance")) { weightSum += v.perfRating; weightCount++; }
+      if (priorities.includes("Tech")) { weightSum += v.techRating; weightCount++; }
+      if (priorities.includes("Resale")) { weightSum += v.resaleRating; weightCount++; }
+
+      const priorityAvg = weightCount > 0 ? weightSum / weightCount : (v.safetyRatingScore + v.comfortRating) / 2;
+      const priorityScore = (priorityAvg / 100) * 35;
+
+      // Filter Alignment (20 pts)
+      let filterScore = 20;
+      if (bodyPref !== "All" && v.bodyType !== bodyPref) filterScore -= 8;
+      if (fuelPref !== "All" && v.fuelType !== fuelPref) filterScore -= 8;
+
+      const totalScore = Math.round(budgetScore + usageScore + priorityScore + filterScore);
+
+      // EMI Calculation
+      const principal = v.price * (1 - downPayPercent / 100);
+      const monthlyRate = interestRate / 12 / 100;
+      const totalMonths = tenureYears * 12;
+      const emi = Math.round((principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1));
+
+      // TCO Calculation (Ownership Years)
+      const annualFuelCost = v.fuelType === "Electric"
+        ? (dailyKM * 365 / 6) * 9 // ~9 INR/kWh
+        : (dailyKM * 365 / v.mileage) * 102; // ~102 INR/L Petrol
+      const totalFuelCost = annualFuelCost * ownershipYears;
+      const totalMaint = v.annualMaint * ownershipYears;
+      const estDepreciation = v.price * (0.12 * ownershipYears);
+      const tcoTotal = Math.round(v.price + totalFuelCost + totalMaint + (v.price * 0.10) - (v.price - estDepreciation));
+
+      // Regret Score Calculation
+      let regretRisk = "Low";
+      if (v.price > budgetMax) regretRisk = "High (Over Budget)";
+      else if (v.fuelType !== "Electric" && dailyKM > 70) regretRisk = "Medium (High Fuel Bill)";
+
+      // Dynamic Explanations
+      const whyReasons = [];
+      if (v.price <= budgetMax) whyReasons.push(`Fits within your maximum budget of ₹ ${(budgetMax/100000).toFixed(1)}L.`);
+      if (v.safetyRatingScore >= 95) whyReasons.push("Offers top-tier 5-star crash safety & occupant protection.");
+      if (v.fuelType === "Electric") whyReasons.push("Saves over 70% in monthly running costs for your daily drive.");
+      if (v.comfortRating >= 90) whyReasons.push("Superior cabin ergonomics & ride comfort.");
+
+      const considerPoints = [];
+      if (v.price > budgetMax) considerPoints.push(`Priced ₹ ${((v.price - budgetMax)/100000).toFixed(1)}L above your target budget.`);
+      if (v.fuelType === "Electric") considerPoints.push("Requires dedicated AC home wallbox charging setup.");
+      if (v.annualMaint > 50000) considerPoints.push("Out-of-warranty luxury service packages carry premium rates.");
+
+      return {
+        ...v,
+        smartScore: Math.min(99, Math.max(40, totalScore)),
+        scores: {
+          budget: Math.round(budgetScore),
+          usage: Math.round(usageScore),
+          priority: Math.round(priorityScore),
+          filter: Math.round(filterScore)
+        },
+        emi,
+        tcoTotal,
+        regretRisk,
+        whyReasons: whyReasons.slice(0, 2),
+        considerPoints: considerPoints.slice(0, 2)
+      };
+    }).sort((a, b) => b.smartScore - a.smartScore);
+  }, [budgetMax, bodyPref, fuelPref, dailyKM, priorities, downPayPercent, interestRate, tenureYears, ownershipYears]);
+
+  // Confidence Score Calculation
+  const confidenceScore = useMemo(() => {
+    let score = 70;
+    if (priorities.length > 1) score += 15;
+    if (bodyPref !== "All") score += 10;
+    if (fuelPref !== "All") score += 5;
+    return Math.min(98, score);
+  }, [priorities, bodyPref, fuelPref]);
+
+  const toggleCompare = (v) => {
+    setCompareList(prev => {
+      if (prev.find(x => x.id === v.id)) return prev.filter(x => x.id !== v.id);
+      if (prev.length >= 4) return prev;
+      return [...prev, v];
+    });
+  };
+
+  return (
+    <div className="app-grid">
+      {/* INPUT FORM SIDEBAR */}
+      <div className="form-card">
+        <h2 className="form-title">Your Requirements</h2>
+        <p className="form-subtitle">Customize parameters to dynamically adjust AI scores.</p>
+
+        <div className="form-group">
+          <label className="form-label">
+            <span>Max Budget</span>
+            <span style={{fontFamily: 'var(--font-mono)', color: 'var(--accent)'}}>₹ {(budgetMax/100000).toFixed(1)} Lakhs</span>
+          </label>
+          <input
+            type="range"
+            min="1500000"
+            max="10000000"
+            step="250000"
+            value={budgetMax}
+            onChange={(e) => setBudgetMax(Number(e.target.value))}
+            className="slider-input"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">
+            <span>Daily Commute Distance</span>
+            <span style={{fontFamily: 'var(--font-mono)', color: 'var(--text-primary)'}}>{dailyKM} km/day</span>
+          </label>
+          <input
+            type="range"
+            min="5"
+            max="150"
+            step="5"
+            value={dailyKM}
+            onChange={(e) => setDailyKM(Number(e.target.value))}
+            className="slider-input"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Body Type</label>
+          <select value={bodyPref} onChange={(e) => setBodyPref(e.target.value)} className="form-select">
+            <option value="All">All Body Types</option>
+            <option value="Sedan">Sedan</option>
+            <option value="SUV">SUV</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Fuel Preference</label>
+          <select value={fuelPref} onChange={(e) => setFuelPref(e.target.value)} className="form-select">
+            <option value="All">All Powertrains</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Electric">Electric</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">What Matters Most?</label>
+          <div className="pills-group">
+            {["Safety", "Comfort", "Performance", "Tech", "Resale"].map(p => (
+              <button
+                key={p}
+                className={`pill-btn ${priorities.includes(p) ? 'active' : ''}`}
+                onClick={() => togglePriority(p)}
+              >
+                {p}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{marginTop: '24px', paddingTop: '18px', borderTop: '1px solid var(--border-color)'}}>
+          <h4 style={{fontSize: '0.9rem', marginBottom: '12px'}}>EMI & Ownership Horizons</h4>
+          <div className="form-group">
+            <label className="form-label">Down Payment: {downPayPercent}%</label>
+            <input type="range" min="10" max="50" value={downPayPercent} onChange={(e) => setDownPayPercent(Number(e.target.value))} className="slider-input" />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Tenure: {tenureYears} Years</label>
+            <input type="range" min="3" max="7" value={tenureYears} onChange={(e) => setTenureYears(Number(e.target.value))} className="slider-input" />
+          </div>
+        </div>
+      </div>
+
+      {/* MAIN RESULTS DISPLAY */}
+      <div>
+        {/* BUYER PROFILE & CONFIDENCE HEADER */}
+        <div className="profile-banner">
+          <div>
+            <span className="profile-badge">Calculated Buyer Profile</span>
+            <h3 className="profile-title">{buyerProfile.name}</h3>
+            <p style={{fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '2px'}}>{buyerProfile.desc}</p>
+          </div>
+          <div style={{textAlign: 'right'}}>
+            <span className="profile-badge">AI Confidence</span>
+            <div style={{fontFamily: 'var(--font-mono)', fontSize: '1.4rem', color: 'var(--accent)', fontWeight: '700'}}>{confidenceScore}%</div>
+          </div>
+        </div>
+
+        {/* NAVIGATION TABS */}
+        <div className="tab-nav">
+          <button className={`tab-btn ${activeTab === 'recommendations' ? 'active' : ''}`} onClick={() => setActiveTab('recommendations')}>Top Matches</button>
+          <button className={`tab-btn ${activeTab === 'ev_advisor' ? 'active' : ''}`} onClick={() => setActiveTab('ev_advisor')}>EV vs ICE Advisor</button>
+          <button className={`tab-btn ${activeTab === 'new_vs_used' ? 'active' : ''}`} onClick={() => setActiveTab('new_vs_used')}>New vs Used Analysis</button>
+        </div>
+
+        {/* TAB 1: RECOMMENDATIONS */}
+        {activeTab === 'recommendations' && (
+          <div>
+            {compareList.length > 0 && (
+              <div style={{marginBottom: '16px', background: 'var(--bg-surface)', padding: '12px 18px', borderRadius: 'var(--radius-sm)', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <span style={{fontSize: '0.85rem'}}>{compareList.length} vehicle(s) selected for comparison</span>
+                <button className="btn btn-primary btn-sm" onClick={() => setShowCompModal(true)}>Compare Now</button>
+              </div>
+            )}
+
+            {scoredVehicles.map((v, idx) => (
+              <div key={v.id} className="vehicle-card">
+                <div className="vehicle-header">
+                  <div>
+                    <span style={{fontSize: '0.72rem', color: 'var(--accent)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase'}}>{idx === 0 ? "★ BEST OVERALL MATCH" : v.tag}</span>
+                    <h3 className="vehicle-name">{v.name}</h3>
+                  </div>
+                  <div className="score-badge">
+                    <span className="score-val">{v.smartScore}</span>
+                    <span className="score-lbl">Score /100</span>
+                  </div>
+                </div>
+
+                {/* SPEC HIGHLIGHTS */}
+                <div className="spec-pills">
+                  <div className="spec-pill">Price: <span>₹ {(v.price/100000).toFixed(2)}L</span></div>
+                  <div className="spec-pill">Power: <span>{v.power}</span></div>
+                  <div className="spec-pill">Efficiency: <span>{v.mileage} {v.fuelType === 'Electric' ? 'km range' : 'km/l'}</span></div>
+                  <div className="spec-pill">Regret Risk: <span style={{color: v.regretRisk.includes('High') ? 'var(--error)' : 'var(--success)'}}>{v.regretRisk}</span></div>
+                </div>
+
+                {/* SCORE BREAKDOWN */}
+                <div className="breakdown-grid">
+                  <div className="breakdown-item">
+                    <div className="breakdown-lbl">Budget Fit</div>
+                    <div className="breakdown-val">{v.scores.budget}/25</div>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-lbl">Usage Fit</div>
+                    <div className="breakdown-val">{v.scores.usage}/20</div>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-lbl">Priorities</div>
+                    <div className="breakdown-val">{v.scores.priority}/35</div>
+                  </div>
+                  <div className="breakdown-item">
+                    <div className="breakdown-lbl">Specs Match</div>
+                    <div className="breakdown-val">{v.scores.filter}/20</div>
+                  </div>
+                </div>
+
+                {/* WHY THIS CAR */}
+                {v.whyReasons.map((r, i) => (
+                  <div key={i} className="reason-box">✓ <strong>Why this car:</strong> {r}</div>
+                ))}
+
+                {/* THINGS TO CONSIDER */}
+                {v.considerPoints.map((c, i) => (
+                  <div key={i} className="consider-box">! <strong>Things to consider:</strong> {c}</div>
+                ))}
+
+                <div className="card-actions">
+                  <div>
+                    <div className="price-display">₹ {(v.price/100000).toFixed(2)} Lakh</div>
+                    <div className="emi-tag">Est. EMI: ₹ {v.emi.toLocaleString()}/mo</div>
+                  </div>
+                  <div style={{display: 'flex', gap: '8px'}}>
+                    <button
+                      className={`btn btn-outline btn-sm ${compareList.find(x=>x.id===v.id) ? 'active' : ''}`}
+                      onClick={() => toggleCompare(v)}
+                    >
+                      {compareList.find(x=>x.id===v.id) ? '✓ Added' : '+ Compare'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* TAB 2: EV vs ICE ADVISOR */}
+        {activeTab === 'ev_advisor' && (
+          <div className="vehicle-card">
+            <h3 style={{marginBottom: '12px'}}>EV Transition Analysis</h3>
+            <p style={{fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: '20px'}}>
+              Based on your daily travel of <strong>{dailyKM} km</strong> ({dailyKM * 365} km/year) over a <strong>{ownershipYears}-year</strong> horizon:
+            </p>
+            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px'}}>
+              <div style={{background: 'var(--bg-input)', padding: '16px', borderRadius: 'var(--radius-sm)'}}>
+                <h4 style={{color: 'var(--accent)', marginBottom: '6px'}}>Petrol / Hybrid Running Cost</h4>
+                <div style={{fontFamily: 'var(--font-mono)', fontSize: '1.2rem'}}>₹ {Math.round((dailyKM * 365 / 14) * 102 * ownershipYears).toLocaleString()}</div>
+                <div style={{fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px'}}>Calculated at ₹102/L @ 14 km/l avg</div>
+              </div>
+              <div style={{background: 'var(--bg-input)', padding: '16px', borderRadius: 'var(--radius-sm)'}}>
+                <h4 style={{color: 'var(--success)', marginBottom: '6px'}}>Electric Running Cost</h4>
+                <div style={{fontFamily: 'var(--font-mono)', fontSize: '1.2rem'}}>₹ {Math.round((dailyKM * 365 / 6) * 9 * ownershipYears).toLocaleString()}</div>
+                <div style={{fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '4px'}}>Calculated at ₹9/kWh @ 6 km/kWh avg</div>
+              </div>
+            </div>
+            <div className="reason-box">
+              💡 <strong>Break-Even Verdict:</strong> Switching to EV saves approximately <strong>₹ {Math.round(((dailyKM * 365 / 14) * 102 - (dailyKM * 365 / 6) * 9) * ownershipYears).toLocaleString()}</strong> in fuel over {ownershipYears} years, offsetting initial charger installation within ~14 months.
+            </div>
+          </div>
+        )}
+
+        {/* TAB 3: NEW vs USED ANALYSIS */}
+        {activeTab === 'new_vs_used' && (
+          <div className="vehicle-card">
+            <h3 style={{marginBottom: '12px'}}>New vs Certified Pre-Owned Economics</h3>
+            <p style={{fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: '20px'}}>
+              Comparing depreciation curve vs warranty protection for luxury inventory:
+            </p>
+            <table className="comp-table">
+              <thead>
+                <tr>
+                  <th>Vehicle</th>
+                  <th>New Price</th>
+                  <th>AutoNexus Pre-Owned</th>
+                  <th>Upfront Savings</th>
+                </tr>
+              </thead>
+              <tbody>
+                {scoredVehicles.slice(0, 4).map(v => (
+                  <tr key={v.id}>
+                    <td><strong>{v.name}</strong></td>
+                    <td style={{fontFamily: 'var(--font-mono)'}}>₹ {(v.price/100000).toFixed(2)}L</td>
+                    <td style={{fontFamily: 'var(--font-mono)', color: 'var(--success)'}}>₹ {(v.usedPrice/100000).toFixed(2)}L</td>
+                    <td style={{fontFamily: 'var(--font-mono)', color: 'var(--accent)'}}>₹ {((v.price - v.usedPrice)/100000).toFixed(2)}L ({Math.round(((v.price - v.usedPrice)/v.price)*100)}%)</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {/* COMPARISON MODAL */}
+      {showCompModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px'}}>
+              <h2>Vehicle Comparison Matrix</h2>
+              <button className="btn btn-outline btn-sm" onClick={() => setShowCompModal(false)}>Close</button>
+            </div>
+            <table className="comp-table">
+              <thead>
+                <tr>
+                  <th>Attribute</th>
+                  {compareList.map(c => <th key={c.id}>{c.name}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Smart Buy Score</td>
+                  {compareList.map(c => <td key={c.id} style={{fontFamily: 'var(--font-mono)', fontWeight: '700', color: 'var(--accent)'}}>{c.smartScore}/100</td>)}
+                </tr>
+                <tr>
+                  <td>Price</td>
+                  {compareList.map(c => <td key={c.id} style={{fontFamily: 'var(--font-mono)'}}>₹ {(c.price/100000).toFixed(2)}L</td>)}
+                </tr>
+                <tr>
+                  <td>Monthly EMI</td>
+                  {compareList.map(c => <td key={c.id} style={{fontFamily: 'var(--font-mono)'}}>₹ {c.emi.toLocaleString()}</td>)}
+                </tr>
+                <tr>
+                  <td>Fuel / Powertrain</td>
+                  {compareList.map(c => <td key={c.id}>{c.fuelType}</td>)}
+                </tr>
+                <tr>
+                  <td>Power</td>
+                  {compareList.map(c => <td key={c.id}>{c.power}</td>)}
+                </tr>
+                <tr>
+                  <td>5-Yr TCO</td>
+                  {compareList.map(c => <td key={c.id} style={{fontFamily: 'var(--font-mono)'}}>₹ {(c.tcoTotal/100000).toFixed(2)}L</td>)}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('react-root')).render(<SmartBuyAdvisoryApp />);
+</script>
+</body>
+</html>

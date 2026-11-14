@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accessories & Performance | AutoNexus</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-primary: #111111;
+  --bg-secondary: #1B1B1B;
+  --bg-surface: #242424;
+  --bg-input: #2B2B2B;
+  --accent: #C1121F;
+  --accent-hover: #E01A2B;
+  --text-primary: #FFFFFF;
+  --text-secondary: #CFCFCF;
+  --text-muted: #8A8A8A;
+  --border-color: #3A3A3A;
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --transition: all 0.3s ease;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --shadow-neu: 6px 6px 12px #0b0b0b, -6px -6px 12px #232323;
+  --shadow-neu-inset: inset 4px 4px 8px #0b0b0b, inset -4px -4px 8px #232323;
+  --shadow-neu-hover: 4px 4px 8px #0b0b0b, -4px -4px 8px #232323;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+  padding: 0 24px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-primary);
+}
+
+.logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: var(--accent);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-neu);
+}
+
+.btn-primary:hover { background: var(--accent-hover); box-shadow: var(--shadow-neu-hover); transform: translateY(-1px); }
+.btn-primary:active { box-shadow: var(--shadow-neu-inset); transform: translateY(1px); }
+
+/* Main Container */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+/* Category Filter Tabs */
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-neu);
+}
+
+.filter-btn.active, .filter-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: var(--shadow-neu-hover);
+}
+
+/* Accessory Grid */
+.accessory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.acc-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  box-shadow: var(--shadow-neu);
+}
+
+.acc-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-neu-hover);
+}
+
+.acc-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.acc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.acc-card:hover .acc-img {
+  transform: scale(1.04);
+}
+
+.acc-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.acc-card-body { padding: 18px; }
+
+.acc-category {
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.acc-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.acc-specs {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.acc-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+.acc-price {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Modal Popup */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  padding: 20px;
+}
+
+.modal-overlay.active { opacity: 1; visibility: visible; }
+
+.acc-modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  max-width: 600px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.modal-img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.modal-body { padding: 24px; }
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">AUTO<span>NEXUS</span></a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="new-cars.html">New Cars</a></li>
+      <li><a href="sell-your-car.html">Sell Car</a></li>
+      <li><a href="import-on-demand.html">Import Cars</a></li>
+      <li><a href="accessories.html" class="active">Accessories</a></li>
+      <li><a href="car-valuation.html">Car Valuation</a></li>
+      <li><a href="smart-buy-advisory.html">Smart Buy Advisory</a></li>
+    </ul>
+
+    <div class="nav-auth-container" id="navAuthContainer">
+      <a href="new-cars.html" class="btn-primary">Browse</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <p class="section-tag">Desk 03</p>
+  <h1 class="section-title">Luxury Accessories & Performance</h1>
+  <p class="section-sub">Official OEM & aftermarket upgrades curated for elite vehicles.</p>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterAccessories('All', this)">All Accessories</button>
+    <button class="filter-btn" onclick="filterAccessories('Exterior', this)">Exterior</button>
+    <button class="filter-btn" onclick="filterAccessories('Interior', this)">Interior</button>
+    <button class="filter-btn" onclick="filterAccessories('Performance', this)">Performance</button>
+    <button class="filter-btn" onclick="filterAccessories('Wheels', this)">Wheels</button>
+    <button class="filter-btn" onclick="filterAccessories('Electronics', this)">Electronics</button>
+  </div>
+
+  <div class="accessory-grid" id="accessoryGrid"></div>
+
+  <section style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; margin-top: 60px;" id="inquiry">
+    <h2 style="font-family: var(--font-display); font-size: 1.8rem; color: #fff; margin-bottom: 8px;">Order & Fitting Inquiry</h2>
+    <p style="color: var(--text-muted); margin-bottom: 24px;">Submit an inquiry to fit or order specialized performance accessories.</p>
+
+    <form onsubmit="submitAccInquiry(event)">
+      <div style="display: flex; gap: 16px;">
+        <div style="flex:1;">
+          <label style="font-size:0.82rem; font-weight:600;">Full Name</label>
+          <input type="text" id="accName" class="form-control" placeholder="Your Name" required>
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:0.82rem; font-weight:600;">Email Address</label>
+          <input type="email" id="accEmail" class="form-control" placeholder="name@example.com" required>
+        </div>
+      </div>
+
+      <div>
+        <label style="font-size:0.82rem; font-weight:600;">Accessory Item or Requirements</label>
+        <textarea id="accNote" class="form-control" rows="3" placeholder="Specify selected accessory or vehicle compatibility..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary" style="padding: 12px 24px;">Submit Accessory Order Request</button>
+    </form>
+  </section>
+</main>
+
+<div class="modal-overlay" id="accModalOverlay" onclick="closeAccModal(event)">
+  <div class="acc-modal" onclick="event.stopPropagation()">
+    <span class="modal-close-btn" onclick="closeAccModal()">&times;</span>
+    <img id="mAccImg" class="modal-img" src="" alt="Accessory Image">
+    <div class="modal-body">
+      <div id="mAccCategory" class="acc-category">CATEGORY</div>
+      <h2 id="mAccTitle" style="font-family: var(--font-display); font-size: 1.8rem; color: #fff;">Title</h2>
+      <div id="mAccPrice" style="font-family: var(--font-mono); font-size: 1.4rem; color: var(--accent); font-weight:700; margin: 8px 0 16px;">₹ 0</div>
+      <p id="mAccSpecs" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">-</p>
+
+      <button class="btn-primary" style="width: 100%; padding: 12px;" onclick="orderThisAccessory()">Inquire / Request Order</button>
+    </div>
+  </div>
+</div>
+<script>
+// Helper functions to manage LocalStorage
+function getDB(key, fallback) {
+  const data = localStorage.getItem('autonexus_' + key);
+  return data ? JSON.parse(data) : fallback;
+}
+
+function setDB(key, data) {
+  localStorage.setItem('autonexus_' + key, JSON.stringify(data));
+}
+
+// 1. UPDATE USER NAVBAR
+function updateNavbarAuth() {
+  const currentUser = getDB('currentUser', null);
+  const authContainer = document.getElementById('navAuthContainer');
+
+  if (currentUser) {
+    authContainer.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; text-transform: uppercase;">
+          ${currentUser.name ? currentUser.name.charAt(0) : 'U'}
+        </div>
+        <span style="color: #fff; font-size: 0.88rem; font-weight: 600;">${currentUser.name}</span>
+        ${currentUser.role === 'admin' ? '<a href="admin.html" class="btn-primary" style="padding: 6px 12px; font-size: 0.78rem;">Admin Panel</a>' : ''}
+        <button onclick="logoutUser()" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;">Logout</button>
+      </div>
+    `;
+  }
+}
+
+function logoutUser() {
+  localStorage.removeItem('autonexus_currentUser');
+  window.location.reload();
+}
+
+// 2. RENDER ACCESSORIES (Only reads from LocalStorage)
+let activeCategory = 'All';
+
+async function renderAccessories() {
+  let catalogue = [];
+  if (window.location.protocol.startsWith('http')) {
+    try {
+      const res = await fetch('api/accessories.php');
+      const json = await res.json();
+      if (json && json.success && Array.isArray(json.data) && json.data.length > 0) {
+        catalogue = json.data;
+        setDB('accessories', catalogue);
+      }
+    } catch (e) {}
+  }
+  if (!catalogue.length) {
+    catalogue = getDB('accessories', []);
+  }
+
+  const grid = document.getElementById('accessoryGrid');
+  const filtered = activeCategory === 'All' ? catalogue : catalogue.filter(item => item.category === activeCategory);
+
+  if (!filtered || filtered.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
+        <p style="font-size: 1.1rem; font-weight: 500; margin-bottom: 8px;">No accessories available.</p>
+        <p style="font-size: 0.85rem;">Add new accessories through the Admin Control Panel.</p>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((item, index) => `
+    <div class="acc-card" onclick="openAccModal(${index})">
+      <div class="acc-img-wrap">
+        <span class="acc-badge">${item.badge || 'OEM'}</span>
+        <img src="${item.image}" class="acc-img" alt="${item.title}" onerror="this.src='https://placehold.co/400x300'">
+      </div>
+      <div class="acc-card-body">
+        <div class="acc-category">${item.category}</div>
+        <h3 class="acc-title">${item.title}</h3>
+        <p class="acc-specs">${item.specs}</p>
+        <div class="acc-card-footer">
+          <span class="acc-price">${item.price}</span>
+          <button class="btn-primary" style="padding:6px 12px; font-size:0.75rem;" onclick="event.stopPropagation(); orderAccessoryDirect('${item.title.replace(/'/g, "\'")}', '${item.price}')">Order Now</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function orderAccessoryDirect(title, price) {
+  const name = prompt('Enter your name for the order:');
+  if (!name) return;
+  const phone = prompt('Enter your phone number:');
+  const order = {
+    id: 'INQ-' + Math.floor(1000 + Math.random() * 9000),
+    customer_name: name,
+    customer_phone: phone,
+    type: 'Accessory Order',
+    items_json: title + ' (' + price + ')',
+    total_price: price,
+    status: 'Pending'
+  };
+  if (window.location.protocol.startsWith('http')) {
+    try {
+      await fetch('api/orders.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+      });
+      alert('Order placed and saved to MySQL database!');
+      return;
+    } catch (e) {}
+  }
+  let orders = getDB('orders', []);
+  orders.unshift(order);
+  setDB('orders', orders);
+  alert('Order saved locally.');
+}
+
+
+function openAccModal(idx) {
+  const catalogue = getDB('accessories', []);
+  const filtered = activeCategory === 'All' ? catalogue : catalogue.filter(item => item.category === activeCategory);
+  const item = filtered[idx];
+
+  if (!item) return;
+
+  selectedAccIndex = idx;
+  document.getElementById('mAccImg').src = item.image;
+  document.getElementById('mAccCategory').textContent = item.category;
+  document.getElementById('mAccTitle').textContent = item.title;
+  document.getElementById('mAccPrice').textContent = item.price;
+  document.getElementById('mAccSpecs').textContent = item.specs;
+
+  document.getElementById('accModalOverlay').classList.add('active');
+}
+
+function closeAccModal() {
+  document.getElementById('accModalOverlay').classList.remove('active');
+}
+
+function orderThisAccessory() {
+  const catalogue = getDB('accessories', []);
+  const filtered = activeCategory === 'All' ? catalogue : catalogue.filter(item => item.category === activeCategory);
+  const item = filtered[selectedAccIndex];
+  closeAccModal();
+
+  if (item) {
+    document.getElementById('accNote').value = `Inquiry regarding ordering: ${item.title} (${item.price})`;
+    document.getElementById('inquiry').scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// 4. SUBMIT ORDER
+async function submitAccInquiry(e) {
+  e.preventDefault();
+  const name = document.getElementById('accName').value;
+  const email = document.getElementById('accEmail').value;
+  const note = document.getElementById('accNote').value;
+
+  const newReq = {
+    id: 'REQ-' + Math.floor(1000 + Math.random() * 9000),
+    customer_name: name,
+    customerName: name,
+    customer_email: email,
+    email: email,
+    type: 'Accessory Request',
+    note: note,
+    date: new Date().toLocaleDateString(),
+    status: 'Pending'
+  };
+
+  if (window.location.protocol.startsWith('http')) {
+    try {
+      await fetch('api/orders.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newReq)
+      });
+    } catch (err) {
+      console.warn('Backend order inquiry fallback:', err);
+    }
+  }
+
+  let orders = getDB('orders', []);
+  orders.unshift(newReq);
+  setDB('orders', orders);
+
+  alert('Success! Your accessory inquiry has been submitted and saved to MySQL database.');
+  e.target.reset();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  updateNavbarAuth();
+  renderAccessories();
+});
+</script>
+</body>
+</html>

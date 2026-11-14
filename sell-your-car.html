@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sell Your Car | AutoNexus</title>
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary, #111111);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color, #3A3A3A);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent, #C1121F);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+:root {
+  --bg-primary: #111111;
+  --bg-secondary: #1B1B1B;
+  --bg-surface: #242424;
+  --bg-input: #2B2B2B;
+  --accent: #C1121F;
+  --accent-hover: #E01A2B;
+  --text-primary: #FFFFFF;
+  --text-secondary: #CFCFCF;
+  --text-muted: #8A8A8A;
+  --border-color: #3A3A3A;
+  --success: #2E8B57;
+  --warning: #FFB703;
+  --error: #D90429;
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --transition: all 0.3s ease;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --shadow-accent: 0 8px 24px rgba(193, 18, 31, 0.25);
+  --shadow-neu: 6px 6px 12px #0b0b0b, -6px -6px 12px #232323;
+  --shadow-neu-inset: inset 4px 4px 8px #0b0b0b, inset -4px -4px 8px #232323;
+  --shadow-neu-hover: 4px 4px 8px #0b0b0b, -4px -4px 8px #232323;
+  --container-width: 1240px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+.stat-number,
+.vehicle-price,
+.vehicle-year {
+  font-family: var(--font-mono);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 96px 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.97);
+}
+
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#loader.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.loader-logo {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+}
+
+.loader-logo span {
+  color: var(--accent);
+}
+
+.loader-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.navbar.scrolled {
+  box-shadow: var(--shadow-md);
+  border-bottom-color: var(--border-color);
+}
+
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+  gap: 32px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  position: relative;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 8px 2px;
+  transition: var(--transition);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: var(--accent);
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: var(--transition);
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.site-footer {
+  background-color: var(--bg-secondary);
+  padding-top: 72px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 56px;
+}
+
+.footer-brand .logo {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 280px;
+  margin-bottom: 22px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.social-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.social-icon:hover {
+  color: var(--text-primary);
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-color);
+  padding: 22px 0;
+}
+
+.footer-bottom p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 968px) {
+  section { padding: 72px 0; }
+  .nav-links {
+    position: fixed;
+    top: 78px;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 16px 24px 24px;
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: var(--transition);
+  }
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .nav-link { width: 100%; padding: 12px 0; }
+  .hamburger { display: flex; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 620px) {
+  .container { padding: 0 18px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+</style>
+<noscript><style>#loader{display:none}.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">AUTO<span>NEXUS</span></div>
+    <div class="loader-spinner"></div>
+  </div>
+</div>
+<header class="navbar" id="navbar">
+  <div class="container navbar-inner">
+    <a href="index.html" class="logo">AUTO<span>NEXUS</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="new-cars.html" class="nav-link">New Cars</a>
+      <a href="sell-your-car.html" class="nav-link active">Sell Your Car</a>
+      <a href="import-on-demand.html" class="nav-link">Import On Demand</a>
+      <a href="accessories.html" class="nav-link">Accessories</a>
+      <a href="car-valuation.html" class="nav-link">Car Valuation</a>
+      <a href="smart-buy-advisory.html" class="nav-link">Smart Buy Advisory</a>
+    </nav>
+    <div class="navbar-actions">
+      <a href="new-cars.html" class="btn btn-primary">Browse Cars</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+.page-hero{background:linear-gradient(135deg,var(--bg-secondary) 0%,var(--bg-primary) 100%);padding:80px 0 48px;border-bottom:1px solid var(--border-color)}
+.page-hero-inner{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.page-title{font-size:clamp(2rem,4vw,3rem);margin-bottom:8px}
+.page-subtitle{color:var(--text-muted);font-size:1rem}
+.sell-section{padding:72px 0}
+.sell-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:start}
+.form-card{background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:40px;box-shadow:var(--shadow-neu)}
+.form-title{font-size:1.4rem;margin-bottom:6px}
+.form-subtitle{font-size:0.88rem;color:var(--text-muted);margin-bottom:32px}
+.form-group{margin-bottom:22px}
+.form-label{display:block;font-size:0.85rem;font-weight:600;color:var(--text-secondary);margin-bottom:8px}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--bg-input);color:var(--text-primary);border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:13px 16px;font-family:var(--font-body);font-size:0.92rem;transition:var(--transition);box-shadow:var(--shadow-neu-inset)}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);box-shadow:var(--shadow-neu-inset), 0 0 0 3px rgba(193,18,31,0.15);outline:none}
+.form-textarea{resize:vertical;min-height:110px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-submit{width:100%;padding:16px;font-size:1rem;margin-top:8px;box-shadow:var(--shadow-neu)}
+.form-submit:hover{box-shadow:var(--shadow-neu-hover);transform:translateY(-1px)}
+.how-card{background:var(--bg-surface);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:32px;margin-bottom:24px;transition:var(--transition);box-shadow:var(--shadow-neu)}
+.how-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-neu-hover);border-color:var(--accent)}
+.how-step{display:flex;gap:18px;align-items:flex-start}
+.step-num{font-family:var(--font-mono);font-size:1.4rem;font-weight:700;color:var(--accent);flex-shrink:0;line-height:1}
+.step-title{font-size:1rem;margin-bottom:6px}
+.step-desc{font-size:0.85rem;color:var(--text-muted)}
+.sidebar-title{font-size:1.3rem;margin-bottom:20px}
+.preview-box { margin-top: 10px; width: 100px; height: 70px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); object-fit: cover; display: none; }
+@media(max-width:968px){.sell-layout{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+</style>
+
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <p class="section-eyebrow">DESK 02</p>
+      <h1 class="page-title">Sell Your Car</h1>
+      <p class="page-subtitle">Get a fair offer in 48 hours. No classifieds, no bargaining strangers.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sell-section">
+  <div class="container sell-layout">
+
+    <div class="form-card reveal">
+      <h2 class="form-title">Submit Your Vehicle</h2>
+      <p class="form-subtitle">Fill in the details below and our team will reach out within 48 hours with a valuation offer.</p>
+
+      <form id="sellForm" onsubmit="handleSellSubmit(event)">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="fullName" class="form-input" placeholder="Your full name" required></div>
+          <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="phoneNum" class="form-input" placeholder="+91 XXXXX XXXXX" required></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email Address</label><input type="email" id="emailAddr" class="form-input" placeholder="you@email.com" required></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Car Brand</label><select id="carBrand" class="form-select" required><option value="">Select Brand</option><option value="BMW">BMW</option><option value="Mercedes-Benz">Mercedes-Benz</option><option value="Audi">Audi</option><option value="Volvo">Volvo</option><option value="Jaguar">Jaguar</option><option value="Porsche">Porsche</option><option value="Other">Other</option></select></div>
+          <div class="form-group"><label class="form-label">Car Model</label><input type="text" id="carModel" class="form-input" placeholder="e.g. 5 Series 530i" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Year of Manufacture</label><input type="number" id="carYear" class="form-input" placeholder="e.g. 2022" min="2000" max="2026" required></div>
+          <div class="form-group"><label class="form-label">Kilometres Driven</label><input type="text" id="carKm" class="form-input" placeholder="e.g. 24,500" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Fuel Type</label><select id="carFuel" class="form-select"><option value="Petrol">Petrol</option><option value="Diesel">Diesel</option><option value="Electric">Electric</option><option value="Hybrid">Hybrid</option></select></div>
+          <div class="form-group"><label class="form-label">Transmission</label><select id="carTrans" class="form-select"><option value="Automatic">Automatic</option><option value="Manual">Manual</option></select></div>
+        </div>
+        <div class="form-group"><label class="form-label">Expected Selling Price (INR)</label><input type="text" id="carPrice" class="form-input" placeholder="e.g. ₹ 45,00,000" required></div>
+        <div class="form-group">
+          <label class="form-label">Upload Car Photo</label>
+          <input type="file" id="carPhoto" class="form-input" accept="image/*" onchange="previewImage(event)" required>
+          <img id="imagePreview" class="preview-box" alt="Preview">
+        </div>
+        <div class="form-group"><label class="form-label">Additional Notes</label><textarea id="carNotes" class="form-textarea" placeholder="Mention any service history, accident record, modifications, etc."></textarea></div>
+        <button type="submit" class="btn btn-primary form-submit">Submit For Valuation</button>
+      </form>
+    </div>
+
+    <div>
+      <h3 class="sidebar-title reveal">How It Works</h3>
+
+      <div class="how-card reveal">
+        <div class="how-step"><span class="step-num">01</span><div><h4 class="step-title">Submit Details</h4><p class="step-desc">Fill in your car's information and upload a photo. Takes less than 5 minutes.</p></div></div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-step"><span class="step-num">02</span><div><h4 class="step-title">Get An Offer</h4><p class="step-desc">Our team analyses market data and comes back with a fair offer within 48 hours.</p></div></div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-step"><span class="step-num">03</span><div><h4 class="step-title">Inspection & Paperwork</h4><p class="step-desc">We inspect the vehicle at your convenience and handle all transfer documentation.</p></div></div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-step"><span class="step-num">04</span><div><h4 class="step-title">Get Paid</h4><p class="step-desc">Receive payment directly to your bank account. No delays, no hidden deductions.</p></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col footer-brand">
+      <a href="index.html" class="logo">AUTO<span>NEXUS</span></a>
+      <p class="footer-tagline">Premium automotive dealership &amp; marketplace for mid-luxury brands.</p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" aria-label="Instagram" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="Twitter" class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 4.5s-1.8 1-2.9 1..."/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; 2026 AutoNexus. All rights reserved. College Mini-Project.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('load', function() {
+  const loader = document.getElementById('loader');
+  if (loader) loader.classList.add('loader-hidden');
+});
+
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+}
+
+const revealElements = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealElements.forEach(el => observer.observe(el));
+
+function getDB(key, fallback) {
+  const data = localStorage.getItem('autonexus_' + key);
+  return data ? JSON.parse(data) : fallback;
+}
+
+function setDB(key, data) {
+  localStorage.setItem('autonexus_' + key, JSON.stringify(data));
+}
+
+let uploadedBase64Image = '';
+
+function previewImage(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      uploadedBase64Image = e.target.result;
+      const preview = document.getElementById('imagePreview');
+      preview.src = uploadedBase64Image;
+      preview.style.display = 'block';
+    }
+    reader.readAsDataURL(file);
+  }
+}
+
+async function handleSellSubmit(event) {
+  event.preventDefault();
+
+  const name = document.getElementById('fullName').value;
+  const email = document.getElementById('emailAddr').value;
+  const phone = document.getElementById('phoneNum').value;
+  const brand = document.getElementById('carBrand').value;
+  const model = document.getElementById('carModel').value;
+  const year = document.getElementById('carYear').value;
+  const km = document.getElementById('carKm').value;
+  const fuel = document.getElementById('carFuel').value;
+  const trans = document.getElementById('carTrans').value;
+  const price = document.getElementById('carPrice').value;
+  const notes = document.getElementById('carNotes').value;
+
+  const newOrder = {
+    id: 'REQ-' + Math.floor(1000 + Math.random() * 9000),
+    customer_name: name,
+    customer_email: email,
+    customer_phone: phone,
+    type: 'Sell Request (' + brand + ' ' + model + ')',
+    items_json: `Year: ${year} | KM: ${km} | Fuel: ${fuel} | Trans: ${trans} | Asking: ${price} | Notes: ${notes}`,
+    image: uploadedBase64Image || 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80',
+    date: new Date().toLocaleDateString(),
+    status: 'Pending'
+  };
+
+  if (window.location.protocol.startsWith('http')) {
+    try {
+      await fetch('api/orders.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newOrder)
+      });
+      alert('Vehicle valuation request successfully saved to MySQL database! Our team will contact you within 48 hours.');
+    } catch (e) {
+      alert('Saved locally. Backend connection pending.');
+    }
+  } else {
+    alert('Vehicle valuation request submitted successfully! (Local Mode)');
+  }
+
+  let orders = getDB('orders', []);
+  orders.unshift(newOrder);
+  setDB('orders', orders);
+
+  document.getElementById('sellForm').reset();
+  document.getElementById('imagePreview').style.display = 'none';
+  uploadedBase64Image = '';
+}
+
+</script>
+
+</body>
+</html>

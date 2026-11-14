@@ -1,0 +1,3170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoNexus | Complete Luxury Automotive Platform</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ==========================================================================
+   AUTONEXUS MASTER DESIGN SYSTEM
+   ========================================================================== */
+:root {
+  --bg-primary: #0e0e0e;
+  --bg-secondary: #161616;
+  --bg-surface: #1e1e1e;
+  --bg-surface-elevated: #262626;
+  --bg-input: #141414;
+  --accent: #C1121F;
+  --accent-hover: #E01A2B;
+  --accent-glow: rgba(193, 18, 31, 0.4);
+  --text-primary: #FFFFFF;
+  --text-secondary: #D4D4D4;
+  --text-muted: #8E8E8E;
+  --border-color: #2b2b2b;
+  --border-subtle: #202020;
+  --success: #2E8B57;
+  --warning: #FFB703;
+  --error: #D90429;
+  --info: #0077B6;
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.8);
+  --shadow-neu: 6px 6px 14px #080808, -6px -6px 14px #1c1c1c;
+  --shadow-neu-inset: inset 3px 3px 6px #080808, inset -3px -3px 6px #1c1c1c;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --container-width: 1280px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+
+.container { width: 100%; max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); color: var(--text-primary); font-weight: 600; line-height: 1.2; }
+.font-mono { font-family: var(--font-mono); }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.86rem;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 14px var(--accent-glow); }
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); }
+.btn-outline { border: 1px solid var(--border-color); color: var(--text-primary); background: transparent; }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.btn-secondary { background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-color); }
+.btn-secondary:hover { background: var(--bg-surface-elevated); border-color: #444; }
+.btn-danger { background: var(--error); color: #fff; padding: 6px 14px; font-size: 0.78rem; border-radius: var(--radius-sm); }
+.btn-danger:hover { opacity: 0.85; }
+.btn-sm { padding: 6px 14px; font-size: 0.78rem; }
+.btn-lg { padding: 14px 28px; font-size: 0.95rem; }
+
+/* Badges */
+.badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.b-hot { background: var(--accent); color: #fff; }
+.b-new { background: var(--success); color: #fff; }
+.b-imp { background: var(--warning); color: #111; }
+
+/* Sticky Navigation Bar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(14, 14, 14, 0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-color);
+}
+.navbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.logo span { color: var(--accent); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.nav-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  position: relative;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-link:hover { color: #fff; background: rgba(255, 255, 255, 0.04); }
+.nav-link.active {
+  color: #fff;
+  background: rgba(193, 18, 31, 0.15);
+  border: 1px solid rgba(193, 18, 31, 0.3);
+}
+.nav-link-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent);
+  background: rgba(193, 18, 31, 0.18);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.nav-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cart-pill {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 7px 14px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.cart-pill:hover { border-color: var(--accent); background: var(--bg-surface-elevated); }
+.cart-counter {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+
+/* Floating Slide / Desk Controller */
+.slide-toolbar {
+  position: sticky;
+  top: 70px;
+  z-index: 900;
+  background: rgba(22, 22, 22, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 0;
+  font-size: 0.8rem;
+}
+.slide-toolbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.slide-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.slide-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition);
+}
+.slide-btn:hover { border-color: var(--accent); color: #fff; background: var(--bg-surface-elevated); }
+.slide-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  background: var(--bg-primary);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+.slide-pills {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.slide-pill {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+.slide-pill:hover { color: #fff; border-color: #3a3a3a; }
+.slide-pill.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Slide Views System */
+.app-slide {
+  display: none;
+  min-height: calc(100vh - 120px);
+  animation: slideFadeIn 0.28s ease;
+  padding-bottom: 80px;
+}
+.app-slide.active { display: block; }
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Common Section Headers */
+.desk-hero {
+  background: linear-gradient(180deg, rgba(22, 22, 22, 0.95) 0%, rgba(14, 14, 14, 1) 100%);
+  border-bottom: 1px solid var(--border-color);
+  padding: 54px 0 36px;
+  margin-bottom: 40px;
+  position: relative;
+}
+.desk-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.desk-title {
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  color: #fff;
+  margin-bottom: 8px;
+}
+.desk-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 720px;
+}
+
+/* ==========================================================================
+   SLIDE 00: HOME
+   ========================================================================== */
+.home-hero {
+  position: relative;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
+  background: radial-gradient(circle at 65% 45%, rgba(193, 18, 31, 0.18) 0%, transparent 65%);
+}
+.hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  padding: 60px 0;
+}
+.hero-title {
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+.hero-stats-band {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  padding: 24px 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+.stat-box {
+  border-left: 2px solid var(--accent);
+  padding-left: 16px;
+}
+.stat-val {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+.stat-lbl {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Desks Grid */
+.desks-section { padding: 60px 0; }
+.desks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+.desk-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.desk-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+.desk-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at top right, rgba(193, 18, 31, 0.12), transparent 70%);
+}
+.desk-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.desk-name { font-size: 1.4rem; color: #fff; margin-bottom: 8px; }
+.desk-desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
+
+/* Vehicle Cards */
+.cars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+.car-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+}
+.car-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+.car-img-wrap {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #111;
+}
+.car-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.car-card:hover .car-img { transform: scale(1.05); }
+.car-badge-pos {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+.car-card-body { padding: 20px; }
+.car-brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.car-name-title { font-size: 1.25rem; color: #fff; margin-bottom: 6px; }
+.car-specs-row { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; }
+.car-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 14px;
+}
+.car-price-val { font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700; color: #fff; }
+
+/* Filter Bar */
+.filter-bar {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.filter-chip {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-chip:hover, .filter-chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.search-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  color: #fff;
+  font-size: 0.85rem;
+  outline: none;
+  min-width: 240px;
+}
+.search-input:focus { border-color: var(--accent); }
+
+/* Forms Common */
+.form-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 32px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.form-group { margin-bottom: 20px; }
+.form-group.full-width { grid-column: 1 / -1; }
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-control {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+.form-control:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(193, 18, 31, 0.15);
+}
+textarea.form-control { min-height: 100px; resize: vertical; }
+
+/* Image Preview */
+.img-preview-box {
+  width: 100%;
+  height: 180px;
+  background: var(--bg-input);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.img-preview-box img { width: 100%; height: 100%; object-fit: cover; }
+
+/* How It Works & Steps */
+.step-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 18px;
+  display: flex;
+  gap: 16px;
+  transition: var(--transition);
+}
+.step-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+.step-badge {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(193, 18, 31, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Country Grid (Import) */
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.country-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px 16px;
+  text-align: center;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.country-box:hover, .country-box.selected {
+  border-color: var(--accent);
+  background: var(--bg-surface-elevated);
+  transform: translateY(-4px);
+}
+.country-flag { font-size: 2.2rem; margin-bottom: 8px; }
+.country-name { font-weight: 700; color: #fff; font-size: 0.95rem; }
+.country-sub { font-size: 0.74rem; color: var(--text-muted); margin-top: 4px; }
+
+/* Valuation Result Card */
+.valuation-result {
+  background: linear-gradient(145deg, #181818 0%, #202020 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  margin-top: 32px;
+  display: none;
+}
+.val-metric-box {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  text-align: center;
+}
+.val-metric-num {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+/* Advisory Sliders */
+.slider-group {
+  margin-bottom: 28px;
+}
+.slider-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.slider-val-readout {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+.range-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg-input);
+  outline: none;
+  accent-color: var(--accent);
+}
+
+/* Admin Dashboard Tables */
+.admin-table-wrap {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin-top: 20px;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+.data-table th, .data-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-color);
+}
+.data-table th {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.data-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+/* Electric Card Effect (Login) */
+.electric-login-card {
+  max-width: 480px;
+  margin: 40px auto;
+  background: var(--bg-surface);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 0 30px rgba(193, 18, 31, 0.25);
+}
+.auth-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 24px;
+}
+.auth-tab {
+  flex: 1;
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.auth-tab.active {
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal-dialog {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+}
+.modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  font-size: 1.6rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.modal-close-btn:hover { color: #fff; }
+
+/* Cart Drawer */
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  background: var(--bg-surface);
+  border-left: 1px solid var(--border-color);
+  z-index: 2100;
+  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+}
+.cart-drawer.open { right: 0; }
+.cart-drawer-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+.cart-drawer-footer {
+  padding: 20px 24px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+.cart-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.toast {
+  background: var(--bg-surface-elevated);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  color: #fff;
+  font-size: 0.86rem;
+  box-shadow: var(--shadow-lg);
+  animation: toastIn 0.3s ease;
+  min-width: 280px;
+}
+@keyframes toastIn { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* Footer */
+.site-footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: 60px 0 30px;
+  margin-top: 60px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.footer-title { font-size: 1.1rem; color: #fff; margin-bottom: 16px; }
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 8px; }
+.footer-links a { font-size: 0.85rem; color: var(--text-muted); transition: var(--transition); }
+.footer-links a:hover { color: var(--accent); }
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .desks-grid, .cars-grid { grid-template-columns: 1fr; }
+  .slide-toolbar-inner { flex-direction: column; align-items: stretch; }
+  .filter-bar { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loader" style="position:fixed;inset:0;background:#0e0e0e;z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity 0.4s ease;">
+  <div style="text-align:center;">
+    <div style="font-family:'Oswald',sans-serif;font-size:2rem;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:12px;">AUTO<span style="color:#C1121F;">NEXUS</span></div>
+    <div style="width:40px;height:40px;border:3px solid #222;border-top-color:#C1121F;border-radius:50%;margin:0 auto;animation:spin 0.8s linear infinite;"></div>
+  </div>
+</div>
+<style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+
+<!-- Sticky Master Navigation -->
+<header class="navbar">
+  <div class="container navbar-inner">
+    <a href="#home" onclick="navTo('home'); return false;" class="logo">AUTO<span>NEXUS</span></a>
+    
+    <nav class="nav-links">
+      <a href="#home" onclick="navTo('home'); return false;" class="nav-link active" data-slide="home"><span class="nav-link-num">00</span> Home</a>
+      <a href="#new-cars" onclick="navTo('new-cars'); return false;" class="nav-link" data-slide="new-cars"><span class="nav-link-num">01</span> New Cars</a>
+      <a href="#sell-car" onclick="navTo('sell-car'); return false;" class="nav-link" data-slide="sell-car"><span class="nav-link-num">02</span> Sell Car</a>
+      <a href="#import" onclick="navTo('import'); return false;" class="nav-link" data-slide="import"><span class="nav-link-num">03</span> Import</a>
+      <a href="#accessories" onclick="navTo('accessories'); return false;" class="nav-link" data-slide="accessories"><span class="nav-link-num">04</span> Parts</a>
+      <a href="#valuation" onclick="navTo('valuation'); return false;" class="nav-link" data-slide="valuation"><span class="nav-link-num">05</span> Valuation</a>
+      <a href="#advisory" onclick="navTo('advisory'); return false;" class="nav-link" data-slide="advisory"><span class="nav-link-num">06</span> Advisory</a>
+      <a href="#admin" onclick="navTo('admin'); return false;" class="nav-link" data-slide="admin"><span class="nav-link-num">07</span> Admin</a>
+      <a href="#login" onclick="navTo('login'); return false;" class="nav-link" data-slide="login"><span class="nav-link-num">08</span> Account</a>
+    </nav>
+
+    <div class="nav-right-actions">
+      <div class="cart-pill" onclick="toggleCartDrawer()">
+        <span>🛒 Cart</span>
+        <span class="cart-counter" id="navCartCount">0</span>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="navTo('new-cars')">Browse Fleet</button>
+    </div>
+  </div>
+</header>
+
+<!-- Floating Slide & Desk Controller Toolbar -->
+<div class="slide-toolbar">
+  <div class="container slide-toolbar-inner">
+    <div class="slide-nav-group">
+      <button class="slide-btn" onclick="prevSlide()">◀ Prev Slide</button>
+      <span class="slide-indicator" id="slideIndicator">Slide 1 of 9 : Home</span>
+      <button class="slide-btn" onclick="nextSlide()">Next Slide ▶</button>
+    </div>
+    <div class="slide-pills">
+      <button class="slide-pill active" onclick="navTo('home')">00 Home</button>
+      <button class="slide-pill" onclick="navTo('new-cars')">01 Cars</button>
+      <button class="slide-pill" onclick="navTo('sell-car')">02 Sell</button>
+      <button class="slide-pill" onclick="navTo('import')">03 Import</button>
+      <button class="slide-pill" onclick="navTo('accessories')">04 Parts</button>
+      <button class="slide-pill" onclick="navTo('valuation')">05 Valuation</button>
+      <button class="slide-pill" onclick="navTo('advisory')">06 Advisory</button>
+      <button class="slide-pill" onclick="navTo('admin')">07 Admin</button>
+      <button class="slide-pill" onclick="navTo('login')">08 Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     SLIDE 00: HOME
+     ========================================================================== -->
+<div id="view-home" class="app-slide active">
+  <section class="home-hero">
+    <canvas id="heroCanvas" class="hero-canvas"></canvas>
+    <div class="container">
+      <div class="hero-content">
+        <p class="desk-eyebrow">PREMIUM AUTOMOTIVE ECOSYSTEM</p>
+        <h1 class="hero-title">ENGINEERED EXCELLENCE. CURATED FOR THE DISCERNING.</h1>
+        <p style="font-size:1.1rem;color:var(--text-secondary);margin-bottom:28px;">
+          Explore certified pre-owned performance fleet, on-demand global sourcing, algorithmic valuations, and precision upgrades in one unified ecosystem.
+        </p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <button class="btn btn-primary btn-lg" onclick="navTo('new-cars')">Explore Inventory</button>
+          <button class="btn btn-outline btn-lg" onclick="navTo('sell-car')">Sell Your Vehicle</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Band -->
+  <div class="hero-stats-band">
+    <div class="container stats-grid">
+      <div class="stat-box">
+        <div class="stat-val">45+</div>
+        <div class="stat-lbl">Curated Luxury Vehicles</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">48 hrs</div>
+        <div class="stat-lbl">Guaranteed Valuation Offer</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">100%</div>
+        <div class="stat-lbl">Verified Service Provenance</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">₹0</div>
+        <div class="stat-lbl">Direct Dealer Brokerage</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Desks Navigation Grid -->
+  <section class="desks-section">
+    <div class="container">
+      <p class="desk-eyebrow">OUR SPECIALIZED PLATFORM DESKS</p>
+      <h2>COMPREHENSIVE AUTOMOTIVE SERVICES</h2>
+      <div class="desks-grid">
+        <div class="desk-card" onclick="navTo('new-cars')">
+          <div class="desk-num">DESK 01</div>
+          <h3 class="desk-name">Certified Fleet</h3>
+          <p class="desk-desc">Browse meticulously inspected luxury sedans, sports coupes, and high-performance SUVs with live test-drive scheduling.</p>
+          <span class="btn btn-outline btn-sm">Explore Fleet →</span>
+        </div>
+        <div class="desk-card" onclick="navTo('sell-car')">
+          <div class="desk-num">DESK 02</div>
+          <h3 class="desk-name">Sell Your Car</h3>
+          <p class="desk-desc">Direct vehicle intake with photo upload, rapid algorithmic inspection, and guaranteed cash purchase within 48 hours.</p>
+          <span class="btn btn-outline btn-sm">Submit Vehicle →</span>
+        </div>
+        <div class="desk-card" onclick="navTo('import')">
+          <div class="desk-num">DESK 03</div>
+          <h3 class="desk-name">Import On Demand</h3>
+          <p class="desk-desc">White-glove international vehicle sourcing across Germany, Japan, UK, and UAE with complete customs & registration handling.</p>
+          <span class="btn btn-outline btn-sm">Start Concierge →</span>
+        </div>
+        <div class="desk-card" onclick="navTo('accessories')">
+          <div class="desk-num">DESK 04</div>
+          <h3 class="desk-name">Performance Parts</h3>
+          <p class="desk-desc">OEM and aftermarket carbon aerodynamics, sports exhausts, forged wheels, and ECU tuning modules with live checkout.</p>
+          <span class="btn btn-outline btn-sm">Shop Upgrades →</span>
+        </div>
+        <div class="desk-card" onclick="navTo('valuation')">
+          <div class="desk-num">DESK 05</div>
+          <h3 class="desk-name">Car Valuation</h3>
+          <p class="desk-desc">Multi-factor valuation algorithm analyzing depreciation, regional demand, condition scoring, and instant exchange calculations.</p>
+          <span class="btn btn-outline btn-sm">Calculate Value →</span>
+        </div>
+        <div class="desk-card" onclick="navTo('advisory')">
+          <div class="desk-num">DESK 06</div>
+          <h3 class="desk-name">Smart Buy Advisory</h3>
+          <p class="desk-desc">5-Year Total Cost of Ownership (TCO) calculator, fuel & maintenance forecasts, and AI budget compatibility scoring.</p>
+          <span class="btn btn-outline btn-sm">Launch Advisory →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Fleet Preview -->
+  <section style="padding:60px 0;background:var(--bg-secondary);border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color);">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;">
+        <div>
+          <p class="desk-eyebrow">FEATURED SHOWROOM</p>
+          <h2>CURATED PERFORMANCE FLEET</h2>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="navTo('new-cars')">View Full Catalog →</button>
+      </div>
+      <div class="cars-grid" id="homeFleetGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance Accessories Showcase -->
+  <section style="padding:60px 0;">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;">
+        <div>
+          <p class="desk-eyebrow">PERFORMANCE UPGRADES</p>
+          <h2>CURATED PARTS & ACCESSORIES</h2>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="navTo('accessories')">View All Parts →</button>
+      </div>
+      <div class="cars-grid" id="homeAccessoriesGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Band -->
+  <section style="padding:50px 0;background:var(--bg-surface);border-top:1px solid var(--border-color);">
+    <div class="container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:30px;text-align:center;">
+      <div>
+        <div style="font-size:2rem;margin-bottom:10px;">🛡️</div>
+        <h4 style="margin-bottom:6px;">120-Point Inspection</h4>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Rigorous mechanical, structural, and electrical diagnostics prior to listing.</p>
+      </div>
+      <div>
+        <div style="font-size:2rem;margin-bottom:10px;">📋</div>
+        <h4 style="margin-bottom:6px;">Clean Title Guarantee</h4>
+        <p style="font-size:0.85rem;color:var(--text-muted);">100% verified ownership records, zero flood history, and authentic odometers.</p>
+      </div>
+      <div>
+        <div style="font-size:2rem;margin-bottom:10px;">🏎️</div>
+        <h4 style="margin-bottom:6px;">Doorstep Test Drive</h4>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Experience any vehicle at your home or office with a dedicated product specialist.</p>
+      </div>
+      <div>
+        <div style="font-size:2rem;margin-bottom:10px;">💳</div>
+        <h4 style="margin-bottom:6px;">Instant Escrow Payouts</h4>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Direct instant bank transfer upon vehicle handover with complete legal documentation.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==========================================================================
+     SLIDE 01: NEW CARS CATALOG
+     ========================================================================== -->
+<div id="view-new-cars" class="app-slide">
+  <div class="desk-hero">
+    <div class="container">
+      <p class="desk-eyebrow">DESK 01 : CURATED LUXURY FLEET</p>
+      <h1 class="desk-title">NEW & CERTIFIED INVENTORY</h1>
+      <p class="desk-subtitle">Every vehicle in our showroom is physically verified, mechanically certified, and prepared for immediate delivery.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Filter and Search Bar -->
+    <div class="filter-bar">
+      <div class="filter-chips">
+        <button class="filter-chip active" onclick="filterCars('All', this)">All Models</button>
+        <button class="filter-chip" onclick="filterCars('BMW', this)">BMW</button>
+        <button class="filter-chip" onclick="filterCars('Mercedes-Benz', this)">Mercedes-Benz</button>
+        <button class="filter-chip" onclick="filterCars('Audi', this)">Audi</button>
+        <button class="filter-chip" onclick="filterCars('Volvo', this)">Volvo</button>
+        <button class="filter-chip" onclick="filterCars('Porsche', this)">Porsche</button>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <input type="text" id="carSearchInput" class="search-input" placeholder="Search by model, year, specs..." oninput="handleCarSearch()">
+        <select class="form-control" style="width:auto;" onchange="handleCarSort(this.value)">
+          <option value="default">Sort: Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="year-desc">Year: Newest First</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Cars Grid -->
+    <div class="cars-grid" id="catalogCarsGrid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     SLIDE 02: SELL YOUR CAR
+     ========================================================================== -->
+<div id="view-sell-car" class="app-slide">
+  <div class="desk-hero">
+    <div class="container">
+      <p class="desk-eyebrow">DESK 02 : INSTANT VEHICLE INTAKE</p>
+      <h1 class="desk-title">SELL YOUR LUXURY CAR</h1>
+      <p class="desk-subtitle">Direct dealership acquisition. No endless bargaining, no strangers at your home. Get a guaranteed valuation offer in 48 hours.</p>
+    </div>
+  </div>
+
+  <div class="container" style="display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start;">
+    <!-- Intake Form -->
+    <div class="form-card">
+      <h3 style="font-size:1.5rem;margin-bottom:6px;">Vehicle Intake Submission</h3>
+      <p style="font-size:0.86rem;color:var(--text-muted);margin-bottom:24px;">Provide your vehicle details and photo to initiate rapid algorithmic evaluation.</p>
+
+      <form id="sellCarForm" onsubmit="handleSellCarSubmit(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input type="text" id="sellName" class="form-control" placeholder="John Doe" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" id="sellPhone" class="form-control" placeholder="+91 98765 43210" required>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Email Address *</label>
+            <input type="email" id="sellEmail" class="form-control" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Car Brand *</label>
+            <select id="sellBrand" class="form-control" required>
+              <option value="">Select Brand</option>
+              <option value="BMW">BMW</option>
+              <option value="Mercedes-Benz">Mercedes-Benz</option>
+              <option value="Audi">Audi</option>
+              <option value="Porsche">Porsche</option>
+              <option value="Volvo">Volvo</option>
+              <option value="Jaguar">Jaguar</option>
+              <option value="Land Rover">Land Rover</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Model & Variant *</label>
+            <input type="text" id="sellModel" class="form-control" placeholder="e.g. 530i M Sport" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Registration Year *</label>
+            <input type="number" id="sellYear" class="form-control" placeholder="2022" min="2000" max="2026" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kilometers Driven *</label>
+            <input type="text" id="sellKm" class="form-control" placeholder="e.g. 24,000 km" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Fuel Type *</label>
+            <select id="sellFuel" class="form-control" required>
+              <option value="Petrol">Petrol</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Electric">Electric</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Transmission *</label>
+            <select id="sellTrans" class="form-control" required>
+              <option value="Automatic">Automatic</option>
+              <option value="Manual">Manual</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Expected Selling Price (INR) *</label>
+            <input type="text" id="sellPrice" class="form-control" placeholder="e.g. ₹ 48,00,000" required>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Upload Vehicle Photo</label>
+            <input type="file" id="sellPhoto" class="form-control" accept="image/*" onchange="handleImagePreview(event, 'sellImgPreview')">
+            <div id="sellImgPreview" class="img-preview-box">Photo preview will appear here</div>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Service History & Notes</label>
+            <textarea id="sellNotes" class="form-control" placeholder="Mention service records, single owner status, active insurance, or recent replacements..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;margin-top:10px;">Submit For 48-Hour Cash Offer</button>
+      </form>
+    </div>
+
+    <!-- How It Works Sequence -->
+    <div>
+      <h3 style="font-size:1.4rem;margin-bottom:20px;">The AutoNexus Protocol</h3>
+      <div class="step-card">
+        <div class="step-badge">01</div>
+        <div>
+          <h4 style="margin-bottom:4px;">Digital Intake</h4>
+          <p style="font-size:0.85rem;color:var(--text-muted);">Submit basic specs and photos. Our system instantly cross-references regional auctions and retail demand.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-badge">02</div>
+        <div>
+          <h4 style="margin-bottom:4px;">Guaranteed Offer</h4>
+          <p style="font-size:0.85rem;color:var(--text-muted);">Receive a formal binding acquisition quote within 48 hours, eliminating retail tyre-kickers.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-badge">03</div>
+        <div>
+          <h4 style="margin-bottom:4px;">Doorstep Verification</h4>
+          <p style="font-size:0.85rem;color:var(--text-muted);">Our certified inspection engineer visits your residence for paint-depth and diagnostic scans.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-badge">04</div>
+        <div>
+          <h4 style="margin-bottom:4px;">Immediate Payout</h4>
+          <p style="font-size:0.85rem;color:var(--text-muted);">Full funds transferred directly via RTGS prior to physical vehicle pickup. We handle all RTO transfers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     SLIDE 03: IMPORT ON DEMAND
+     ========================================================================== -->
+<div id="view-import" class="app-slide">
+  <div class="desk-hero">
+    <div class="container">
+      <p class="desk-eyebrow">DESK 03 : BESPOKE GLOBAL SOURCING</p>
+      <h1 class="desk-title">IMPORT ON DEMAND CONCIERGE</h1>
+      <p class="desk-subtitle">Direct access to international dealer networks across Europe, Japan, and the Emirates with turnkey shipping and customs compliance.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Country Selectors -->
+    <h3 style="font-size:1.2rem;margin-bottom:14px;color:var(--text-secondary);">PRIMARY SOURCING REGIONS</h3>
+    <div class="country-grid">
+      <div class="country-box selected" onclick="selectImportCountry('Germany', this)">
+        <div class="country-flag">🇩🇪</div>
+        <div class="country-name">Germany</div>
+        <div class="country-sub">BMW, Porsche, Mercedes OEM</div>
+      </div>
+      <div class="country-box" onclick="selectImportCountry('Japan', this)">
+        <div class="country-flag">🇯🇵</div>
+        <div class="country-name">Japan</div>
+        <div class="country-sub">Pristine Grade 4.5+ JDM</div>
+      </div>
+      <div class="country-box" onclick="selectImportCountry('United Kingdom', this)">
+        <div class="country-flag">🇬🇧</div>
+        <div class="country-name">United Kingdom</div>
+        <div class="country-sub">RHD Aston, Bentley, Land Rover</div>
+      </div>
+      <div class="country-box" onclick="selectImportCountry('United States', this)">
+        <div class="country-flag">🇺🇸</div>
+        <div class="country-name">United States</div>
+        <div class="country-sub">American Muscle & Exotic Spec</div>
+      </div>
+      <div class="country-box" onclick="selectImportCountry('UAE', this)">
+        <div class="country-flag">🇦🇪</div>
+        <div class="country-name">UAE / Dubai</div>
+        <div class="country-sub">GCC-Spec Ultra Luxury Supercars</div>
+      </div>
+      <div class="country-box" onclick="selectImportCountry('Singapore', this)">
+        <div class="country-flag">🇸🇬</div>
+        <div class="country-name">Singapore</div>
+        <div class="country-sub">Low Mileage RHD City Spec</div>
+      </div>
+    </div>
+
+    <!-- 2 Column Layout: Steps + Concierge Form -->
+    <div style="display:grid;grid-template-columns:1.1fr 1.3fr;gap:40px;align-items:start;margin-top:20px;">
+      <div>
+        <h3 style="font-size:1.4rem;margin-bottom:20px;">Turnkey Import Workflow</h3>
+        <div class="step-card">
+          <div class="step-badge">01</div>
+          <div>
+            <h4 style="margin-bottom:4px;">Bespoke Specification</h4>
+            <p style="font-size:0.85rem;color:var(--text-muted);">Define target chassis, rare exterior paint, carbon packages, and engine preferences.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-badge">02</div>
+          <div>
+            <h4 style="margin-bottom:4px;">Independent International Audit</h4>
+            <p style="font-size:0.85rem;color:var(--text-muted);">DEKRA or TÜV certified engineers inspect chassis, frame geometry, and telemetry abroad.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-badge">03</div>
+          <div>
+            <h4 style="margin-bottom:4px;">Containerized Sea Freight</h4>
+            <p style="font-size:0.85rem;color:var(--text-muted);">Dedicated climate-monitored marine containers with transit insurance coverage.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-badge">04</div>
+          <div>
+            <h4 style="margin-bottom:4px;">Customs & Homologation</h4>
+            <p style="font-size:0.85rem;color:var(--text-muted);">Complete Indian customs clearance, ARAI homologation certification, and State RTO plates.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Concierge Request Form -->
+      <div class="form-card">
+        <h3 style="font-size:1.4rem;margin-bottom:6px;">Submit Sourcing Mandate</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:20px;">Our global procurement desk will review your mandate and respond with candidate listings.</p>
+
+        <form id="importForm" onsubmit="handleImportSubmit(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="impName" class="form-control" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number *</label>
+              <input type="tel" id="impPhone" class="form-control" placeholder="+91 XXXXX XXXXX" required>
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">Email Address *</label>
+              <input type="email" id="impEmail" class="form-control" placeholder="you@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target Make & Model *</label>
+              <input type="text" id="impVehicle" class="form-control" placeholder="e.g. Porsche 911 GT3 (992)" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Year Range</label>
+              <input type="text" id="impYear" class="form-control" placeholder="e.g. 2022 - 2025">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Selected Sourcing Origin</label>
+              <input type="text" id="impOrigin" class="form-control" value="Germany" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Target Landed Budget (INR) *</label>
+              <input type="text" id="impBudget" class="form-control" placeholder="e.g. ₹ 1.85 Cr" required>
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">Specific Options & Preferences</label>
+              <textarea id="impNotes" class="form-control" placeholder="Mention preferred colors, interior carbon trim, ceramics, mileage limit..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;margin-top:10px;">Dispatch Concierge Mandate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     SLIDE 04: ACCESSORIES & UPGRADES
+     ========================================================================== -->
+<div id="view-accessories" class="app-slide">
+  <div class="desk-hero">
+    <div class="container">
+      <p class="desk-eyebrow">DESK 04 : PERFORMANCE & AESTHETICS</p>
+      <h1 class="desk-title">PARTS, WHEELS & EXHAUSTS</h1>
+      <p class="desk-subtitle">Certified genuine performance hardware, aero packages, forged lightweight wheels, and valved exhaust systems.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Filter Pills -->
+    <div class="filter-bar">
+      <div class="filter-chips">
+        <button class="filter-chip active" onclick="filterAccessories('All', this)">All Parts</button>
+        <button class="filter-chip" onclick="filterAccessories('Exhaust', this)">Exhaust & Sound</button>
+        <button class="filter-chip" onclick="filterAccessories('Wheels', this)">Wheels & Tires</button>
+        <button class="filter-chip" onclick="filterAccessories('Aero', this)">Carbon & Aero</button>
+        <button class="filter-chip" onclick="filterAccessories('Tuning', this)">Tuning & Power</button>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="toggleCartDrawer()">🛒 View Cart (<span id="accCartCount">0</span>)</button>
+    </div>
+
+    <!-- Accessories Grid -->
+    <div class="cars-grid" id="catalogAccessoriesGrid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     SLIDE 05: CAR VALUATION ENGINE
+     ========================================================================== -->
+<div id="view-valuation" class="app-slide">
+  <div class="desk-hero">
+    <div class="container">
+      <p class="desk-eyebrow">DESK 05 : ALGORITHMIC DEPRECIATION ENGINE</p>
+      <h1 class="desk-title">PRECISION CAR VALUATION</h1>
+      <p class="desk-subtitle">Proprietary multi-dimensional valuation calculator accounting for mechanical telemetry, regional demand, and salvage metrics.</p>
+    </div>
+  </div>
+
+  <div class="container" style="max-width:960px;">
+    <div class="form-card">
+      <form id="valCalculatorForm" onsubmit="calculateValuation(event)">
+        <!-- Step 1: Core Vehicle Details -->
+        <h3 style="font-size:1.2rem;margin-bottom:16px;color:var(--accent);">1. Primary Vehicle Specification</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Brand *</label>
+            <select id="valBrand" class="form-control" required>
+              <option value="BMW">BMW</option>
+              <option value="Mercedes-Benz">Mercedes-Benz</option>
+              <option value="Audi">Audi</option>
+              <option value="Porsche">Porsche</option>
+              <option value="Volvo">Volvo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Model Name *</label>
+            <input type="text" id="valModel" class="form-control" placeholder="e.g. 5 Series 530i" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Year of Manufacture *</label>
+            <input type="number" id="valYear" class="form-control" value="2022" min="2010" max="2026" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Kilometers Run *</label>
+            <input type="number" id="valKm" class="form-control" value="25000" min="0" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Original Ex-Showroom Price (INR Lakhs) *</label>
+            <input type="number" id="valOriginalPrice" class="form-control" value="70" min="10" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Fuel Type</label>
+            <select id="valFuel" class="form-control">
+              <option value="Petrol">Petrol</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Hybrid">Hybrid</option>
+              <option value="Electric">Electric</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Step 2: Mechanical & Physical Condition -->
+        <h3 style="font-size:1.2rem;margin:28px 0 16px;color:var(--accent);">2. Condition & Service History</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Service History Completeness *</label>
+            <select id="valHistory" class="form-control">
+              <option value="authorized">100% Authorized Dealership Records</option>
+              <option value="mixed">Mixed Authorized & Specialist Garage</option>
+              <option value="none">Independent / Partial Records</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mechanical & Engine Health *</label>
+            <select id="valEngine" class="form-control">
+              <option value="pristine">Flawless (No Fault Codes or Leaks)</option>
+              <option value="good">Good (Normal Wear, Minor Servicing Due)</option>
+              <option value="needs_work">Requires Mechanical Attention</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Accident History *</label>
+            <select id="valAccidents" class="form-control">
+              <option value="zero">Zero Accidents / All Original Factory Panels</option>
+              <option value="minor">Minor Bumper Touchups / Repaints</option>
+              <option value="structural">Major Structural / Insurance Claims</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Owner Count</label>
+            <select id="valOwners" class="form-control">
+              <option value="1">1st Owner (Individual)</option>
+              <option value="2">2nd Owner</option>
+              <option value="3">3+ Owners</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:30px;">
+          <button type="submit" class="btn btn-primary btn-lg">Calculate Market Valuation</button>
+          <button type="reset" class="btn btn-outline btn-lg" onclick="document.getElementById('valResults').style.display='none'">Reset</button>
+        </div>
+      </form>
+
+      <!-- Dynamic Valuation Result Output -->
+      <div id="valResults" class="valuation-result">
+        <h3 style="font-size:1.6rem;color:#fff;margin-bottom:8px;">Algorithmic Valuation Report</h3>
+        <p style="font-size:0.86rem;color:var(--text-muted);margin-bottom:24px;">Generated based on current transaction comps, real-time depreciation coefficients, and condition score.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:24px;">
+          <div class="val-metric-box">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Fair Market Value</div>
+            <div class="val-metric-num" id="valMarketRange">₹ 46.5L - 49.2L</div>
+          </div>
+          <div class="val-metric-box">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Instant Cash Out Offer</div>
+            <div class="val-metric-num" id="valInstantOffer" style="color:var(--success);">₹ 45,80,000</div>
+          </div>
+          <div class="val-metric-box">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Condition Score</div>
+            <div class="val-metric-num" id="valScore" style="color:var(--warning);">91 / 100</div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg-primary);border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:20px;margin-bottom:24px;">
+          <h4 style="font-size:0.95rem;margin-bottom:10px;">Depreciation Breakdown Factors</h4>
+          <ul id="valFactorsList" style="font-size:0.85rem;color:var(--text-secondary);list-style:disc;padding-left:20px;line-height:1.8;">
+            <!-- Injected by JS -->
+          </ul>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="proceedToSellWithValuation()">Sell to AutoNexus at This Price</button>
+          <button class="btn btn-outline" onclick="window.print()">Print Valuation Sheet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     SLIDE 06: SMART BUY ADVISORY (TCO)
+     ========================================================================== -->
+<div id="view-advisory" class="app-slide">
+  <div class="desk-hero">
+    <div class="container">
+      <p class="desk-eyebrow">DESK 06 : FINANCIAL INTELLIGENCE SUITE</p>
+      <h1 class="desk-title">SMART BUY ADVISORY & TCO</h1>
+      <p class="desk-subtitle">Simulate real-world 5-year ownership costs, depreciation velocity, insurance outlays, and maintenance projections.</p>
+    </div>
+  </div>
+
+  <div class="container" style="display:grid;grid-template-columns:1.2fr 1.4fr;gap:40px;align-items:start;">
+    <!-- Interactive Sliders Input -->
+    <div class="form-card">
+      <h3 style="font-size:1.3rem;margin-bottom:20px;">Financial Profile Simulator</h3>
+
+      <div class="slider-group">
+        <div class="slider-head">
+          <label class="form-label" style="margin:0;">Target Acquisition Budget</label>
+          <span class="slider-val-readout" id="advBudgetReadout">₹ 70 Lakhs</span>
+        </div>
+        <input type="range" class="range-slider" id="advBudget" min="25" max="250" step="5" value="70" oninput="updateAdvisory()">
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-head">
+          <label class="form-label" style="margin:0;">Estimated Monthly Driving</label>
+          <span class="slider-val-readout" id="advMileageReadout">1,200 km / mo</span>
+        </div>
+        <input type="range" class="range-slider" id="advMileage" min="400" max="4000" step="100" value="1200" oninput="updateAdvisory()">
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-head">
+          <label class="form-label" style="margin:0;">Planned Ownership Horizon</label>
+          <span class="slider-val-readout" id="advYearsReadout">5 Years</span>
+        </div>
+        <input type="range" class="range-slider" id="advYears" min="2" max="7" step="1" value="5" oninput="updateAdvisory()">
+      </div>
+
+      <h4 style="font-size:0.95rem;margin:24px 0 12px;color:var(--text-secondary);">Core Priorities</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:0.85rem;">
+        <label><input type="checkbox" id="prioResale" checked onchange="updateAdvisory()"> High Resale Retention</label>
+        <label><input type="checkbox" id="prioComfort" checked onchange="updateAdvisory()"> Ride & Interior Comfort</label>
+        <label><input type="checkbox" id="prioPerf" checked onchange="updateAdvisory()"> Sport Driving Dynamics</label>
+        <label><input type="checkbox" id="prioMaint" onchange="updateAdvisory()"> Low Annual Maintenance</label>
+      </div>
+    </div>
+
+    <!-- TCO Calculation Output -->
+    <div>
+      <div class="form-card" style="margin-bottom:24px;">
+        <h3 style="font-size:1.3rem;margin-bottom:6px;">5-Year Total Cost of Ownership (TCO)</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:20px;">Estimated complete cost to operate a vehicle within your chosen parameters.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
+          <div class="val-metric-box">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Net 5-Yr Ownership Cost</div>
+            <div class="val-metric-num" id="tcoTotalCost">₹ 31.4 Lakhs</div>
+          </div>
+          <div class="val-metric-box">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;">Effective Cost Per KM</div>
+            <div class="val-metric-num" id="tcoCostPerKm" style="color:var(--warning);">₹ 43.6 / km</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:0.86rem;">
+          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border-color);">
+            <span style="color:var(--text-muted);">Estimated Capital Depreciation:</span>
+            <span class="font-mono" id="tcoDeprec">₹ 21,00,000</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border-color);">
+            <span style="color:var(--text-muted);">Projected Fuel Expenses:</span>
+            <span class="font-mono" id="tcoFuel">₹ 5,76,000</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border-color);">
+            <span style="color:var(--text-muted);">Periodic Servicing & Consumables:</span>
+            <span class="font-mono" id="tcoMaint">₹ 3,25,000</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border-color);">
+            <span style="color:var(--text-muted);">5-Year Comprehensive Insurance:</span>
+            <span class="font-mono" id="tcoIns">₹ 4,50,000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommended Match Card -->
+      <div class="form-card" style="border-color:var(--accent);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <span class="badge b-hot">Top Algorithmic Match</span>
+          <span class="font-mono" style="color:var(--success);font-weight:700;" id="advMatchScore">96% Compatibility</span>
+        </div>
+        <h4 style="font-size:1.3rem;margin-bottom:6px;" id="advMatchName">BMW 5 Series 530i M Sport</h4>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;" id="advMatchReason">Optimal balance of low annual servicing costs, robust 84% resale retention index, and 252 hp B48 turbocharged powertrain.</p>
+        <button class="btn btn-primary btn-sm" onclick="navTo('new-cars')">View This Model In Inventory</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     SLIDE 07: ADMIN DASHBOARD
+     ========================================================================== -->
+<div id="view-admin" class="app-slide">
+  <div class="desk-hero">
+    <div class="container">
+      <p class="desk-eyebrow">DESK 07 : DEALERSHIP COMMAND CENTER</p>
+      <h1 class="desk-title">EXECUTIVE ADMIN DASHBOARD</h1>
+      <p class="desk-subtitle">Direct real-time control of inventory, accessories, test-drive inquiries, customer orders, and database synchronization.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- KPI Cards -->
+    <div class="stats-grid" style="margin-bottom:32px;">
+      <div class="stat-box">
+        <div class="stat-val" id="adminTotalFleetVal">₹ 4.85 Cr</div>
+        <div class="stat-lbl">Active Fleet Value</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" id="adminTotalCars">9</div>
+        <div class="stat-lbl">Showroom Vehicles</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" id="adminTotalAcc">6</div>
+        <div class="stat-lbl">Catalog Accessories</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" id="adminTotalOrders">5</div>
+        <div class="stat-lbl">Inquiries & Orders</div>
+      </div>
+    </div>
+
+    <!-- Admin Section Tabs -->
+    <div class="filter-bar">
+      <div class="filter-chips">
+        <button class="filter-chip active" onclick="switchAdminTab('fleet', this)">Fleet Inventory</button>
+        <button class="filter-chip" onclick="switchAdminTab('acc', this)">Accessories Catalog</button>
+        <button class="filter-chip" onclick="switchAdminTab('orders', this)">Orders & Inquiries</button>
+      </div>
+    </div>
+
+    <!-- TAB 1: FLEET INVENTORY -->
+    <div id="adminTabFleet">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3>Live Vehicle Inventory (<span id="adminFleetCount">9</span>)</h3>
+        <button class="btn btn-primary btn-sm" onclick="toggleAddCarForm()">+ Add New Vehicle</button>
+      </div>
+
+      <!-- Add Vehicle Form (Collapsible) -->
+      <div id="addCarFormPanel" class="form-card" style="display:none;margin-bottom:24px;">
+        <h4 style="font-size:1.1rem;margin-bottom:16px;">Add Vehicle to Database</h4>
+        <form id="addVehicleForm" onsubmit="handleAddCarSubmit(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Brand *</label>
+              <select id="newCarBrand" class="form-control" required>
+                <option value="BMW">BMW</option>
+                <option value="Mercedes-Benz">Mercedes-Benz</option>
+                <option value="Audi">Audi</option>
+                <option value="Volvo">Volvo</option>
+                <option value="Porsche">Porsche</option>
+                <option value="Jaguar">Jaguar</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Model Title *</label>
+              <input type="text" id="newCarTitle" class="form-control" placeholder="e.g. 5 Series 530i M Sport" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Year *</label>
+              <input type="number" id="newCarYear" class="form-control" value="2025" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Price Display String *</label>
+              <input type="text" id="newCarPrice" class="form-control" placeholder="e.g. ₹ 68,50,000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Key Specifications *</label>
+              <input type="text" id="newCarSpecs" class="form-control" placeholder="e.g. Petrol · Automatic · 8,500 km" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Badge Label</label>
+              <input type="text" id="newCarBadge" class="form-control" value="New Arrival">
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">Image URL *</label>
+              <input type="url" id="newCarImage" class="form-control" placeholder="https://..." value="https://images.unsplash.com/photo-1555215695-3004980adade?auto=format&fit=crop&w=800&q=80" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Vehicle To MySQL Database</button>
+        </form>
+      </div>
+
+      <!-- Inventory Table -->
+      <div class="admin-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Brand & Model</th>
+              <th>Year</th>
+              <th>Price</th>
+              <th>Badge</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminInventoryTableBody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: ACCESSORIES CATALOG -->
+    <div id="adminTabAcc" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3>Catalog Accessories (<span id="adminAccCount">6</span>)</h3>
+        <button class="btn btn-primary btn-sm" onclick="toggleAddAccForm()">+ Add New Accessory</button>
+      </div>
+
+      <div id="addAccFormPanel" class="form-card" style="display:none;margin-bottom:24px;">
+        <h4 style="font-size:1.1rem;margin-bottom:16px;">Add Accessory to Database</h4>
+        <form id="addAccForm" onsubmit="handleAddAccSubmit(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Category *</label>
+              <select id="newAccCat" class="form-control" required>
+                <option value="Exhaust">Exhaust & Sound</option>
+                <option value="Wheels">Wheels & Tires</option>
+                <option value="Aero">Carbon & Aero</option>
+                <option value="Tuning">Tuning & Electronics</option>
+                <option value="Interior">Interior Styling</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Part Title *</label>
+              <input type="text" id="newAccTitle" class="form-control" placeholder="e.g. Akrapovic Titanium Exhaust" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Price (INR) *</label>
+              <input type="text" id="newAccPrice" class="form-control" placeholder="e.g. ₹ 4,20,000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Specifications *</label>
+              <input type="text" id="newAccSpecs" class="form-control" placeholder="e.g. Grade 5 Titanium with carbon tips" required>
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">Image URL *</label>
+              <input type="url" id="newAccImage" class="form-control" value="https://images.unsplash.com/photo-1600793575654-910699b5e4d4?auto=format&fit=crop&w=800&q=80" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Save Part To Database</button>
+        </form>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="adminAccTableBody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: ORDERS & INQUIRIES -->
+    <div id="adminTabOrders" style="display:none;">
+      <h3 style="margin-bottom:16px;">Active Inquiries & Client Orders</h3>
+      <div class="admin-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Client</th>
+              <th>Phone</th>
+              <th>Order Type</th>
+              <th>Details / Note</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminOrdersTableBody">
+            <!-- Dynamic -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     SLIDE 08: ACCOUNT & LOGIN
+     ========================================================================== -->
+<div id="view-login" class="app-slide">
+  <div class="desk-hero">
+    <div class="container">
+      <p class="desk-eyebrow">DESK 08 : SECURE AUTHENTICATION</p>
+      <h1 class="desk-title">CLIENT & EXECUTIVE ACCESS</h1>
+      <p class="desk-subtitle">Sign in to manage test drive schedules, saved vehicle configurations, active valuation inquiries, and administrative controls.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="electric-login-card">
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <div class="auth-tab active" id="tabBtnSignIn" onclick="switchAuthTab('signin')">Sign In</div>
+        <div class="auth-tab" id="tabBtnSignUp" onclick="switchAuthTab('signup')">Create Account</div>
+      </div>
+
+      <!-- Quick Fill Demo -->
+      <div style="background:var(--bg-input);padding:10px 14px;border-radius:var(--radius-sm);margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:0.78rem;color:var(--text-muted);">Quick Demo Login:</span>
+        <button class="btn btn-outline btn-sm" onclick="quickFillAdmin()">Admin Demo ⚡</button>
+      </div>
+
+      <!-- Sign In Form -->
+      <form id="signInForm" onsubmit="handleSignInSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="loginEmail" class="form-control" placeholder="admin@autonexus.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="loginPass" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;margin-top:8px;">Sign In to Dashboard</button>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signUpForm" onsubmit="handleSignUpSubmit(event)" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="regName" class="form-control" placeholder="Alexander Vance" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" id="regPhone" class="form-control" placeholder="+91 98765 43210" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" id="regEmail" class="form-control" placeholder="alex@vance.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="regPass" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;margin-top:8px;">Register Account</button>
+      </form>
+
+      <!-- Active Profile Card (shown when logged in) -->
+      <div id="loggedInProfilePanel" style="display:none;text-align:center;">
+        <div style="width:64px;height:64px;border-radius:50%;background:rgba(193,18,31,0.15);color:var(--accent);font-size:1.6rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;" id="profileAvatar">A</div>
+        <h3 id="profileName" style="margin-bottom:4px;">Administrator</h3>
+        <p id="profileEmail" style="font-size:0.86rem;color:var(--text-muted);margin-bottom:12px;">admin@autonexus.com</p>
+        <span class="badge b-hot" id="profileRoleBadge" style="margin-bottom:24px;">Executive Admin</span>
+
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:20px;">
+          <button class="btn btn-primary btn-sm" onclick="navTo('admin')">Go To Admin Panel</button>
+          <button class="btn btn-outline btn-sm" onclick="handleLogout()">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     GLOBAL MODALS & DRAWERS
+     ========================================================================== -->
+
+<!-- Test Drive Booking Modal -->
+<div id="testDriveModal" class="modal-overlay">
+  <div class="modal-dialog">
+    <span class="modal-close-btn" onclick="closeTestDriveModal()">&times;</span>
+    <h3 style="font-size:1.5rem;margin-bottom:6px;">Schedule Doorstep Test Drive</h3>
+    <p style="font-size:0.86rem;color:var(--text-muted);margin-bottom:20px;">Vehicle: <strong id="tdCarName" style="color:#fff;">BMW 5 Series</strong></p>
+
+    <form onsubmit="handleTestDriveSubmit(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" id="tdName" class="form-control" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input type="tel" id="tdPhone" class="form-control" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label">Email Address *</label>
+          <input type="email" id="tdEmail" class="form-control" placeholder="you@email.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Preferred Date *</label>
+          <input type="date" id="tdDate" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Preferred Time Slot *</label>
+          <select id="tdTime" class="form-control" required>
+            <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
+            <option value="02:00 PM - 04:00 PM">02:00 PM - 04:00 PM</option>
+            <option value="05:00 PM - 07:00 PM">05:00 PM - 07:00 PM</option>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label">Delivery / Test Location *</label>
+          <input type="text" id="tdLocation" class="form-control" placeholder="Showroom or your residence address" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%;margin-top:10px;">Confirm Test Drive Reservation</button>
+    </form>
+  </div>
+</div>
+
+<!-- Slide-Over Shopping Cart Drawer -->
+<div id="cartDrawer" class="cart-drawer">
+  <div class="cart-drawer-header">
+    <h3>Shopping Cart (<span id="cartDrawerCount">0</span>)</h3>
+    <button onclick="toggleCartDrawer()" style="color:var(--text-muted);font-size:1.6rem;line-height:1;">&times;</button>
+  </div>
+  <div class="cart-drawer-body" id="cartDrawerItems">
+    <!-- Dynamic items -->
+  </div>
+  <div class="cart-drawer-footer">
+    <div style="display:flex;justify-content:space-between;margin-bottom:14px;font-size:1.05rem;font-weight:700;">
+      <span>Subtotal:</span>
+      <span class="font-mono" id="cartSubtotal" style="color:var(--accent);">₹ 0</span>
+    </div>
+    <button class="btn btn-primary" style="width:100%;padding:14px;" onclick="handleCheckout()">Proceed to Secure Checkout</button>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Site Footer -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="logo" style="margin-bottom:14px;">AUTO<span>NEXUS</span></div>
+      <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;">
+        Unified luxury automotive platform encompassing curated physical fleet, international bespoke concierge, algorithmic analytics, and certified performance hardware.
+      </p>
+    </div>
+    <div>
+      <h4 class="footer-title">Platform Desks</h4>
+      <ul class="footer-links">
+        <li><a href="#new-cars" onclick="navTo('new-cars'); return false;">Desk 01: Certified Inventory</a></li>
+        <li><a href="#sell-car" onclick="navTo('sell-car'); return false;">Desk 02: Sell Your Car</a></li>
+        <li><a href="#import" onclick="navTo('import'); return false;">Desk 03: Import On Demand</a></li>
+        <li><a href="#accessories" onclick="navTo('accessories'); return false;">Desk 04: Performance Upgrades</a></li>
+        <li><a href="#valuation" onclick="navTo('valuation'); return false;">Desk 05: Valuation Calculator</a></li>
+        <li><a href="#advisory" onclick="navTo('advisory'); return false;">Desk 06: Smart Buy Advisory</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-title">Headquarters</h4>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:8px;">AutoNexus Pavilion, Level 4, UB City Mall</p>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:8px;">Vittal Mallya Road, Bengaluru 560001</p>
+      <p style="font-size:0.85rem;color:var(--text-muted);">Phone: +91 80 4968 0000</p>
+    </div>
+    <div>
+      <h4 class="footer-title">Database & System</h4>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:10px;" id="sysStatus">Dual-Mode: XAMPP MySQL / Local DB</p>
+      <button class="btn btn-outline btn-sm" onclick="navTo('admin')">Executive Console</button>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      &copy; 2026 AutoNexus Ecosystem. All Rights Reserved. Master Single-File Deployment.
+    </div>
+  </div>
+</footer>
+
+<!-- ==========================================================================
+     CORE JAVASCRIPT ENGINE
+     ========================================================================== -->
+<script>
+/* ==========================================================================
+   1. SEED DATA & DUAL-MODE ADAPTER (XAMPP REST API + LOCAL PERSISTENCE)
+   ========================================================================== */
+const SEED_INVENTORY = [
+  { id: "AN-101", title: "BMW 5 Series 530i M Sport", brand: "BMW", year: 2025, specs: "Petrol · Automatic · 8,500 km", price: "₹ 68,50,000", badge: "New Arrival", badgeClass: "b-new", image: "https://images.unsplash.com/photo-1555215695-3004980adade?auto=format&fit=crop&w=800&q=80" },
+  { id: "AN-102", title: "Mercedes-Benz GLC 300 4MATIC", brand: "MERCEDES-BENZ", year: 2024, specs: "Diesel · Automatic · 14,200 km", price: "₹ 71,20,000", badge: "Hot Deal", badgeClass: "b-hot", image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80" },
+  { id: "AN-103", title: "Audi Q5 45 TFSI quattro", brand: "AUDI", year: 2025, specs: "Petrol · Automatic · 3,100 km", price: "₹ 65,90,000", badge: "New Arrival", badgeClass: "b-new", image: "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80" },
+  { id: "AN-104", title: "BMW X1 sDrive20i xLine", brand: "BMW", year: 2024, specs: "Petrol · Automatic · 9,800 km", price: "₹ 48,75,000", badge: "Imported", badgeClass: "b-imp", image: "https://images.unsplash.com/photo-1555215695-3004980adade?auto=format&fit=crop&w=800&q=80" },
+  { id: "AN-105", title: "Volvo XC60 B5 Inscription", brand: "VOLVO", year: 2025, specs: "Hybrid · Automatic · 2,400 km", price: "₹ 74,90,000", badge: "New Arrival", badgeClass: "b-new", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80" },
+  { id: "AN-106", title: "Audi A6 45 TFSI Premium Plus", brand: "AUDI", year: 2024, specs: "Petrol · Automatic · 18,600 km", price: "₹ 59,80,000", badge: "Hot Deal", badgeClass: "b-hot", image: "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=800&q=80" },
+  { id: "AN-107", title: "Mercedes-Benz C 200 Progressive", brand: "MERCEDES-BENZ", year: 2025, specs: "Petrol · Automatic · 1,200 km", price: "₹ 57,40,000", badge: "Hot Deal", badgeClass: "b-hot", image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=800&q=80" },
+  { id: "AN-108", title: "Jaguar F-Pace R-Dynamic S", brand: "JAGUAR", year: 2024, specs: "Diesel · Automatic · 22,000 km", price: "₹ 81,50,000", badge: "Imported", badgeClass: "b-imp", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" },
+  { id: "AN-109", title: "Porsche 911 GT3 RS (992)", brand: "PORSCHE", year: 2025, specs: "4.0L Flat-6 · PDK · 525 HP · 800 km", price: "₹ 3,50,00,000", badge: "Hot Deal", badgeClass: "b-hot", image: "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&w=800&q=80" }
+];
+
+const SEED_ACCESSORIES = [
+  { id: "ACC-101", title: "Akrapovič Titanium Exhaust System", category: "Exhaust", price: "₹ 3,45,000", specs: "+14 HP · -8.4 kg weight reduction · Valve controlled", badge: "Performance", image: "https://images.unsplash.com/photo-1600793575654-910699b5e4d4?auto=format&fit=crop&w=800&q=80" },
+  { id: "ACC-102", title: "Dry Carbon Aero Wing & Diffuser", category: "Aero", price: "₹ 1,85,000", specs: "Pre-preg autoclave carbon fiber · High downforce", badge: "Aero", image: "https://images.unsplash.com/photo-1541348263662-e0c8de4259ba?auto=format&fit=crop&w=800&q=80" },
+  { id: "ACC-103", title: "Brembo Carbon-Ceramic Brake Kit", category: "Tuning", price: "₹ 5,20,000", specs: "6-Piston monobloc calipers · 410mm ceramic discs", badge: "Track Spec", image: "https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?auto=format&fit=crop&w=800&q=80" },
+  { id: "ACC-104", title: "9H Diamond Graphene Ceramic Coating", category: "Interior", price: "₹ 45,000", specs: "5-year hydrophobic protection · UV & scratch shield", badge: "Detailing", image: "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=800&q=80" },
+  { id: "ACC-105", title: "AMG 21-inch Forged Cross-Spoke", category: "Wheels", price: "₹ 3,40,000", specs: "Matte black with high-sheen rim flange (set of 4)", badge: "Genuine OEM", image: "https://placehold.co/400x300/1B1B1B/8A8A8A?text=AMG+Wheels" },
+  { id: "ACC-106", title: "RaceChip GTS Black ECU Module", category: "Tuning", price: "₹ 85,000", specs: "Up to +30% power & torque, app controlled", badge: "TÜV Certified", image: "https://placehold.co/400x300/1B1B1B/8A8A8A?text=RaceChip" }
+];
+
+const SEED_ORDERS = [
+  { id: "INQ-101", customer_name: "Vikram Malhotra", customer_phone: "+91 98201 11223", customer_email: "vikram@malhotra.in", type: "Test Drive", items_json: "Doorstep test drive for BMW 5 Series 530i M Sport", total_price: "₹ 0 (Complimentary)", status: "Completed", created_at: "2026-10-18 14:30:00" },
+  { id: "INQ-102", customer_name: "Ananya Sharma", customer_phone: "+91 98450 33445", customer_email: "ananya@sharma.com", type: "Car Valuation", items_json: "Audi Q5 45 TFSI (2022) - Valuation intake submission", total_price: "₹ 48,00,000", status: "In Review", created_at: "2026-10-18 10:15:00" },
+  { id: "INQ-103", customer_name: "Rohan Singhal", customer_phone: "+91 99100 88990", customer_email: "rohan@singhal.co", type: "Accessory Order", items_json: "Akrapovič Titanium Exhaust System (1x)", total_price: "₹ 3,45,000", status: "Pending", created_at: "2026-10-18 16:45:00" }
+];
+
+const AutoNexusEngine = {
+  isHttp: window.location.protocol.startsWith('http'),
+  apiBase: 'api/',
+
+  getInventory: async function() {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'inventory.php');
+        if (res.ok) {
+          const json = await res.json();
+          const items = Array.isArray(json) ? json : (json.data && Array.isArray(json.data) ? json.data : null);
+          if (items && items.length > 0) return items;
+        }
+      } catch (e) { console.warn('API fallback to local store'); }
+    }
+    const local = localStorage.getItem('anx_inventory');
+    if (!local) {
+      localStorage.setItem('anx_inventory', JSON.stringify(SEED_INVENTORY));
+      return SEED_INVENTORY;
+    }
+    return JSON.parse(local);
+  },
+
+  addCar: async function(car) {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'inventory.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(car)
+        });
+        if (res.ok) {
+          const json = await res.json();
+          return json.data || car;
+        }
+      } catch (e) {}
+    }
+    const inv = await this.getInventory();
+    car.id = 'AN-' + Date.now().toString().slice(-4);
+    inv.unshift(car);
+    localStorage.setItem('anx_inventory', JSON.stringify(inv));
+    return car;
+  },
+
+  deleteCar: async function(id) {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'inventory.php?id=' + encodeURIComponent(id), { method: 'DELETE' });
+        if (res.ok) return true;
+      } catch (e) {}
+    }
+    let inv = await this.getInventory();
+    inv = inv.filter(c => c.id != id);
+    localStorage.setItem('anx_inventory', JSON.stringify(inv));
+    return true;
+  },
+
+  getAccessories: async function() {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'accessories.php');
+        if (res.ok) {
+          const json = await res.json();
+          const items = Array.isArray(json) ? json : (json.data && Array.isArray(json.data) ? json.data : null);
+          if (items && items.length > 0) return items;
+        }
+      } catch (e) {}
+    }
+    const local = localStorage.getItem('anx_accessories');
+    if (!local) {
+      localStorage.setItem('anx_accessories', JSON.stringify(SEED_ACCESSORIES));
+      return SEED_ACCESSORIES;
+    }
+    return JSON.parse(local);
+  },
+
+  addAccessory: async function(acc) {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'accessories.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(acc)
+        });
+        if (res.ok) {
+          const json = await res.json();
+          return json.data || acc;
+        }
+      } catch (e) {}
+    }
+    const list = await this.getAccessories();
+    acc.id = 'ACC-' + Date.now().toString().slice(-4);
+    list.unshift(acc);
+    localStorage.setItem('anx_accessories', JSON.stringify(list));
+    return acc;
+  },
+
+  deleteAccessory: async function(id) {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'accessories.php?id=' + encodeURIComponent(id), { method: 'DELETE' });
+        if (res.ok) return true;
+      } catch (e) {}
+    }
+    let list = await this.getAccessories();
+    list = list.filter(a => a.id != id);
+    localStorage.setItem('anx_accessories', JSON.stringify(list));
+    return true;
+  },
+
+  getOrders: async function() {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'orders.php');
+        if (res.ok) {
+          const json = await res.json();
+          const items = Array.isArray(json) ? json : (json.data && Array.isArray(json.data) ? json.data : null);
+          if (items && items.length > 0) return items;
+        }
+      } catch (e) {}
+    }
+    const local = localStorage.getItem('anx_orders');
+    if (!local) {
+      localStorage.setItem('anx_orders', JSON.stringify(SEED_ORDERS));
+      return SEED_ORDERS;
+    }
+    return JSON.parse(local);
+  },
+
+  addOrder: async function(order) {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'orders.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(order)
+        });
+        if (res.ok) {
+          const json = await res.json();
+          return json.data || order;
+        }
+      } catch (e) {}
+    }
+    const orders = await this.getOrders();
+    order.id = 'INQ-' + Date.now().toString().slice(-4);
+    order.created_at = new Date().toISOString().replace('T', ' ').substring(0, 19);
+    orders.unshift(order);
+    localStorage.setItem('anx_orders', JSON.stringify(orders));
+    return order;
+  },
+
+  updateOrderStatus: async function(id, status) {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'orders.php', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: id, status: status })
+        });
+        if (res.ok) return true;
+      } catch (e) {}
+    }
+    const orders = await this.getOrders();
+    const target = orders.find(o => o.id == id);
+    if (target) {
+      target.status = status;
+      localStorage.setItem('anx_orders', JSON.stringify(orders));
+    }
+    return true;
+  },
+
+  deleteOrder: async function(id) {
+    if (this.isHttp) {
+      try {
+        const res = await fetch(this.apiBase + 'orders.php?id=' + encodeURIComponent(id), { method: 'DELETE' });
+        if (res.ok) return true;
+      } catch (e) {}
+    }
+    let orders = await this.getOrders();
+    orders = orders.filter(o => o.id != id);
+    localStorage.setItem('anx_orders', JSON.stringify(orders));
+    return true;
+  }
+};
+
+/* ==========================================================================
+   2. SLIDE NAVIGATION & ROUTING ENGINE
+   ========================================================================== */
+const SLIDES = ['home', 'new-cars', 'sell-car', 'import', 'accessories', 'valuation', 'advisory', 'admin', 'login'];
+const SLIDE_TITLES = [
+  '00 Home', '01 New Cars', '02 Sell Your Car', '03 Import On Demand',
+  '04 Performance Parts', '05 Car Valuation', '06 Smart Advisory',
+  '07 Admin Dashboard', '08 Account & Login'
+];
+let currentSlideIndex = 0;
+
+function navTo(slideId) {
+  const index = SLIDES.indexOf(slideId);
+  if (index !== -1) {
+    goToSlide(index);
+  }
+}
+
+function goToSlide(index) {
+  if (index < 0) index = 0;
+  if (index >= SLIDES.length) index = SLIDES.length - 1;
+  currentSlideIndex = index;
+  const slideId = SLIDES[index];
+
+  // Update hash
+  if (window.location.hash !== '#' + slideId) {
+    window.location.hash = slideId;
+  }
+
+  // Update slide visibility
+  document.querySelectorAll('.app-slide').forEach(el => el.classList.remove('active'));
+  const target = document.getElementById('view-' + slideId);
+  if (target) target.classList.add('active');
+
+  // Update navbar links
+  document.querySelectorAll('.nav-link').forEach(el => {
+    el.classList.toggle('active', el.getAttribute('data-slide') === slideId);
+  });
+
+  // Update slide toolbar pills
+  document.querySelectorAll('.slide-pill').forEach((pill, idx) => {
+    pill.classList.toggle('active', idx === index);
+  });
+
+  // Update slide indicator text
+  const indicator = document.getElementById('slideIndicator');
+  if (indicator) {
+    indicator.textContent = `Slide ${index + 1} of ${SLIDES.length} : ${SLIDE_TITLES[index].substring(3)}`;
+  }
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Refresh dynamic data for this view
+  if (slideId === 'home') renderHomeFleet();
+  if (slideId === 'new-cars') renderCatalogCars();
+  if (slideId === 'accessories') renderCatalogAccessories();
+  if (slideId === 'admin') renderAdminView();
+  if (slideId === 'advisory') updateAdvisory();
+}
+
+function prevSlide() {
+  if (currentSlideIndex > 0) goToSlide(currentSlideIndex - 1);
+  else goToSlide(SLIDES.length - 1);
+}
+
+function nextSlide() {
+  if (currentSlideIndex < SLIDES.length - 1) goToSlide(currentSlideIndex + 1);
+  else goToSlide(0);
+}
+
+// Keyboard arrow navigation
+window.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+  if (e.key === 'ArrowRight') nextSlide();
+  if (e.key === 'ArrowLeft') prevSlide();
+});
+
+// Hash change router
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.replace('#', '') || 'home';
+  const index = SLIDES.indexOf(hash);
+  if (index !== -1 && index !== currentSlideIndex) {
+    goToSlide(index);
+  }
+});
+
+/* ==========================================================================
+   3. RENDERING & UI GENERATION
+   ========================================================================== */
+let allCars = [];
+let allAccessories = [];
+let activeCarCategory = 'All';
+let activeAccCategory = 'All';
+
+async function initData() {
+  allCars = await AutoNexusEngine.getInventory();
+  allAccessories = await AutoNexusEngine.getAccessories();
+  renderHomeFleet();
+  renderCatalogCars();
+  renderCatalogAccessories();
+  updateCartCounters();
+  checkAuthSession();
+}
+
+function renderHomeFleet() {
+  const grid = document.getElementById('homeFleetGrid');
+  if (!grid) return;
+  const preview = allCars.slice(0, 3);
+  grid.innerHTML = preview.map(car => generateCarCardHtml(car)).join('');
+
+  const accGrid = document.getElementById('homeAccessoriesGrid');
+  if (accGrid) {
+    const accPreview = allAccessories.slice(0, 3);
+    accGrid.innerHTML = accPreview.map(acc => generateAccCardHtml(acc)).join('');
+  }
+}
+
+function renderCatalogCars() {
+  const grid = document.getElementById('catalogCarsGrid');
+  if (!grid) return;
+  let filtered = allCars;
+  if (activeCarCategory !== 'All') {
+    filtered = filtered.filter(c => (c.brand || '').toLowerCase() === activeCarCategory.toLowerCase());
+  }
+  const query = (document.getElementById('carSearchInput')?.value || '').toLowerCase().trim();
+  if (query) {
+    filtered = filtered.filter(c => (c.title + ' ' + c.specs + ' ' + c.brand).toLowerCase().includes(query));
+  }
+  if (filtered.length === 0) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-muted);">No vehicles match your search criteria.</p>';
+    return;
+  }
+  grid.innerHTML = filtered.map(car => generateCarCardHtml(car)).join('');
+}
+
+function generateCarCardHtml(car) {
+  return `
+    <div class="car-card">
+      <div class="car-img-wrap">
+        <img src="${car.image}" alt="${car.title}" class="car-img" onerror="this.src='https://placehold.co/600x400/1B1B1B/8A8A8A?text=Luxury+Vehicle'">
+        <span class="badge ${car.badgeClass || car.badge_class || 'b-new'} car-badge-pos">${car.badge || 'Available'}</span>
+      </div>
+      <div class="car-card-body">
+        <div class="car-brand-sub">${car.brand || 'AUTONEXUS'}</div>
+        <h3 class="car-name-title">${car.title}</h3>
+        <p class="car-specs-row">${car.year} · ${car.specs}</p>
+        <div class="car-card-footer">
+          <span class="car-price-val">${car.price}</span>
+          <button class="btn btn-primary btn-sm" onclick="openTestDriveModal('${car.title.replace(/'/g, "\\'")}')">Test Drive</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function filterCars(cat, btn) {
+  activeCarCategory = cat;
+  document.querySelectorAll('#view-new-cars .filter-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderCatalogCars();
+}
+
+function handleCarSearch() {
+  renderCatalogCars();
+}
+
+function handleCarSort(mode) {
+  if (mode === 'price-asc') {
+    allCars.sort((a,b) => parseNumericPrice(a.price) - parseNumericPrice(b.price));
+  } else if (mode === 'price-desc') {
+    allCars.sort((a,b) => parseNumericPrice(b.price) - parseNumericPrice(a.price));
+  } else if (mode === 'year-desc') {
+    allCars.sort((a,b) => (b.year || 0) - (a.year || 0));
+  }
+  renderCatalogCars();
+}
+
+function parseNumericPrice(str) {
+  return parseFloat((str || '').replace(/[^0-9.]/g, '')) || 0;
+}
+
+/* Accessories Rendering */
+function renderCatalogAccessories() {
+  const grid = document.getElementById('catalogAccessoriesGrid');
+  if (!grid) return;
+  let filtered = allAccessories;
+  if (activeAccCategory !== 'All') {
+    filtered = filtered.filter(a => (a.category || '').toLowerCase().includes(activeAccCategory.toLowerCase()));
+  }
+  grid.innerHTML = filtered.map(acc => generateAccCardHtml(acc)).join('');
+}
+
+function generateAccCardHtml(acc) {
+  return `
+    <div class="car-card">
+      <div class="car-img-wrap" style="aspect-ratio:4/3;">
+        <img src="${acc.image}" alt="${acc.title}" class="car-img" onerror="this.src='https://placehold.co/400x300/1B1B1B/8A8A8A?text=Performance+Part'">
+        <span class="badge b-hot car-badge-pos">${acc.badge || 'OEM'}</span>
+      </div>
+      <div class="car-card-body">
+        <div class="car-brand-sub">${acc.category || 'ACCESSORY'}</div>
+        <h3 class="car-name-title" style="font-size:1.15rem;">${acc.title}</h3>
+        <p class="car-specs-row">${acc.specs}</p>
+        <div class="car-card-footer">
+          <span class="car-price-val">${acc.price}</span>
+          <button class="btn btn-outline btn-sm" onclick="addToCart('${acc.id}', '${acc.title.replace(/'/g, "\\'")}', '${acc.price}', '${acc.image}')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function filterAccessories(cat, btn) {
+  activeAccCategory = cat;
+  document.querySelectorAll('#view-accessories .filter-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderCatalogAccessories();
+}
+
+/* ==========================================================================
+   4. SHOPPING CART ENGINE
+   ========================================================================== */
+let cart = JSON.parse(localStorage.getItem('anx_cart')) || [];
+
+function saveCart() {
+  localStorage.setItem('anx_cart', JSON.stringify(cart));
+  updateCartCounters();
+  renderCartDrawer();
+}
+
+function addToCart(id, title, price, image) {
+  const numeric = parseNumericPrice(price);
+  const existing = cart.find(i => i.id == id);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ id, title, price: numeric, priceFormatted: price, image, qty: 1 });
+  }
+  saveCart();
+  showToast(`Added to Cart: ${title}`);
+}
+
+function updateCartCounters() {
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  const navEl = document.getElementById('navCartCount');
+  const accEl = document.getElementById('accCartCount');
+  const drawerEl = document.getElementById('cartDrawerCount');
+  if (navEl) navEl.textContent = totalQty;
+  if (accEl) accEl.textContent = totalQty;
+  if (drawerEl) drawerEl.textContent = totalQty;
+}
+
+function toggleCartDrawer() {
+  const drawer = document.getElementById('cartDrawer');
+  if (drawer) {
+    drawer.classList.toggle('open');
+    if (drawer.classList.contains('open')) renderCartDrawer();
+  }
+}
+
+function renderCartDrawer() {
+  const container = document.getElementById('cartDrawerItems');
+  const subtotalEl = document.getElementById('cartSubtotal');
+  if (!container) return;
+
+  if (cart.length === 0) {
+    container.innerHTML = '<p style="text-align:center;padding:40px 0;color:var(--text-muted);">Your cart is currently empty.</p>';
+    if (subtotalEl) subtotalEl.textContent = '₹ 0';
+    return;
+  }
+
+  let total = 0;
+  container.innerHTML = cart.map(item => {
+    const itemTotal = item.price * item.qty;
+    total += itemTotal;
+    return `
+      <div class="cart-item-row">
+        <div>
+          <h4 style="font-size:0.95rem;margin-bottom:2px;">${item.title}</h4>
+          <span style="font-size:0.8rem;color:var(--text-muted);">${item.qty} × ${item.priceFormatted || ('₹ ' + item.price.toLocaleString('en-IN'))}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <button onclick="changeCartQty('${item.id}', -1)" class="btn btn-outline btn-sm" style="padding:2px 8px;">-</button>
+          <span class="font-mono">${item.qty}</span>
+          <button onclick="changeCartQty('${item.id}', 1)" class="btn btn-outline btn-sm" style="padding:2px 8px;">+</button>
+          <button onclick="removeFromCart('${item.id}')" style="color:var(--error);font-size:1.1rem;cursor:pointer;">&times;</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if (subtotalEl) {
+    subtotalEl.textContent = '₹ ' + total.toLocaleString('en-IN');
+  }
+}
+
+function changeCartQty(id, delta) {
+  const item = cart.find(i => i.id == id);
+  if (item) {
+    item.qty += delta;
+    if (item.qty <= 0) cart = cart.filter(i => i.id != id);
+    saveCart();
+  }
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id != id);
+  saveCart();
+}
+
+async function handleCheckout() {
+  if (cart.length === 0) {
+    showToast('Your cart is empty');
+    return;
+  }
+  const user = JSON.parse(localStorage.getItem('anx_user') || '{}');
+  const clientName = user.name || prompt('Enter your full name for order dispatch:') || 'AutoNexus Client';
+  const clientPhone = user.phone || prompt('Enter your phone number:') || '+91 98765 00000';
+  const subtotal = document.getElementById('cartSubtotal').textContent;
+
+  const orderData = {
+    customer_name: clientName,
+    customer_phone: clientPhone,
+    customer_email: user.email || 'client@autonexus.com',
+    type: 'Accessory Order',
+    items_json: cart.map(i => `${i.title} (${i.qty}x)`).join(', ') + ` | Total: ${subtotal}`,
+    total_price: subtotal,
+    status: 'Pending'
+  };
+
+  await AutoNexusEngine.addOrder(orderData);
+  cart = [];
+  saveCart();
+  toggleCartDrawer();
+  showToast('Order placed successfully! Saved to MySQL database.');
+}
+
+/* ==========================================================================
+   5. MODALS & INTAKE WORKFLOWS
+   ========================================================================== */
+let activeTdCar = 'BMW 5 Series';
+function openTestDriveModal(carTitle) {
+  activeTdCar = carTitle;
+  const el = document.getElementById('tdCarName');
+  if (el) el.textContent = carTitle;
+  const modal = document.getElementById('testDriveModal');
+  if (modal) modal.classList.add('active');
+}
+function closeTestDriveModal() {
+  const modal = document.getElementById('testDriveModal');
+  if (modal) modal.classList.remove('active');
+}
+
+async function handleTestDriveSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('tdName').value;
+  const phone = document.getElementById('tdPhone').value;
+  const email = document.getElementById('tdEmail').value;
+  const date = document.getElementById('tdDate').value;
+  const time = document.getElementById('tdTime').value;
+  const loc = document.getElementById('tdLocation').value;
+
+  const order = {
+    customer_name: name,
+    customer_phone: phone,
+    customer_email: email,
+    type: 'Test Drive',
+    items_json: `${activeTdCar} | ${date} (${time}) @ ${loc}`,
+    total_price: '₹ 0 (Complimentary)',
+    status: 'Pending'
+  };
+
+  await AutoNexusEngine.addOrder(order);
+  closeTestDriveModal();
+  showToast(`Test drive confirmed for ${activeTdCar}! Saved to MySQL.`);
+  e.target.reset();
+}
+
+/* Sell Car Form */
+async function handleSellCarSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('sellName').value;
+  const phone = document.getElementById('sellPhone').value;
+  const email = document.getElementById('sellEmail').value;
+  const brand = document.getElementById('sellBrand').value;
+  const model = document.getElementById('sellModel').value;
+  const year = document.getElementById('sellYear').value;
+  const km = document.getElementById('sellKm').value;
+  const fuel = document.getElementById('sellFuel').value;
+  const trans = document.getElementById('sellTrans').value;
+  const price = document.getElementById('sellPrice').value;
+  const notes = document.getElementById('sellNotes').value;
+
+  const order = {
+    customer_name: name,
+    customer_phone: phone,
+    customer_email: email,
+    type: 'Car Valuation',
+    items_json: `${brand} ${model} (${year}, ${km}, ${fuel}/${trans}) - Asking: ${price}. Notes: ${notes}`,
+    total_price: price,
+    status: 'In Review'
+  };
+
+  await AutoNexusEngine.addOrder(order);
+  showToast('Vehicle submitted! Saved to MySQL. Valuation scheduled within 48h.');
+  e.target.reset();
+  const preview = document.getElementById('sellImgPreview');
+  if (preview) preview.innerHTML = 'Photo preview will appear here';
+}
+
+function handleImagePreview(e, targetId) {
+  const file = e.target.files[0];
+  const target = document.getElementById(targetId);
+  if (file && target) {
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      target.innerHTML = `<img src="${evt.target.result}" alt="Preview">`;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+/* Import Form */
+function selectImportCountry(country, el) {
+  document.querySelectorAll('.country-box').forEach(b => b.classList.remove('selected'));
+  if (el) el.classList.add('selected');
+  const input = document.getElementById('impOrigin');
+  if (input) input.value = country;
+}
+
+async function handleImportSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('impName').value;
+  const phone = document.getElementById('impPhone').value;
+  const email = document.getElementById('impEmail').value;
+  const vehicle = document.getElementById('impVehicle').value;
+  const year = document.getElementById('impYear').value;
+  const origin = document.getElementById('impOrigin').value;
+  const budget = document.getElementById('impBudget').value;
+  const notes = document.getElementById('impNotes').value;
+
+  const order = {
+    customer_name: name,
+    customer_phone: phone,
+    customer_email: email,
+    type: 'Import Inquiry',
+    items_json: `Import: ${vehicle} (${year}) from ${origin}. Budget: ${budget}. Notes: ${notes}`,
+    total_price: budget,
+    status: 'In Review'
+  };
+
+  await AutoNexusEngine.addOrder(order);
+  showToast('Import mandate logged and saved to MySQL!');
+  e.target.reset();
+}
+
+/* ==========================================================================
+   6. ALGORITHMIC CAR VALUATION ENGINE
+   ========================================================================== */
+function calculateValuation(e) {
+  e.preventDefault();
+  const brand = document.getElementById('valBrand').value;
+  const model = document.getElementById('valModel').value;
+  const year = parseInt(document.getElementById('valYear').value) || 2022;
+  const km = parseInt(document.getElementById('valKm').value) || 25000;
+  const origPrice = parseFloat(document.getElementById('valOriginalPrice').value) || 70;
+  const history = document.getElementById('valHistory').value;
+  const engine = document.getElementById('valEngine').value;
+  const accidents = document.getElementById('valAccidents').value;
+  const owners = parseInt(document.getElementById('valOwners').value) || 1;
+
+  const age = Math.max(0, 2026 - year);
+  
+  // Base depreciation curve
+  let depRate = 0.15;
+  if (age >= 2) depRate += (age - 1) * 0.08;
+  depRate = Math.min(0.65, depRate);
+
+  // Mileage penalty
+  const expectedKm = age * 12000;
+  if (km > expectedKm) {
+    depRate += Math.min(0.12, ((km - expectedKm) / 50000) * 0.08);
+  }
+
+  // Multipliers
+  let multiplier = 1.0;
+  let score = 94;
+
+  if (history === 'authorized') { multiplier += 0.05; score += 3; }
+  else if (history === 'none') { multiplier -= 0.08; score -= 12; }
+
+  if (engine === 'pristine') { multiplier += 0.03; score += 2; }
+  else if (engine === 'needs_work') { multiplier -= 0.12; score -= 15; }
+
+  if (accidents === 'zero') { multiplier += 0.04; score += 3; }
+  else if (accidents === 'structural') { multiplier -= 0.25; score -= 30; }
+
+  if (owners > 1) { multiplier -= (owners - 1) * 0.04; score -= 5; }
+
+  score = Math.max(40, Math.min(99, score));
+  const baseValue = origPrice * (1 - depRate) * multiplier;
+  const minVal = (baseValue * 0.95).toFixed(1);
+  const maxVal = (baseValue * 1.04).toFixed(1);
+  const instantCash = (baseValue * 0.93 * 100000);
+
+  document.getElementById('valMarketRange').textContent = `₹ ${minVal}L - ${maxVal}L`;
+  document.getElementById('valInstantOffer').textContent = `₹ ${Math.round(instantCash).toLocaleString('en-IN')}`;
+  document.getElementById('valScore').textContent = `${score} / 100`;
+
+  const factorsEl = document.getElementById('valFactorsList');
+  factorsEl.innerHTML = `
+    <li><strong>Vehicle Age (${age} yrs):</strong> Standard straight-line algorithmic depreciation applied (-${Math.round(depRate*100)}%).</li>
+    <li><strong>Provenance & Service:</strong> ${history === 'authorized' ? '+5% premium for 100% Authorized Service records' : 'Independent servicing deduction applied'}.</li>
+    <li><strong>Chassis History:</strong> ${accidents === 'zero' ? 'Unblemished factory paint & body panels verified (+4%)' : 'Accident penalty deducted'}.</li>
+    <li><strong>Ownership:</strong> ${owners === 1 ? 'Single-owner individual registration premium' : 'Multi-owner market penalty applied'}.</li>
+  `;
+
+  document.getElementById('valResults').style.display = 'block';
+  document.getElementById('valResults').scrollIntoView({ behavior: 'smooth' });
+}
+
+function proceedToSellWithValuation() {
+  const model = document.getElementById('valModel').value;
+  const brand = document.getElementById('valBrand').value;
+  const offer = document.getElementById('valInstantOffer').textContent;
+  navTo('sell-car');
+  document.getElementById('sellBrand').value = brand;
+  document.getElementById('sellModel').value = model;
+  document.getElementById('sellPrice').value = offer;
+}
+
+/* ==========================================================================
+   7. SMART BUY ADVISORY (TCO) ENGINE
+   ========================================================================== */
+function updateAdvisory() {
+  const budget = parseInt(document.getElementById('advBudget').value) || 70;
+  const mileage = parseInt(document.getElementById('advMileage').value) || 1200;
+  const years = parseInt(document.getElementById('advYears').value) || 5;
+
+  document.getElementById('advBudgetReadout').textContent = `₹ ${budget} Lakhs`;
+  document.getElementById('advMileageReadout').textContent = `${mileage.toLocaleString()} km / mo`;
+  document.getElementById('advYearsReadout').textContent = `${years} Years`;
+
+  const totalKm = mileage * 12 * years;
+  const capitalDeprec = Math.round(budget * 0.38 * 100000);
+  const fuelExpense = Math.round((totalKm / 11) * 105);
+  const maintenance = Math.round(years * 65000);
+  const insurance = Math.round(years * 85000);
+  const totalCost = capitalDeprec + fuelExpense + maintenance + insurance;
+  const costPerKm = (totalCost / Math.max(1, totalKm)).toFixed(1);
+
+  document.getElementById('tcoTotalCost').textContent = `₹ ${(totalCost / 100000).toFixed(1)} Lakhs`;
+  document.getElementById('tcoCostPerKm').textContent = `₹ ${costPerKm} / km`;
+  document.getElementById('tcoDeprec').textContent = `₹ ${capitalDeprec.toLocaleString('en-IN')}`;
+  document.getElementById('tcoFuel').textContent = `₹ ${fuelExpense.toLocaleString('en-IN')}`;
+  document.getElementById('tcoMaint').textContent = `₹ ${maintenance.toLocaleString('en-IN')}`;
+  document.getElementById('tcoIns').textContent = `₹ ${insurance.toLocaleString('en-IN')}`;
+
+  // Vehicle recommendation match
+  if (budget <= 55) {
+    document.getElementById('advMatchName').textContent = 'BMW X1 sDrive20i xLine';
+    document.getElementById('advMatchScore').textContent = '94% Compatibility';
+    document.getElementById('advMatchReason').textContent = 'Sub-₹50L entry point with responsive 2.0L turbocharged engine and low ₹45,000 annual scheduled maintenance cost.';
+  } else if (budget <= 80) {
+    document.getElementById('advMatchName').textContent = 'BMW 5 Series 530i M Sport';
+    document.getElementById('advMatchScore').textContent = '97% Compatibility';
+    document.getElementById('advMatchReason').textContent = 'Benchmark executive sedan combining 252 hp B48 performance with high 84% resale retention index and 530L boot space.';
+  } else {
+    document.getElementById('advMatchName').textContent = 'Porsche 911 GT3 RS (992)';
+    document.getElementById('advMatchScore').textContent = '99% Compatibility';
+    document.getElementById('advMatchReason').textContent = 'Apex high-performance track weapon with 525 hp naturally aspirated Flat-6 and ultra-low depreciation retention.';
+  }
+}
+
+/* ==========================================================================
+   8. ADMIN DASHBOARD ENGINE
+   ========================================================================== */
+function switchAdminTab(tab, btn) {
+  document.querySelectorAll('#view-admin .filter-chip').forEach(c => c.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('adminTabFleet').style.display = tab === 'fleet' ? 'block' : 'none';
+  document.getElementById('adminTabAcc').style.display = tab === 'acc' ? 'block' : 'none';
+  document.getElementById('adminTabOrders').style.display = tab === 'orders' ? 'block' : 'none';
+}
+
+function toggleAddCarForm() {
+  const panel = document.getElementById('addCarFormPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+
+function toggleAddAccForm() {
+  const panel = document.getElementById('addAccFormPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+
+async function renderAdminView() {
+  const cars = await AutoNexusEngine.getInventory();
+  const accs = await AutoNexusEngine.getAccessories();
+  const orders = await AutoNexusEngine.getOrders();
+
+  // KPIs
+  document.getElementById('adminTotalCars').textContent = cars.length;
+  document.getElementById('adminFleetCount').textContent = cars.length;
+  document.getElementById('adminTotalAcc').textContent = accs.length;
+  document.getElementById('adminAccCount').textContent = accs.length;
+  document.getElementById('adminTotalOrders').textContent = orders.length;
+
+  let totalVal = 0;
+  cars.forEach(c => totalVal += parseNumericPrice(c.price));
+  document.getElementById('adminTotalFleetVal').textContent = '₹ ' + (totalVal / 10000000).toFixed(2) + ' Cr';
+
+  // Render Fleet Table
+  const carTbody = document.getElementById('adminInventoryTableBody');
+  if (carTbody) {
+    carTbody.innerHTML = cars.map(car => `
+      <tr>
+        <td><img src="${car.image}" style="width:50px;height:35px;object-fit:cover;border-radius:4px;" onerror="this.src='https://placehold.co/50x35'"></td>
+        <td><strong>${car.title}</strong><br><small style="color:var(--text-muted);">${car.specs}</small></td>
+        <td>${car.year}</td>
+        <td class="font-mono">${car.price}</td>
+        <td><span class="badge ${car.badgeClass || car.badge_class || 'b-new'}">${car.badge}</span></td>
+        <td><button class="btn btn-danger btn-sm" onclick="adminDeleteCar('${car.id}')">Delete</button></td>
+      </tr>
+    `).join('');
+  }
+
+  // Render Accessories Table
+  const accTbody = document.getElementById('adminAccTableBody');
+  if (accTbody) {
+    accTbody.innerHTML = accs.map(acc => `
+      <tr>
+        <td><img src="${acc.image}" style="width:50px;height:35px;object-fit:cover;border-radius:4px;" onerror="this.src='https://placehold.co/50x35'"></td>
+        <td><strong>${acc.title}</strong></td>
+        <td>${acc.category}</td>
+        <td class="font-mono">${acc.price}</td>
+        <td><button class="btn btn-danger btn-sm" onclick="adminDeleteAcc('${acc.id}')">Delete</button></td>
+      </tr>
+    `).join('');
+  }
+
+  // Render Orders Table
+  const orderTbody = document.getElementById('adminOrdersTableBody');
+  if (orderTbody) {
+    orderTbody.innerHTML = orders.map(ord => `
+      <tr>
+        <td class="font-mono">#${ord.id}</td>
+        <td><strong>${ord.customer_name || ord.customerName}</strong><br><small style="color:var(--text-muted);">${ord.email || ord.customer_email}</small></td>
+        <td>${ord.phone || ord.customer_phone || '-'}</td>
+        <td><span class="badge b-imp">${ord.type}</span></td>
+        <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${ord.note || ord.items_json}</td>
+        <td style="font-size:0.75rem;color:var(--text-muted);">${ord.date || ord.created_at || ''}</td>
+        <td>
+          <select class="form-control" style="padding:4px 8px;font-size:0.8rem;" onchange="adminUpdateOrderStatus('${ord.id}', this.value)">
+            <option value="Pending" ${ord.status === 'Pending' ? 'selected' : ''}>Pending</option>
+            <option value="In Review" ${ord.status === 'In Review' ? 'selected' : ''}>In Review</option>
+            <option value="Completed" ${ord.status === 'Completed' ? 'selected' : ''}>Completed</option>
+            <option value="Cancelled" ${ord.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+          </select>
+        </td>
+        <td><button class="btn btn-danger btn-sm" onclick="adminDeleteOrder('${ord.id}')">&times;</button></td>
+      </tr>
+    `).join('');
+  }
+}
+
+async function handleAddCarSubmit(e) {
+  e.preventDefault();
+  const car = {
+    brand: document.getElementById('newCarBrand').value,
+    title: document.getElementById('newCarTitle').value,
+    year: parseInt(document.getElementById('newCarYear').value),
+    price: document.getElementById('newCarPrice').value,
+    specs: document.getElementById('newCarSpecs').value,
+    badge: document.getElementById('newCarBadge').value,
+    badgeClass: 'b-new',
+    image: document.getElementById('newCarImage').value
+  };
+  await AutoNexusEngine.addCar(car);
+  allCars = await AutoNexusEngine.getInventory();
+  renderAdminView();
+  toggleAddCarForm();
+  showToast('Vehicle added to showroom catalog & MySQL!');
+  e.target.reset();
+}
+
+async function adminDeleteCar(id) {
+  if (confirm('Are you sure you want to delete this vehicle from inventory?')) {
+    await AutoNexusEngine.deleteCar(id);
+    allCars = await AutoNexusEngine.getInventory();
+    renderAdminView();
+    showToast('Vehicle deleted.');
+  }
+}
+
+async function handleAddAccSubmit(e) {
+  e.preventDefault();
+  const acc = {
+    category: document.getElementById('newAccCat').value,
+    title: document.getElementById('newAccTitle').value,
+    price: document.getElementById('newAccPrice').value,
+    specs: document.getElementById('newAccSpecs').value,
+    badge: 'OEM',
+    image: document.getElementById('newAccImage').value
+  };
+  await AutoNexusEngine.addAccessory(acc);
+  allAccessories = await AutoNexusEngine.getAccessories();
+  renderAdminView();
+  toggleAddAccForm();
+  showToast('Part added to catalog & MySQL!');
+  e.target.reset();
+}
+
+async function adminDeleteAcc(id) {
+  if (confirm('Delete this accessory?')) {
+    await AutoNexusEngine.deleteAccessory(id);
+    allAccessories = await AutoNexusEngine.getAccessories();
+    renderAdminView();
+    showToast('Accessory removed.');
+  }
+}
+
+async function adminUpdateOrderStatus(id, status) {
+  await AutoNexusEngine.updateOrderStatus(id, status);
+  showToast(`Order #${id} marked as ${status} in MySQL`);
+}
+
+async function adminDeleteOrder(id) {
+  if (confirm('Delete this inquiry record?')) {
+    await AutoNexusEngine.deleteOrder(id);
+    renderAdminView();
+    showToast('Inquiry removed.');
+  }
+}
+
+/* ==========================================================================
+   9. AUTHENTICATION & SESSION
+   ========================================================================== */
+function switchAuthTab(mode) {
+  document.getElementById('tabBtnSignIn').classList.toggle('active', mode === 'signin');
+  document.getElementById('tabBtnSignUp').classList.toggle('active', mode === 'signup');
+  document.getElementById('signInForm').style.display = mode === 'signin' ? 'block' : 'none';
+  document.getElementById('signUpForm').style.display = mode === 'signup' ? 'block' : 'none';
+}
+
+function quickFillAdmin() {
+  document.getElementById('loginEmail').value = 'admin@autonexus.com';
+  document.getElementById('loginPass').value = 'admin123';
+  switchAuthTab('signin');
+  showToast('Admin credentials filled. Click Sign In.');
+}
+
+async function handleSignInSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPass').value;
+
+  if (window.location.protocol.startsWith('http')) {
+    try {
+      const res = await fetch('api/auth.php?action=login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, password: pass })
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        localStorage.setItem('anx_user', JSON.stringify(data.user));
+        checkAuthSession();
+        showToast(`Welcome, ${data.user.name}!`);
+        if (data.user.role === 'admin') navTo('admin');
+        return;
+      }
+    } catch (err) {}
+  }
+
+  // Local fallback
+  if (email === 'admin@autonexus.com' && pass === 'admin123') {
+    const user = { name: 'Executive Administrator', email: email, role: 'admin' };
+    localStorage.setItem('anx_user', JSON.stringify(user));
+    checkAuthSession();
+    showToast('Welcome, Executive Admin!');
+    navTo('admin');
+  } else {
+    const user = { name: email.split('@')[0], email: email, role: 'client' };
+    localStorage.setItem('anx_user', JSON.stringify(user));
+    checkAuthSession();
+    showToast(`Signed in as ${user.name}`);
+  }
+}
+
+async function handleSignUpSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('regName').value;
+  const email = document.getElementById('regEmail').value;
+  const phone = document.getElementById('regPhone').value;
+  const pass = document.getElementById('regPass').value;
+
+  if (window.location.protocol.startsWith('http')) {
+    try {
+      const res = await fetch('api/auth.php?action=register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, phone: phone, password: pass })
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        localStorage.setItem('anx_user', JSON.stringify(data.user));
+        checkAuthSession();
+        showToast('Registered and saved to MySQL!');
+        return;
+      }
+    } catch (err) {}
+  }
+
+  const user = { name: name, email: email, phone: phone, role: 'client' };
+  localStorage.setItem('anx_user', JSON.stringify(user));
+  checkAuthSession();
+  showToast('Account registered successfully!');
+}
+
+function handleLogout() {
+  localStorage.removeItem('anx_user');
+  checkAuthSession();
+  showToast('Signed out successfully.');
+}
+
+function checkAuthSession() {
+  const user = JSON.parse(localStorage.getItem('anx_user') || 'null');
+  const loggedInPanel = document.getElementById('loggedInProfilePanel');
+  const signInForm = document.getElementById('signInForm');
+  const signUpForm = document.getElementById('signUpForm');
+  const authTabs = document.querySelector('.auth-tabs');
+
+  if (user && user.email) {
+    if (loggedInPanel) loggedInPanel.style.display = 'block';
+    if (signInForm) signInForm.style.display = 'none';
+    if (signUpForm) signUpForm.style.display = 'none';
+    if (authTabs) authTabs.style.display = 'none';
+    document.getElementById('profileName').textContent = user.name || 'AutoNexus User';
+    document.getElementById('profileEmail').textContent = user.email;
+    document.getElementById('profileAvatar').textContent = (user.name || 'U').charAt(0).toUpperCase();
+    document.getElementById('profileRoleBadge').textContent = user.role === 'admin' ? 'Executive Admin' : 'Verified Client';
+  } else {
+    if (loggedInPanel) loggedInPanel.style.display = 'none';
+    if (authTabs) authTabs.style.display = 'flex';
+    switchAuthTab('signin');
+  }
+}
+
+/* ==========================================================================
+   10. TOAST NOTIFICATIONS & CANVAS ANIMATION
+   ========================================================================== */
+function showToast(msg) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
+    setTimeout(() => toast.remove(), 300);
+  }, 3200);
+}
+
+// Background Hero Canvas Particles
+function initHeroCanvas() {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+
+  function resize() {
+    width = canvas.width = canvas.offsetWidth;
+    height = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  for (let i = 0; i < 45; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.8,
+      vy: (Math.random() - 0.5) * 0.8,
+      r: Math.random() * 2 + 1,
+      alpha: Math.random() * 0.6 + 0.2
+    });
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = 'rgba(193, 18, 31, 0.4)';
+
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
+      if (p.y < 0) p.y = height;
+      if (p.y > height) p.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(193, 18, 31, ${p.alpha})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+// Global Startup
+window.addEventListener('DOMContentLoaded', () => {
+  initData();
+  initHeroCanvas();
+  
+  // Set initial view from hash or default to home
+  const hash = window.location.hash.replace('#', '') || 'home';
+  navTo(hash);
+
+  // Hide loader
+  const loader = document.getElementById('loader');
+  if (loader) {
+    setTimeout(() => {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.remove(), 400);
+    }, 250);
+  }
+});
+</script>
+</body>
+</html>

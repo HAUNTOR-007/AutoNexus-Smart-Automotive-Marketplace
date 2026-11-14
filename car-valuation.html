@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Car Valuation Pro | AutoNexus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   AUTONEXUS — CAR VALUATION PRO | MASTER STYLESHEET
+   ========================================================================== */
+
+:root {
+  /* Backgrounds */
+  --bg-primary: #111111;
+  --bg-secondary: #1B1B1B;
+  --bg-surface: #242424;
+  --bg-input: #2B2B2B;
+
+  /* Accent */
+  --accent: #C1121F;
+  --accent-hover: #E01A2B;
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #CFCFCF;
+  --text-muted: #8A8A8A;
+
+  /* Borders */
+  --border-color: #3A3A3A;
+
+  /* Status colors */
+  --success: #2E8B57;
+  --warning: #FFB703;
+  --error: #D90429;
+
+  /* Typography */
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transitions & Shadows */
+  --transition: all 0.3s ease;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --shadow-accent: 0 8px 24px rgba(193, 18, 31, 0.25);
+  --shadow-neu: 6px 6px 12px #0b0b0b, -6px -6px 12px #232323;
+  --shadow-neu-inset: inset 4px 4px 8px #0b0b0b, inset -4px -4px 8px #232323;
+  --shadow-neu-hover: 4px 4px 8px #0b0b0b, -4px -4px 8px #232323;
+
+  /* Layout */
+  --container-width: 1240px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 80px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+}
+
+.stat-number, .vehicle-price, .vehicle-year {
+  font-family: var(--font-mono);
+}
+
+/* NAVBAR */
+.site-header {
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 16px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+  color: var(--text-primary);
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.97);
+}
+
+/* FORM STYLES */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: var(--transition);
+  box-shadow: var(--shadow-neu-inset);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--shadow-neu-inset), 0 0 0 3px rgba(193, 18, 31, 0.15);
+}
+
+/* HERO SECTION */
+.hero {
+  background: linear-gradient(135deg, #1B1B1B 0%, #242424 100%);
+  padding: 60px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 16px;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+/* FORM CONTAINER */
+.valuation-form {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow-neu);
+}
+
+.form-section {
+  margin-bottom: 36px;
+}
+
+.form-section-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* RESULTS SECTION */
+.results-container {
+  display: none;
+}
+
+.results-container.visible {
+  display: block;
+}
+
+.result-card {
+  background: linear-gradient(135deg, var(--bg-surface) 0%, #2A2A2A 100%);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow-lg);
+}
+
+.result-header {
+  margin-bottom: 30px;
+  text-align: center;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 20px;
+}
+
+.result-header h2 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.result-price {
+  font-size: 2.5rem;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.result-range {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+/* BREAKDOWN SECTION */
+.breakdown-section {
+  background-color: var(--bg-input);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.breakdown-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+.breakdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.breakdown-item:last-child {
+  border-bottom: none;
+}
+
+.breakdown-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.breakdown-value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.breakdown-value.positive {
+  color: var(--success);
+}
+
+.breakdown-value.negative {
+  color: var(--error);
+}
+
+.breakdown-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  margin-top: 16px;
+  border-top: 2px solid var(--accent);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.breakdown-total .breakdown-value {
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+/* FACTOR BARS */
+.factor-bar {
+  margin-bottom: 16px;
+}
+
+.factor-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.factor-bar-bg {
+  background-color: var(--border-color);
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.factor-bar-fill {
+  height: 100%;
+  background-color: var(--accent);
+  transition: width 0.5s ease;
+}
+
+/* FOOTER */
+.site-footer {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  padding: 40px 0 20px;
+  margin-top: 80px;
+}
+
+.footer-content {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.footer-content p {
+  font-size: 0.9rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 14px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  section {
+    padding: 50px 0;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .valuation-form {
+    padding: 24px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-price {
+    font-size: 2rem;
+  }
+
+  .result-card {
+    padding: 24px;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION BAR -->
+<header class="site-header">
+  <div class="container navbar-container">
+    <a href="index.html" class="logo">Auto<span>Nexus</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="new-cars.html">New Cars</a></li>
+      <li><a href="sell-your-car.html">Sell Car</a></li>
+      <li><a href="import-on-demand.html">Import On Demand</a></li>
+      <li><a href="accessories.html">Accessories</a></li>
+      <li><a href="car-valuation.html" class="active">Car Valuation</a></li>
+      <li><a href="smart-buy-advisory.html">Smart Buy Advisory</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Car Valuation Pro</h1>
+      <p>Get an accurate estimate of your car's market value with our advanced algorithm powered by real market data, depreciation analysis, and condition assessment.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <form id="valuationForm" class="valuation-form">
+      
+      <!-- BASIC INFORMATION -->
+      <div class="form-section">
+        <div class="form-section-title">Vehicle Information</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="brand">Brand/Make *</label>
+            <select id="brand" required>
+              <option value="">Select Brand</option>
+              <optgroup label="Budget (₹5L - ₹15L)">
+                <option value="Maruti">Maruti Suzuki</option>
+                <option value="Hyundai">Hyundai</option>
+                <option value="Tata">Tata</option>
+                <option value="Mahindra">Mahindra</option>
+                <option value="Kia">Kia</option>
+              </optgroup>
+              <optgroup label="Mid-Range (₹15L - ₹30L)">
+                <option value="Honda">Honda</option>
+                <option value="Toyota">Toyota</option>
+                <option value="Skoda">Skoda</option>
+                <option value="VW">Volkswagen</option>
+                <option value="Renault">Renault</option>
+              </optgroup>
+              <optgroup label="Premium (₹30L+)">
+                <option value="BMW">BMW</option>
+                <option value="Audi">Audi</option>
+                <option value="Mercedes">Mercedes-Benz</option>
+                <option value="Jaguar">Jaguar</option>
+                <option value="MG">MG Motor</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="model">Model *</label>
+            <input type="text" id="model" placeholder="e.g., Swift, Creta, Fortuner" required>
+          </div>
+
+          <div class="form-group">
+            <label for="year">Year of Manufacture *</label>
+            <select id="year" required>
+              <option value="">Select Year</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="bodyType">Body Type *</label>
+            <select id="bodyType" required>
+              <option value="">Select Body Type</option>
+              <option value="sedan">Sedan</option>
+              <option value="suv">SUV / Crossover</option>
+              <option value="hatchback">Hatchback</option>
+              <option value="mpv">MPV / Van</option>
+              <option value="coupe">Coupe</option>
+              <option value="convertible">Convertible</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- MECHANICAL DETAILS -->
+      <div class="form-section">
+        <div class="form-section-title">Mechanical Details</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="fuelType">Fuel Type *</label>
+            <select id="fuelType" required>
+              <option value="">Select Fuel Type</option>
+              <option value="petrol">Petrol</option>
+              <option value="diesel">Diesel</option>
+              <option value="cng">CNG</option>
+              <option value="lpg">LPG</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="electric">Electric</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="transmission">Transmission *</label>
+            <select id="transmission" required>
+              <option value="">Select Transmission</option>
+              <option value="manual">Manual</option>
+              <option value="automatic">Automatic</option>
+              <option value="cvt">CVT</option>
+              <option value="dct">Dual-Clutch (DCT)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="engine">Engine Capacity (cc)</label>
+            <input type="number" id="engine" placeholder="e.g., 1200" min="0">
+          </div>
+
+          <div class="form-group">
+            <label for="mileage">Odometer Reading (km) *</label>
+            <input type="number" id="mileage" placeholder="e.g., 45000" required min="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- CONDITION & OWNERSHIP -->
+      <div class="form-section">
+        <div class="form-section-title">Condition & History</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="condition">Overall Condition *</label>
+            <select id="condition" required>
+              <option value="">Select Condition</option>
+              <option value="excellent">Excellent (Like New)</option>
+              <option value="good">Good (Well Maintained)</option>
+              <option value="fair">Fair (Normal Wear)</option>
+              <option value="poor">Poor (Needs Repair)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="ownership">Number of Owners *</label>
+            <select id="ownership" required>
+              <option value="">Select</option>
+              <option value="1">First Owner</option>
+              <option value="2">Second Owner</option>
+              <option value="3">Third Owner</option>
+              <option value="4">Four or More</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="accidents">Number of Accidents</label>
+            <select id="accidents">
+              <option value="0">None</option>
+              <option value="1">1 Accident</option>
+              <option value="2">2 Accidents</option>
+              <option value="3">3+ Accidents</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="serviceHistory">Service History *</label>
+            <select id="serviceHistory" required>
+              <option value="">Select</option>
+              <option value="excellent">Excellent (Regular / Authorized)</option>
+              <option value="good">Good (Regular Maintenance)</option>
+              <option value="fair">Fair (Irregular / Mixed)</option>
+              <option value="poor">Poor (Minimal Records)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADDITIONAL FEATURES -->
+      <div class="form-section">
+        <div class="form-section-title">Features & Modifications</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="interiorCondition">Interior Condition *</label>
+            <select id="interiorCondition" required>
+              <option value="">Select</option>
+              <option value="excellent">Excellent (Clean, No Damage)</option>
+              <option value="good">Good (Well Kept)</option>
+              <option value="fair">Fair (Minor Wear)</option>
+              <option value="poor">Poor (Significant Wear)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="exteriorCondition">Exterior Condition *</label>
+            <select id="exteriorCondition" required>
+              <option value="">Select</option>
+              <option value="excellent">Excellent (Immaculate)</option>
+              <option value="good">Good (Minor Scratches)</option>
+              <option value="fair">Fair (Visible Wear)</option>
+              <option value="poor">Poor (Damaged)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Airbags</label>
+            <select id="airbags">
+              <option value="none">None</option>
+              <option value="2">2 Airbags</option>
+              <option value="4">4 Airbags</option>
+              <option value="6">6+ Airbags</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Sunroof / Panoramic Roof</label>
+            <select id="sunroof">
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Infotainment System</label>
+            <select id="infotainment">
+              <option value="basic">Basic (Radio/CD)</option>
+              <option value="standard">Standard (Touchscreen)</option>
+              <option value="premium">Premium (Apple CarPlay/Android Auto)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>All-Wheel Drive (AWD)</label>
+            <select id="awd">
+              <option value="no">No (FWD/RWD)</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- REGIONAL PREFERENCE -->
+      <div class="form-section">
+        <div class="form-section-title">Market & Regional Factors</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="region">Selling Region *</label>
+            <select id="region" required>
+              <option value="">Select Region</option>
+              <option value="metro">Metro Cities (Delhi, Mumbai, Bangalore)</option>
+              <option value="tier1">Tier-1 Cities (Ahmedabad, Pune, Chennai)</option>
+              <option value="tier2">Tier-2 Cities</option>
+              <option value="tier3">Tier-3 & Semi-Urban</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Loan Status</label>
+            <select id="loanStatus">
+              <option value="clear">Clear (No Outstanding Loan)</option>
+              <option value="financed">Financed (Loan Outstanding)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Insurance Status</label>
+            <select id="insurance">
+              <option value="valid">Valid</option>
+              <option value="expired">Expired</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Pollution Certificate</label>
+            <select id="puc">
+              <option value="valid">Valid</option>
+              <option value="expired">Expired</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBMIT BUTTON -->
+      <div style="display: flex; gap: 12px; margin-top: 40px;">
+        <button type="submit" class="btn btn-primary">Calculate Valuation</button>
+        <button type="reset" class="btn" style="background-color: var(--bg-input); color: var(--text-secondary); border: 1px solid var(--border-color);">Clear Form</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- RESULTS SECTION -->
+<section>
+  <div class="container">
+    <div id="resultsContainer" class="results-container">
+      <div class="result-card">
+        <div class="result-header">
+          <h2 id="resultTitle">Your Car's Estimated Value</h2>
+          <div class="result-price" id="resultPrice">₹0 L</div>
+          <div class="result-range" id="resultRange">Range: ₹0 L – ₹0 L</div>
+        </div>
+
+        <div class="breakdown-section">
+          <div class="breakdown-title">📊 Valuation Breakdown</div>
+          <div id="breakdownItems"></div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background-color: var(--bg-input); border-radius: var(--radius-md);">
+          <h4 style="margin-bottom: 16px; color: var(--text-primary);">⚙️ Factor Impact Analysis</h4>
+          <div id="factorAnalysis"></div>
+        </div>
+
+        <div style="display: flex; gap: 20px; align-items: center; margin-top: 30px;">
+          <div style="flex: 1; padding: 20px; background-color: rgba(193, 18, 31, 0.1); border-radius: var(--radius-md); border: 1px solid var(--accent);">
+            <h4 style="margin-bottom: 12px; color: var(--accent);">💡 Valuation Notes</h4>
+            <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-secondary);">This valuation is an estimate based on current market conditions, vehicle specifications, and condition assessment. Actual market value may vary based on regional demand, buyer preferences, and real-time negotiations. For professional assessment, consult authorized dealers or valuation experts.</p>
+          </div>
+          <button id="contactTeamBtn" class="btn btn-primary" style="height: fit-content; white-space: nowrap;">Contact Team</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <p>&copy; 2026 AutoNexus Car Valuation Pro. All rights reserved. | This valuation tool is for informational purposes only.</p>
+  </div>
+</footer>
+
+<script>
+// ============================================================================
+// CAR VALUATION PRO — ADVANCED ALGORITHM
+// ============================================================================
+
+// DATABASE: Real Indian Car Segment Pricing (2024-2025 Market Data)
+const carDatabase = {
+  // BUDGET SEGMENT
+  'Maruti': {
+    models: ['Swift', 'Alto', 'Baleno', 'Wagon R', 'Dzire', 'Ciaz'],
+    basePrice: { 'Swift': 550000, 'Alto': 350000, 'Baleno': 650000, 'Wagon R': 450000, 'Dzire': 580000, 'Ciaz': 800000 },
+    segment: 'budget'
+  },
+  'Hyundai': {
+    models: ['i10', 'i20', 'Creta', 'Aura', 'Venue', 'Eon'],
+    basePrice: { 'i10': 480000, 'i20': 680000, 'Creta': 1050000, 'Aura': 600000, 'Venue': 750000, 'Eon': 400000 },
+    segment: 'budget'
+  },
+  'Tata': {
+    models: ['Nexon', 'Tiago', 'Altroz', 'Punch', 'Tigor', 'Harrier'],
+    basePrice: { 'Nexon': 850000, 'Tiago': 520000, 'Altroz': 650000, 'Punch': 650000, 'Tigor': 650000, 'Harrier': 1300000 },
+    segment: 'budget'
+  },
+  'Mahindra': {
+    models: ['XUV300', 'Bolero', 'Scorpio', 'Bolero Neo', 'KUV100'],
+    basePrice: { 'XUV300': 900000, 'Bolero': 700000, 'Scorpio': 1100000, 'Bolero Neo': 650000, 'KUV100': 550000 },
+    segment: 'budget'
+  },
+  'Kia': {
+    models: ['Seltos', 'Sonet', 'Carens', 'Niro', 'EV6'],
+    basePrice: { 'Seltos': 1000000, 'Sonet': 800000, 'Carens': 900000, 'Niro': 1200000, 'EV6': 1800000 },
+    segment: 'budget'
+  },
+
+  // MID-RANGE SEGMENT
+  'Honda': {
+    models: ['City', 'Civic', 'Accord', 'Jazz', 'WR-V'],
+    basePrice: { 'City': 900000, 'Civic': 1400000, 'Accord': 2000000, 'Jazz': 700000, 'WR-V': 850000 },
+    segment: 'midrange'
+  },
+  'Toyota': {
+    models: ['Fortuner', 'Innova', 'Innova Crysta', 'Camry', 'Corolla', 'Glanza'],
+    basePrice: { 'Fortuner': 2850000, 'Innova': 1350000, 'Innova Crysta': 1650000, 'Camry': 2400000, 'Corolla': 1200000, 'Glanza': 750000 },
+    segment: 'midrange'
+  },
+  'Skoda': {
+    models: ['Slavia', 'Superb', 'Kushaq', 'Kodiaq'],
+    basePrice: { 'Slavia': 1050000, 'Superb': 2200000, 'Kushaq': 1150000, 'Kodiaq': 1850000 },
+    segment: 'midrange'
+  },
+  'VW': {
+    models: ['Polo', 'Vento', 'Tiguan', 'T-Cross'],
+    basePrice: { 'Polo': 650000, 'Vento': 900000, 'Tiguan': 2000000, 'T-Cross': 1050000 },
+    segment: 'midrange'
+  },
+  'Renault': {
+    models: ['Duster', 'Kiger', 'Kwid', 'Triber'],
+    basePrice: { 'Duster': 950000, 'Kiger': 600000, 'Kwid': 350000, 'Triber': 500000 },
+    segment: 'midrange'
+  },
+
+  // PREMIUM SEGMENT
+  'BMW': {
+    models: ['3 Series', '5 Series', 'X3', 'X5', 'X7', 'Z4'],
+    basePrice: { '3 Series': 4200000, '5 Series': 5500000, 'X3': 6200000, 'X5': 7500000, 'X7': 9500000, 'Z4': 8000000 },
+    segment: 'premium'
+  },
+  'Audi': {
+    models: ['A4', 'A6', 'A8', 'Q3', 'Q5', 'Q7', 'TT'],
+    basePrice: { 'A4': 4500000, 'A6': 6000000, 'A8': 8500000, 'Q3': 4800000, 'Q5': 6200000, 'Q7': 8200000, 'TT': 6500000 },
+    segment: 'premium'
+  },
+  'Mercedes': {
+    models: ['C-Class', 'E-Class', 'S-Class', 'GLC', 'GLE', 'G-Wagon', 'AMG GT'],
+    basePrice: { 'C-Class': 4800000, 'E-Class': 6500000, 'S-Class': 9500000, 'GLC': 5500000, 'GLE': 7500000, 'G-Wagon': 15000000, 'AMG GT': 20000000 },
+    segment: 'premium'
+  },
+  'Jaguar': {
+    models: ['XE', 'XF', 'F-Pace', 'F-Type'],
+    basePrice: { 'XE': 4200000, 'XF': 5800000, 'F-Pace': 6500000, 'F-Type': 12000000 },
+    segment: 'premium'
+  },
+  'MG': {
+    models: ['Hector', 'Hector Plus', 'Astor', 'ZS EV'],
+    basePrice: { 'Hector': 1200000, 'Hector Plus': 1400000, 'Astor': 1050000, 'ZS EV': 2000000 },
+    segment: 'premium'
+  }
+};
+
+// ============================================================================
+// DEPRECIATION ALGORITHM (Non-linear, realistic curves)
+// ============================================================================
+function calculateDepreciation(year, segment) {
+  const currentYear = new Date().getFullYear();
+  const carAge = currentYear - parseInt(year);
+
+  if (carAge < 0) return 1.0;
+  if (carAge === 0) return 1.0;
+
+  let depreciationFactor = 1.0;
+
+  // Year 1-3: Steeper depreciation (15-20% per year)
+  if (carAge <= 3) {
+    depreciationFactor = 1.0 - (carAge * 0.18);
+  }
+  // Year 4-7: Moderate depreciation (8-10% per year)
+  else if (carAge <= 7) {
+    depreciationFactor = (1.0 - (3 * 0.18)) - ((carAge - 3) * 0.09);
+  }
+  // Year 8-12: Slow depreciation (4-5% per year)
+  else if (carAge <= 12) {
+    depreciationFactor = (1.0 - (3 * 0.18) - (4 * 0.09)) - ((carAge - 7) * 0.045);
+  }
+  // Year 12+: Minimal depreciation
+  else {
+    depreciationFactor = Math.max(0.15, (1.0 - (3 * 0.18) - (4 * 0.09) - (5 * 0.045)));
+  }
+
+  // Segment adjustment
+  const segmentFactor = segment === 'premium' ? 1.05 : segment === 'midrange' ? 1.02 : 1.0;
+
+  return Math.max(0.15, depreciationFactor * segmentFactor);
+}
+
+// ============================================================================
+// MILEAGE DEVALUATION
+// ============================================================================
+function calculateMileageDevaluation(mileage) {
+  let factor = 1.0;
+  const km = parseInt(mileage) || 0;
+
+  // First 50,000 km: Minimal loss (0.2% per 1000 km)
+  if (km <= 50000) {
+    factor -= (km / 1000) * 0.002;
+  }
+  // 50k-1.5L km: Moderate loss (0.3% per 1000 km)
+  else if (km <= 150000) {
+    factor -= (50 * 0.002);
+    factor -= ((km - 50000) / 1000) * 0.003;
+  }
+  // 1.5L-3L km: Higher loss (0.4% per 1000 km)
+  else if (km <= 300000) {
+    factor -= (50 * 0.002);
+    factor -= (100 * 0.003);
+    factor -= ((km - 150000) / 1000) * 0.004;
+  }
+  // 3L+ km: Significant loss (0.5% per 1000 km)
+  else {
+    factor -= (50 * 0.002);
+    factor -= (100 * 0.003);
+    factor -= (150 * 0.004);
+    factor -= ((km - 300000) / 1000) * 0.005;
+  }
+
+  return Math.max(0.2, factor);
+}
+
+// ============================================================================
+// CONDITION MULTIPLIERS
+// ============================================================================
+const conditionMultipliers = {
+  excellent: 1.15,
+  good: 1.0,
+  fair: 0.85,
+  poor: 0.65
+};
+
+const serviceHistoryMultipliers = {
+  excellent: 1.08,
+  good: 1.0,
+  fair: 0.95,
+  poor: 0.85
+};
+
+const interiorConditionMult = {
+  excellent: 1.06,
+  good: 1.0,
+  fair: 0.93,
+  poor: 0.82
+};
+
+const exteriorConditionMult = {
+  excellent: 1.08,
+  good: 1.0,
+  fair: 0.90,
+  poor: 0.75
+};
+
+// ============================================================================
+// FEATURE VALUE ADJUSTMENTS (in rupees)
+// ============================================================================
+const featureValues = {
+  sunroof: 80000,
+  awd: 150000,
+  premiumInfotainment: 50000,
+  standardInfotainment: 20000,
+  airbags6Plus: 80000,
+  airbags4: 50000,
+  airbags2: 25000,
+  automaticTransmission: 120000,
+  cvt: 100000,
+  dct: 140000,
+  hybridFuel: 200000,
+  electricFuel: 400000,
+  cngFuel: -50000
+};
+
+// ============================================================================
+// ACCIDENT PENALTY
+// ============================================================================
+function calculateAccidentPenalty(accidents) {
+  const count = parseInt(accidents) || 0;
+  if (count === 0) return 1.0;
+  if (count === 1) return 0.90; // 10% penalty
+  if (count === 2) return 0.78; // 22% penalty
+  return 0.65; // 35% penalty for 3+
+}
+
+// ============================================================================
+// OWNERSHIP MULTIPLIER
+// ============================================================================
+const ownershipMultipliers = {
+  '1': 1.0,
+  '2': 0.95,
+  '3': 0.88,
+  '4': 0.82
+};
+
+// ============================================================================
+// REGIONAL DEMAND FACTOR
+// ============================================================================
+const regionalDemandFactor = {
+  'metro': 1.08,
+  'tier1': 1.04,
+  'tier2': 1.0,
+  'tier3': 0.96
+};
+
+// ============================================================================
+// LOAN & DOCUMENTATION ADJUSTMENTS
+// ============================================================================
+function calculateDocumentationAdjustment(loanStatus, insurance, puc) {
+  let factor = 1.0;
+  if (loanStatus === 'financed') factor *= 0.98; // Minor penalty
+  if (insurance === 'expired') factor *= 0.97;
+  if (puc === 'expired') factor *= 0.96;
+  return factor;
+}
+
+// ============================================================================
+// MAIN VALUATION FUNCTION
+// ============================================================================
+function calculateValuation(formData) {
+  const brand = formData.brand;
+  const model = formData.model;
+  const year = parseInt(formData.year);
+  const mileage = parseInt(formData.mileage);
+  const condition = formData.condition;
+  const fuelType = formData.fuelType;
+  const transmission = formData.transmission;
+  const ownership = formData.ownership;
+  const accidents = formData.accidents;
+  const serviceHistory = formData.serviceHistory;
+  const interiorCondition = formData.interiorCondition;
+  const exteriorCondition = formData.exteriorCondition;
+  const region = formData.region;
+  const loanStatus = formData.loanStatus;
+  const insurance = formData.insurance;
+  const puc = formData.puc;
+  const sunroof = formData.sunroof === 'yes' ? 1 : 0;
+  const awd = formData.awd === 'yes' ? 1 : 0;
+  const airbags = formData.airbags;
+  const infotainment = formData.infotainment;
+
+  // Get base price
+  const carData = carDatabase[brand];
+  const basePrice = carData.basePrice[model] || 1000000;
+  const segment = carData.segment;
+
+  let breakdownItems = [];
+  let factorAnalysis = [];
+
+  // 1. DEPRECIATION
+  const depreciationFactor = calculateDepreciation(year, segment);
+  const depreciatedValue = basePrice * depreciationFactor;
+  breakdownItems.push({
+    label: `Depreciation Adjustment (Age: ${new Date().getFullYear() - year} years)`,
+    value: depreciatedValue - basePrice,
+    type: 'depreciation'
+  });
+  factorAnalysis.push({
+    factor: 'Vehicle Age',
+    percentage: ((depreciationFactor - 1) * 100).toFixed(1),
+    impact: depreciationFactor
+  });
+
+  // 2. MILEAGE DEVALUATION
+  const mileageDevaluationFactor = calculateMileageDevaluation(mileage);
+  const mileageAdjustedValue = depreciatedValue * mileageDevaluationFactor;
+  const mileageImpact = mileageAdjustedValue - depreciatedValue;
+  breakdownItems.push({
+    label: `Mileage Adjustment (${mileage} km)`,
+    value: mileageImpact,
+    type: 'mileage'
+  });
+  factorAnalysis.push({
+    factor: 'Odometer Reading',
+    percentage: ((mileageDevaluationFactor - 1) * 100).toFixed(1),
+    impact: mileageDevaluationFactor
+  });
+
+  // 3. CONDITION MULTIPLIERS
+  const overallCondMult = conditionMultipliers[condition];
+  const conditionAdjustedValue = mileageAdjustedValue * overallCondMult;
+  const conditionImpact = conditionAdjustedValue - mileageAdjustedValue;
+  breakdownItems.push({
+    label: `Overall Condition (${condition})`,
+    value: conditionImpact,
+    type: 'condition'
+  });
+  factorAnalysis.push({
+    factor: 'General Condition',
+    percentage: ((overallCondMult - 1) * 100).toFixed(1),
+    impact: overallCondMult
+  });
+
+  // 4. INTERIOR & EXTERIOR
+  const interiorMult = interiorConditionMult[interiorCondition];
+  const exteriorMult = exteriorConditionMult[exteriorCondition];
+  const interiorValue = conditionAdjustedValue * (interiorMult - 1);
+  const exteriorValue = conditionAdjustedValue * (exteriorMult - 1);
+  const interiorExteriorValue = conditionAdjustedValue * interiorMult * exteriorMult;
+  const interiorExteriorImpact = interiorExteriorValue - conditionAdjustedValue;
+  breakdownItems.push({
+    label: `Interior & Exterior Condition`,
+    value: interiorExteriorImpact,
+    type: 'condition'
+  });
+  factorAnalysis.push({
+    factor: 'Interior Quality',
+    percentage: ((interiorMult - 1) * 100).toFixed(1),
+    impact: interiorMult
+  });
+  factorAnalysis.push({
+    factor: 'Exterior Quality',
+    percentage: ((exteriorMult - 1) * 100).toFixed(1),
+    impact: exteriorMult
+  });
+
+  // 5. SERVICE HISTORY
+  const serviceHistoryMult = serviceHistoryMultipliers[serviceHistory];
+  const serviceHistoryAdjustedValue = interiorExteriorValue * serviceHistoryMult;
+  const serviceHistoryImpact = serviceHistoryAdjustedValue - interiorExteriorValue;
+  breakdownItems.push({
+    label: `Service History (${serviceHistory})`,
+    value: serviceHistoryImpact,
+    type: 'service'
+  });
+  factorAnalysis.push({
+    factor: 'Service History',
+    percentage: ((serviceHistoryMult - 1) * 100).toFixed(1),
+    impact: serviceHistoryMult
+  });
+
+  // 6. ACCIDENTS
+  const accidentPenalty = calculateAccidentPenalty(accidents);
+  const accidentAdjustedValue = serviceHistoryAdjustedValue * accidentPenalty;
+  const accidentImpact = accidentAdjustedValue - serviceHistoryAdjustedValue;
+  breakdownItems.push({
+    label: `Accident History (${accidents} accidents)`,
+    value: accidentImpact,
+    type: 'accident'
+  });
+  factorAnalysis.push({
+    factor: 'Accident Record',
+    percentage: ((accidentPenalty - 1) * 100).toFixed(1),
+    impact: accidentPenalty
+  });
+
+  // 7. OWNERSHIP
+  const ownershipMult = ownershipMultipliers[ownership];
+  const ownershipAdjustedValue = accidentAdjustedValue * ownershipMult;
+  const ownershipImpact = ownershipAdjustedValue - accidentAdjustedValue;
+  breakdownItems.push({
+    label: `Number of Owners (${ownership} owner${ownership !== '1' ? 's' : ''})`,
+    value: ownershipImpact,
+    type: 'ownership'
+  });
+  factorAnalysis.push({
+    factor: 'Ownership History',
+    percentage: ((ownershipMult - 1) * 100).toFixed(1),
+    impact: ownershipMult
+  });
+
+  // 8. FEATURES (Absolute values)
+  let featureValue = 0;
+  
+  if (sunroof) {
+    featureValue += featureValues.sunroof;
+    breakdownItems.push({
+      label: 'Sunroof/Panoramic Roof',
+      value: featureValues.sunroof,
+      type: 'feature'
+    });
+  }
+
+  if (awd) {
+    featureValue += featureValues.awd;
+    breakdownItems.push({
+      label: 'All-Wheel Drive (AWD)',
+      value: featureValues.awd,
+      type: 'feature'
+    });
+  }
+
+  if (airbags === '6') {
+    featureValue += featureValues.airbags6Plus;
+    breakdownItems.push({
+      label: '6+ Airbags',
+      value: featureValues.airbags6Plus,
+      type: 'feature'
+    });
+  } else if (airbags === '4') {
+    featureValue += featureValues.airbags4;
+    breakdownItems.push({
+      label: '4 Airbags',
+      value: featureValues.airbags4,
+      type: 'feature'
+    });
+  } else if (airbags === '2') {
+    featureValue += featureValues.airbags2;
+    breakdownItems.push({
+      label: '2 Airbags',
+      value: featureValues.airbags2,
+      type: 'feature'
+    });
+  }
+
+  if (infotainment === 'premium') {
+    featureValue += featureValues.premiumInfotainment;
+    breakdownItems.push({
+      label: 'Premium Infotainment (CarPlay/Android Auto)',
+      value: featureValues.premiumInfotainment,
+      type: 'feature'
+    });
+  } else if (infotainment === 'standard') {
+    featureValue += featureValues.standardInfotainment;
+    breakdownItems.push({
+      label: 'Standard Infotainment',
+      value: featureValues.standardInfotainment,
+      type: 'feature'
+    });
+  }
+
+  if (transmission === 'automatic') {
+    featureValue += featureValues.automaticTransmission;
+    breakdownItems.push({
+      label: 'Automatic Transmission',
+      value: featureValues.automaticTransmission,
+      type: 'feature'
+    });
+  } else if (transmission === 'cvt') {
+    featureValue += featureValues.cvt;
+    breakdownItems.push({
+      label: 'CVT Transmission',
+      value: featureValues.cvt,
+      type: 'feature'
+    });
+  } else if (transmission === 'dct') {
+    featureValue += featureValues.dct;
+    breakdownItems.push({
+      label: 'Dual-Clutch Transmission',
+      value: featureValues.dct,
+      type: 'feature'
+    });
+  }
+
+  if (fuelType === 'hybrid') {
+    featureValue += featureValues.hybridFuel;
+    breakdownItems.push({
+      label: 'Hybrid Fuel Type',
+      value: featureValues.hybridFuel,
+      type: 'feature'
+    });
+  } else if (fuelType === 'electric') {
+    featureValue += featureValues.electricFuel;
+    breakdownItems.push({
+      label: 'Electric Powertrain',
+      value: featureValues.electricFuel,
+      type: 'feature'
+    });
+  } else if (fuelType === 'cng') {
+    featureValue += featureValues.cngFuel;
+    breakdownItems.push({
+      label: 'CNG Fuel',
+      value: featureValues.cngFuel,
+      type: 'feature'
+    });
+  }
+
+  const featureAdjustedValue = ownershipAdjustedValue + featureValue;
+  factorAnalysis.push({
+    factor: 'Premium Features',
+    percentage: 0,
+    absolute: featureValue
+  });
+
+  // 9. DOCUMENTATION & LOAN STATUS
+  const docAdjustment = calculateDocumentationAdjustment(loanStatus, insurance, puc);
+  const documentedValue = featureAdjustedValue * docAdjustment;
+  const docImpact = documentedValue - featureAdjustedValue;
+  if (docImpact !== 0) {
+    breakdownItems.push({
+      label: `Documentation & Legal Status`,
+      value: docImpact,
+      type: 'documentation'
+    });
+  }
+  factorAnalysis.push({
+    factor: 'Documentation Quality',
+    percentage: ((docAdjustment - 1) * 100).toFixed(1),
+    impact: docAdjustment
+  });
+
+  // 10. REGIONAL DEMAND
+  const regionalFactor = regionalDemandFactor[region];
+  const regionalAdjustedValue = documentedValue * regionalFactor;
+  const regionalImpact = regionalAdjustedValue - documentedValue;
+  breakdownItems.push({
+    label: `Regional Market Demand (${region})`,
+    value: regionalImpact,
+    type: 'regional'
+  });
+  factorAnalysis.push({
+    factor: 'Regional Demand',
+    percentage: ((regionalFactor - 1) * 100).toFixed(1),
+    impact: regionalFactor
+  });
+
+  // FINAL VALUE
+  const finalValue = Math.round(regionalAdjustedValue / 10000) * 10000;
+  const lowValue = Math.round(finalValue * 0.93 / 10000) * 10000;
+  const highValue = Math.round(finalValue * 1.07 / 10000) * 10000;
+
+  return {
+    midValue: finalValue,
+    lowValue: lowValue,
+    highValue: highValue,
+    breakdownItems: breakdownItems,
+    factorAnalysis: factorAnalysis
+  };
+}
+
+// ============================================================================
+// FORMATTING HELPERS
+// ============================================================================
+function formatPrice(value) {
+  const lakhs = value / 100000;
+  if (lakhs >= 1) {
+    return '₹ ' + lakhs.toFixed(2).replace(/\.?0+$/, '') + ' L';
+  }
+  return '₹ ' + (value / 1000).toFixed(2).replace(/\.?0+$/, '') + ' K';
+}
+
+function formatPriceNumeric(value) {
+  return value.toLocaleString('en-IN');
+}
+
+// ============================================================================
+// FORM HANDLER
+// ============================================================================
+document.getElementById('valuationForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const formData = {
+    brand: document.getElementById('brand').value,
+    model: document.getElementById('model').value,
+    year: document.getElementById('year').value,
+    bodyType: document.getElementById('bodyType').value,
+    fuelType: document.getElementById('fuelType').value,
+    transmission: document.getElementById('transmission').value,
+    engine: document.getElementById('engine').value,
+    mileage: document.getElementById('mileage').value,
+    condition: document.getElementById('condition').value,
+    ownership: document.getElementById('ownership').value,
+    accidents: document.getElementById('accidents').value,
+    serviceHistory: document.getElementById('serviceHistory').value,
+    interiorCondition: document.getElementById('interiorCondition').value,
+    exteriorCondition: document.getElementById('exteriorCondition').value,
+    airbags: document.getElementById('airbags').value,
+    sunroof: document.getElementById('sunroof').value,
+    infotainment: document.getElementById('infotainment').value,
+    awd: document.getElementById('awd').value,
+    region: document.getElementById('region').value,
+    loanStatus: document.getElementById('loanStatus').value,
+    insurance: document.getElementById('insurance').value,
+    puc: document.getElementById('puc').value
+  };
+
+  const result = calculateValuation(formData);
+
+  // Update result title
+  document.getElementById('resultTitle').textContent = `${formData.brand} ${formData.model} (${formData.year})`;
+
+  // Update prices
+  document.getElementById('resultPrice').textContent = formatPrice(result.midValue);
+  document.getElementById('resultRange').textContent = `Range: ${formatPrice(result.lowValue)} – ${formatPrice(result.highValue)}`;
+
+  // Build breakdown
+  const breakdownHTML = result.breakdownItems.map(item => `
+    <div class="breakdown-item">
+      <span class="breakdown-label">${item.label}</span>
+      <span class="breakdown-value ${item.value >= 0 ? 'positive' : 'negative'}">
+        ${item.value >= 0 ? '+' : ''}${formatPrice(item.value)}
+      </span>
+    </div>
+  `).join('');
+
+  const breakdownTotal = `
+    <div class="breakdown-total">
+      <span class="breakdown-label">Estimated Market Value</span>
+      <span class="breakdown-value">${formatPrice(result.midValue)}</span>
+    </div>
+  `;
+
+  document.getElementById('breakdownItems').innerHTML = breakdownHTML + breakdownTotal;
+
+  // Build factor analysis
+  const factorHTML = result.factorAnalysis.map(factor => {
+    const impact = factor.impact || (1 + (parseFloat(factor.percentage) / 100));
+    const impactBar = Math.max(0, Math.min(100, (impact - 0.5) * 100));
+    const absolute = factor.absolute ? ` (₹ ${formatPriceNumeric(factor.absolute)})` : '';
+    
+    return `
+      <div class="factor-bar">
+        <div class="factor-label">
+          <span>${factor.factor}</span>
+          <span style="color: var(--text-secondary); font-family: var(--font-mono);">${factor.percentage}% ${absolute}</span>
+        </div>
+        <div class="factor-bar-bg">
+          <div class="factor-bar-fill" style="width: ${impactBar}%"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('factorAnalysis').innerHTML = factorHTML;
+
+  // Show results
+  document.getElementById('resultsContainer').classList.add('visible');
+  document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+// ============================================================================
+// DYNAMIC YEAR POPULATION
+// ============================================================================
+function populateYears() {
+  const yearSelect = document.getElementById('year');
+  const currentYear = new Date().getFullYear();
+  
+  for (let year = currentYear; year >= currentYear - 20; year--) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearSelect.appendChild(option);
+  }
+}
+
+// ============================================================================
+// MODEL SUGGESTION ON BRAND CHANGE
+// ============================================================================
+document.getElementById('brand').addEventListener('change', function() {
+  const brand = this.value;
+  const modelInput = document.getElementById('model');
+  
+  if (brand && carDatabase[brand]) {
+    const models = carDatabase[brand].models;
+    modelInput.placeholder = `e.g., ${models.join(', ')}`;
+    modelInput.value = '';
+  } else {
+    modelInput.placeholder = 'Enter model name';
+  }
+});
+
+// ============================================================================
+// CONTACT TEAM FUNCTIONALITY
+// ============================================================================
+document.getElementById('contactTeamBtn').addEventListener('click', async function() {
+  const carName = document.getElementById('resultTitle').textContent;
+  const price = document.getElementById('resultPrice').textContent;
+  
+  const userName = prompt("Enter your name to request valuation consultation:");
+  if (!userName) return; 
+  
+  const userEmail = prompt("Enter your email address:");
+  if (!userEmail) return;
+
+  const userPhone = prompt("Enter your contact phone number (optional):") || '';
+
+  const newOrder = {
+    id: 'VAL-' + Math.floor(1000 + Math.random() * 9000),
+    customer_name: userName,
+    customerName: userName,
+    customer_email: userEmail,
+    email: userEmail,
+    customer_phone: userPhone,
+    type: 'Valuation Discussion',
+    note: `Valuation discussion request for ${carName}. Estimated Market Value: ${price}.`,
+    total_price: price,
+    date: new Date().toLocaleDateString(),
+    status: 'Pending'
+  };
+
+  if (window.location.protocol.startsWith('http')) {
+    try {
+      await fetch('api/orders.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newOrder)
+      });
+      alert(`Your valuation consultation request for ${carName} has been saved to MySQL database! Our appraisal experts will reach out to ${userEmail}.`);
+      return;
+    } catch (e) {
+      console.warn('Backend valuation save fallback:', e);
+    }
+  }
+
+  const existingOrders = JSON.parse(localStorage.getItem('autonexus_orders')) || [];
+  existingOrders.unshift(newOrder);
+  localStorage.setItem('autonexus_orders', JSON.stringify(existingOrders));
+
+  alert("Your request has been sent! Our team will contact you shortly.");
+});
+
+// Initialize on page load
+window.addEventListener('DOMContentLoaded', populateYears);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+========================================================================
+🚀 AUTO NEXUS - HOW TO RUN & DEMONSTRATE ON XAMPP LOCALHOST
+========================================================================
+
+1. START XAMPP SERVICES:
+   - Open XAMPP Control Panel.
+   - Start both "Apache" and "MySQL" modules (both green).
+
+2. DATABASE IMPORT (phpMyAdmin):
+   - Open your browser and navigate to:
+     👉 http://localhost/phpmyadmin/
+   - The database `autonexus` is already created and ready.
+   - If importing freshly on any computer:
+     Click "Import" -> Choose `autonexus.sql` located in this folder -> Click "Import".
+   - Direct database console link:
+     👉 http://localhost/phpmyadmin/index.php?route=/database/structure&db=autonexus
+
+3. LAUNCH AUTO NEXUS MODULES:
+   🏠 Homepage & Showroom:
+   👉 http://localhost/autonexus/index.html
+
+   🛠️ Admin Control Panel:
+   👉 http://localhost/autonexus/admin.html
+   (Manage live showroom vehicles, accessories catalogue, customer inquiries, and users)
+
+   🏎️ New Cars Inventory:
+   👉 http://localhost/autonexus/new-cars.html
+   (Explore showroom models and book instant test-drives synced to MySQL)
+
+   🚗 Sell Your Car (Valuation Request):
+   👉 http://localhost/autonexus/sell-your-car.html
+   (Submit vehicle valuation and sale requests saved directly to MySQL)
+
+   🌍 Import On Demand:
+   👉 http://localhost/autonexus/import-on-demand.html
+   (Submit international vehicle sourcing and import requests)
+
+   💎 Performance & Styling Accessories:
+   👉 http://localhost/autonexus/accessories.html
+   (Browse upgrade catalogue, direct ordering, and custom inquiries)
+
+   📊 Car Valuation Calculator:
+   👉 http://localhost/autonexus/car-valuation.html
+   (Interactive algorithmic market valuation tool with direct expert consultation booking)
+
+   🧠 Smart Buy Advisory:
+   👉 http://localhost/autonexus/smart-buy-advisory.html
+   (Intelligent multi-factor vehicle recommendation and comparison engine)
+
+   🔐 Authentication (Login & Sign In):
+   👉 http://localhost/autonexus/login.html
+   - Admin Credentials:
+     Email: admin@autonexus.com
+     Password: admin123
+   - Customer Accounts:
+     Switch to "Sign In" tab to register any new account (persisted in MySQL `users` table).
+
+========================================================================
+All operations, form submissions, and admin actions are 100% synchronized
+with the MySQL `autonexus` database!
+========================================================================
